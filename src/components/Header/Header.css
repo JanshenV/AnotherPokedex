@@ -22,6 +22,7 @@ header input {
     height: 30px;
     position: absolute;
     left: 62%;
+    cursor: pointer;
 }
 
 .logoIcon {
