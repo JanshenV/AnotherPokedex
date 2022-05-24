@@ -1,6 +1,22 @@
 //Styles
 import './PokemonPopulate.css';
 
+//React
+
+
+//PropTypes
+import PropTypes from 'prop-types';
+
+PokemonPopulate.propTypes = {
+    pokedexList: PropTypes.arrayOf(
+        PropTypes.object
+    )
+};
+
+PokemonPopulate.defaultProps = {
+    pokedexList: [{}]
+};
+
 export default function PokemonPopulate({ pokedexList }) {
     return (
         <div className="pokedexContainer">
