@@ -2,29 +2,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: gold;
     width: 100vw;
 }
 
 .loadingIcon {
     width: 120px;
     height: 120px;
-}
-
-.pokedexContainer {
-    display: grid;
-    grid-template-columns: 2fr 2fr 2fr;
-    gap: 10px;
-}
-
-.pokemonContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: aqua;
-}
-
-.pokemonFront {
-    width: 220px;
-    height: 220px;
 }
