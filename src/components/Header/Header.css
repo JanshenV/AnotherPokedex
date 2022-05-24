@@ -1,0 +1,32 @@
+header {
+    width: 100vw;
+    height: 20vh;
+    background: linear-gradient(rgba(128, 128, 128, 3), rgb(87, 81, 81));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+header input {
+    width: 30%;
+    height: 30%;
+    border-radius: 30px;
+    padding-left: 20px;
+    font-size: medium;
+    font-weight: bolder;
+}
+
+.searchIcon {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    left: 62%;
+}
+
+.logoIcon {
+    width: 120px;
+    height: 120px;
+    position: absolute;
+    left: 5%;
+}
