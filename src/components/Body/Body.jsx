@@ -21,7 +21,7 @@ export default function Body({ }) {
 
     useEffect(() => {
         async function fetchPokedex() {
-            const fetch151 = await fetch(`${pokeApiUrl}pokemon?limit=151&offset=0`);
+            const fetch151 = await fetch(`${pokeApiUrl}pokemon?limit=3&offset=0`);
             if (fetch151.ok) {
                 const { results: rawPokedex } = await fetch151.json();
                 const localPokedexList = [];

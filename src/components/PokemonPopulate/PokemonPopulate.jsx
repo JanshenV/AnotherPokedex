@@ -1,7 +1,8 @@
 //Styles
 import './PokemonPopulate.css';
 
-//React
+//Components
+import PokemonSprites from '../PokemonSprites';
 
 
 //PropTypes
@@ -22,10 +23,8 @@ export default function PokemonPopulate({ pokedexList }) {
         <div className="pokedexContainer">
             {
                 pokedexList.map((pokemon, index) => {
-                    const {
-                        sprites: { front_default },
-                        types
-                    } = pokemon;
+                    const { types, sprites } = pokemon;
+
                     const initialUpperCaseName = `${pokemon.name[0].toUpperCase()}${pokemon.name.slice(1)}`;
                     const typeNames = types.map(({ type: { name } }) => {
                         return name;
@@ -36,6 +35,7 @@ export default function PokemonPopulate({ pokedexList }) {
                             className="pokemonContainer"
                             key={index}
                         >
+
                             <h1>{initialUpperCaseName}</h1>
                             <div className="pokemonTypes">
                                 Type:
@@ -56,10 +56,8 @@ export default function PokemonPopulate({ pokedexList }) {
                             <h3>
                                 #{pokemon.id}
                             </h3>
-                            <img
-                                className="pokemonFront"
-                                src={front_default}
-                                alt="Pokemon's front image"
+                            <PokemonSprites
+                                sprites={sprites}
                             />
                         </div>
                     );
