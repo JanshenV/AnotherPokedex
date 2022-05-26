@@ -1,4 +1,8 @@
 # Creating another Pokedex for personal Project
+### Credits to:
+#### https://pokeapi.co/ for providing all the pokemon data
+
+#### https://pokemondb.net/ where I got some of the styles
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
