@@ -1,5 +1,6 @@
 //Styles
 import './PokemonTypes.css';
+import '../../css/Global.css';
 
 //React
 import { useEffect, useState } from 'react';
@@ -14,8 +15,6 @@ PokemonTypes.propTypes = {
 PokemonTypes.defaultProps = {
     types: [{}]
 };
-
-
 
 export default function PokemonTypes({ types }) {
 

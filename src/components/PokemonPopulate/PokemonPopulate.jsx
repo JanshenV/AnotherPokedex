@@ -1,5 +1,6 @@
 //Styles
 import './PokemonPopulate.css';
+import '../../css/Global.css';
 
 //Components
 import PokemonSprites from '../PokemonSprites';
@@ -25,13 +26,12 @@ export default function PokemonPopulate({ pokedexList }) {
             {
                 pokedexList.map((pokemon, index) => {
                     const { types, sprites } = pokemon;
-
+                    const backgroundFirstType = types[0].type.name;
                     const initialUpperCaseName = `${pokemon.name[0].toUpperCase()}${pokemon.name.slice(1)}`;
-
 
                     return (
                         <div
-                            className="pokemonContainer"
+                            className={`pokemonContainer ${backgroundFirstType}`}
                             key={index}
                         >
 
