@@ -36,12 +36,7 @@ export default function PokemonSprites({ sprites }) {
     return (
         <img
             className="pokemonSprite"
-            src={
-                pokemonSprites[
-                Math.floor(
-                    Math.random() * pokemonSprites.length
-                )]
-            }
+            src={pokemonSprites[0]}
             alt='Pokemon Image'
         />
     );
