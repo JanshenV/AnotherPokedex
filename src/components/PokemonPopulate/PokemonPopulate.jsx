@@ -35,7 +35,7 @@ export default function PokemonPopulate({ pokedexList }) {
                             key={index}
                         >
 
-                            <h1>{initialUpperCaseName}</h1>
+                            <h2>{initialUpperCaseName}</h2>
 
                             <PokemonTypes
                                 types={types}

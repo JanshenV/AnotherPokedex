@@ -2,8 +2,6 @@
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: 20px;
-    /* display: flex;
-    flex-wrap: wrap; */
 }
 
 .pokemonContainer {
@@ -12,4 +10,10 @@
     align-items: center;
     border-radius: 20px;
     cursor: pointer;
+}
+
+.pokemonContainer h2 {
+    font-family: "Fira Sans", "Trebuchet MS", Ubuntu, Helvetica, Arial sans-serif;
+    font-weight: bold;
+    line-height: 1.2;
 }
