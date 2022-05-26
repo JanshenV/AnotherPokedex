@@ -15,7 +15,6 @@ PokemonSprites.defaultProps = {
 };
 
 export default function PokemonSprites({ sprites }) {
-
     const [pokemonSprites, setPokemonSprites] = useState([]);
 
     useEffect(() => {
@@ -36,7 +35,7 @@ export default function PokemonSprites({ sprites }) {
 
     return (
         <img
-
+            className="pokemonSprite"
             src={
                 pokemonSprites[
                 Math.floor(
