@@ -8,8 +8,8 @@ import PokemonPopulate from '../PokemonPopulate';
 //React Hooks
 import { useState, useEffect } from 'react';
 
-//Util
-import pokeApiUrl from '../../util/constants';
+//Api
+import { handlePokedex } from '../../api/apiCalls';
 
 //Assets
 import loadingIcon from '../../assets/loadingIcon.png';
@@ -21,23 +21,13 @@ export default function Body({ }) {
 
     useEffect(() => {
         async function fetchPokedex() {
-            const fetch151 = await fetch(`${pokeApiUrl}pokemon?limit=151&offset=0`);
-            if (fetch151.ok) {
-                const { results: rawPokedex } = await fetch151.json();
-                const localPokedexList = [];
+            const {
+                pokedexResponse, error
+            } = await handlePokedex('kanto');
+            if (error) return alert(`${error}. Refresh page`);
 
-                for (let { url } of rawPokedex) {
-                    const fetchIndividual = await fetch(`${url}`);
-
-                    if (fetchIndividual.ok) {
-                        const pokemonInfo = await fetchIndividual.json();
-                        localPokedexList.push(pokemonInfo);
-                    };
-                };
-
-                setPokedexList(localPokedexList);
-                setLoading(false);
-            };
+            setPokedexList(pokedexResponse);
+            setLoading(false);
         };
         fetchPokedex();
     }, []);
