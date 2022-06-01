@@ -20,7 +20,6 @@ async function handlePokedex(region) {
     };
 };
 
-
-module.exports = {
+export {
     handlePokedex
-}
+};
