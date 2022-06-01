@@ -1,4 +1,4 @@
-const baseUrl = 'https://git.heroku.com/anotherpokedexdb.git';
+const baseUrl = 'https://anotherpokedexdb.herokuapp.com/';
 
 
 async function handlePokedex(region) {
