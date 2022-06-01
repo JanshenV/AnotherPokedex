@@ -26,10 +26,8 @@ export default function PokemonSprites({ sprites }) {
     const [pokemonSprites, setPokemonSprites] = useState([]);
 
     useEffect(() => {
-
         const { sprite } = organizingSprites(sprites, setPokemonSprites);
-
-    }, []);
+    }, [sprites]);
     return (
         <img
             className="pokemonSprite"

@@ -17,6 +17,7 @@ import loadingIcon from '../../assets/loadingIcon.png';
 export default function Body({ }) {
 
     const [pokedexList, setPokedexList] = useState([]);
+    const [permaPokedexList, setPermaPokedexList] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -27,15 +28,33 @@ export default function Body({ }) {
             if (error) return alert(`${error}. Refresh page`);
 
             setPokedexList(pokedexResponse);
+            setPermaPokedexList(pokedexResponse);
             setLoading(false);
         };
         fetchPokedex();
     }, []);
 
+    async function searchPokemon(event, setSearchInputValue) {
+        const pokemonName = event.target.value.toLowerCase();
+        setSearchInputValue(pokemonName);
+
+        if (!pokemonName.length) return setPokedexList(permaPokedexList);
+
+        const filteredPokedexList = permaPokedexList.filter((pokemon) => {
+            return pokemon.name.toLowerCase().includes(pokemonName)
+        });
+
+        if (!filteredPokedexList) return setPokedexList(permaPokedexList);
+
+        return setPokedexList(filteredPokedexList);
+    };
+
 
     return (
         <main className='bodyContainer'>
-            <Header />
+            <Header
+                searchPokemon={searchPokemon}
+            />
 
             {loading ?
                 <img
