@@ -1,6 +1,6 @@
 const baseUrl = 'http://localhost:2700/';
 
-async function handlePokedex(region) {
+export default async function handlePokedex(region) {
     try {
         const requestOptions = {
             method: 'GET',
@@ -18,8 +18,4 @@ async function handlePokedex(region) {
     } catch (error) {
         return { error };
     };
-};
-
-export {
-    handlePokedex
 };

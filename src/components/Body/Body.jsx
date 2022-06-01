@@ -9,7 +9,7 @@ import PokemonPopulate from '../PokemonPopulate';
 import { useState, useEffect } from 'react';
 
 //Api
-import { handlePokedex } from '../../api/apiCalls';
+import handlePokedex from '../../api/apiCalls';
 
 //Assets
 import loadingIcon from '../../assets/loadingIcon.png';
