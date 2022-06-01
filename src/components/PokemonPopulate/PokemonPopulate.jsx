@@ -26,8 +26,8 @@ export default function PokemonPopulate({ pokedexList }) {
             {
                 pokedexList.map((pokemon, index) => {
                     const { types, sprites } = pokemon;
-                    const backgroundFirstType = types[0].type.name;
-                    const initialUpperCaseName = `${pokemon.name[0].toUpperCase()}${pokemon.name.slice(1)}`;
+                    const backgroundFirstType = types[0].name;
+
 
                     return (
                         <div
@@ -35,7 +35,7 @@ export default function PokemonPopulate({ pokedexList }) {
                             key={index}
                         >
 
-                            <h2>{initialUpperCaseName}</h2>
+                            <h2>{pokemon.name}</h2>
 
                             <PokemonTypes
                                 types={types}

@@ -1,6 +1,5 @@
 const baseUrl = 'http://localhost:2700/';
 
-
 async function handlePokedex(region) {
     try {
         const requestOptions = {
@@ -9,7 +8,6 @@ async function handlePokedex(region) {
                 'Content-Type': 'Application/json'
             }
         };
-
 
         const pokedexRequest = await fetch(`${baseUrl}pokedex/${region}`, requestOptions);
         if (!pokedexRequest.ok) throw 'Pokedex request failed';

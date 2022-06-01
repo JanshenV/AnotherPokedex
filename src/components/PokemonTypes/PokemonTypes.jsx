@@ -23,7 +23,7 @@ export default function PokemonTypes({ types }) {
 
     useEffect(() => {
         function organizingTypeNames() {
-            const typeNames = types.map(({ type: { name } }) => {
+            const typeNames = types.map(({ name }) => {
                 return name;
             });
 

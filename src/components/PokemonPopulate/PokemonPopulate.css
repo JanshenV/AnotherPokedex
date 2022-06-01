@@ -1,6 +1,6 @@
 .pokedexContainer {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 20px;
 }
 
@@ -10,6 +10,7 @@
     align-items: center;
     border-radius: 20px;
     cursor: pointer;
+    border: 10px solid rgb(122, 48, 48);
 }
 
 .pokemonContainer h2 {
