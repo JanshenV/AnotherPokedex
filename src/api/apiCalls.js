@@ -1,4 +1,5 @@
-const baseUrl = 'http://localhost:2700/';
+const baseUrl = 'https://git.heroku.com/anotherpokedexdb.git';
+
 
 async function handlePokedex(region) {
     try {
