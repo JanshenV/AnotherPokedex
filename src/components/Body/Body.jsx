@@ -35,13 +35,16 @@ export default function Body({ }) {
     }, []);
 
     async function searchPokemon(event, setSearchInputValue) {
-        const pokemonName = event.target.value.toLowerCase();
+        let pokemonName = event.target.value;
         setSearchInputValue(pokemonName);
+        pokemonName = pokemonName.toLowerCase();
+
 
         if (!pokemonName.length) return setPokedexList(permaPokedexList);
 
         const filteredPokedexList = permaPokedexList.filter((pokemon) => {
-            return pokemon.name.toLowerCase().includes(pokemonName)
+            return pokemon.name.toLowerCase().includes(pokemonName) ||
+                String(pokemon.dexnr).includes(pokemonName)
         });
 
         if (!filteredPokedexList) return setPokedexList(permaPokedexList);

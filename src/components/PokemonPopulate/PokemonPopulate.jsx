@@ -6,6 +6,9 @@ import '../../css/Global.css';
 import PokemonSprites from '../PokemonSprites';
 import PokemonTypes from '../PokemonTypes';
 
+//React
+import { useEffect } from 'react';
+
 
 //PropTypes
 import PropTypes from 'prop-types';
@@ -27,7 +30,6 @@ export default function PokemonPopulate({ pokedexList }) {
                 pokedexList.map((pokemon, index) => {
                     const { types, sprites } = pokemon;
                     const backgroundFirstType = types[0].name;
-
 
                     return (
                         <div

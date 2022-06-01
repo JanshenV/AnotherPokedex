@@ -31,11 +31,13 @@ export default function PokemonTypes({ types }) {
 
             if (typeNames[1]) {
                 setSecondType(typeNames[1]);
+            } else {
+                setSecondType('');
             };
         };
 
         organizingTypeNames();
-    }, []);
+    }, [types]);
 
 
     return (
