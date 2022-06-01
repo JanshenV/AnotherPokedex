@@ -51,6 +51,7 @@ export default function PokemonPopulate({ pokedexList }) {
                     );
                 })
             }
+
         </div>
     );
 };
