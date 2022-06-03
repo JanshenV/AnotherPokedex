@@ -2,13 +2,18 @@
 import './PokemonPopulate.css';
 import '../../css/Global.css';
 
+//Icons
+import {
+    ArrowCircleLeftIcon as ArrowLeft,
+    ArrowCircleRightIcon as ArrowRight
+} from '@heroicons/react/solid'
+
 //Components
 import PokemonSprites from '../PokemonSprites';
 import PokemonTypes from '../PokemonTypes';
 
 //React
 import { useEffect } from 'react';
-
 
 //PropTypes
 import PropTypes from 'prop-types';
@@ -25,9 +30,11 @@ PokemonPopulate.defaultProps = {
 
 export default function PokemonPopulate({ pokedexList }) {
     return (
+
         <div className="pokedexContainer">
+            <ArrowLeft className='arrowIcon' />
             {
-                pokedexList.map((pokemon, index) => {
+                pokedexList.slice(0, 5).map((pokemon, index) => {
                     const { types, sprites } = pokemon;
                     const backgroundFirstType = types[0].name;
 
@@ -51,7 +58,7 @@ export default function PokemonPopulate({ pokedexList }) {
                     );
                 })
             }
-
+            <ArrowRight className='arrowIcon' />
         </div>
     );
 };

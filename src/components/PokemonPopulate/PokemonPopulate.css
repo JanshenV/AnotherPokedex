@@ -1,7 +1,10 @@
 .pokedexContainer {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 80vw;
+    height: calc(100vh - 20vh);
+    position:relative;
 }
 
 .pokemonContainer {
@@ -9,6 +12,7 @@
     flex-direction: column;
     align-items: center;
     border-radius: 20px;
+    height: 70%;
     cursor: pointer;
     border: 10px solid rgb(122, 48, 48);
 
@@ -18,4 +22,10 @@
     font-family: "Fira Sans", "Trebuchet MS", Ubuntu, Helvetica, Arial sans-serif;
     font-weight: bold;
     line-height: 1.2;
+}
+
+.arrowIcon{
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
 }
