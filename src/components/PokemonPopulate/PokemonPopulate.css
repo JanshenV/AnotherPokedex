@@ -3,7 +3,7 @@
     align-items: center;
     justify-content: space-evenly;
     width: 80vw;
-    height: calc(100vh - 20vh);
+    height: 80vh;
     position:relative;
 }
 
@@ -12,9 +12,9 @@
     flex-direction: column;
     align-items: center;
     border-radius: 20px;
-    height: 70%;
     cursor: pointer;
-    border: 10px solid rgb(122, 48, 48);
+    padding: 10px;
+    border: 5px solid rgb(14, 14, 14);
 
 }
 
