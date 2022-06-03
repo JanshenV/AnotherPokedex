@@ -13,7 +13,7 @@ import PokemonSprites from '../PokemonSprites';
 import PokemonTypes from '../PokemonTypes';
 
 //React
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 //PropTypes
 import PropTypes from 'prop-types';
@@ -29,12 +29,43 @@ PokemonPopulate.defaultProps = {
 };
 
 export default function PokemonPopulate({ pokedexList }) {
-    return (
 
+    const [sliceParameter, setSliceParameter] = useState(0);
+
+    async function handlePagination(direction) {
+        const pokedexListLength = pokedexList.length;
+
+        if (direction === 'left') {
+            if (sliceParameter <= 0) {
+                setSliceParameter(0);
+                return;
+            };
+            setSliceParameter(sliceParameter - 1);
+            return;
+        };
+
+        if (direction === 'right') {
+            if (sliceParameter + 5 >= pokedexListLength) {
+                return;
+            };
+            setSliceParameter(sliceParameter + 1);
+            return;
+        };
+    };
+
+    useEffect(() => {
+        setSliceParameter(0);
+    }, [pokedexList]);
+
+
+    return (
         <div className="pokedexContainer">
-            <ArrowLeft className='arrowIcon' />
+            <ArrowLeft
+                className='arrowIcon'
+                onClick={() => handlePagination('left')}
+            />
             {
-                pokedexList.slice(0, 5).map((pokemon, index) => {
+                pokedexList.slice(sliceParameter, sliceParameter + 5).map((pokemon, index) => {
                     const { types, sprites } = pokemon;
                     const backgroundFirstType = types[0].name;
 
@@ -58,7 +89,10 @@ export default function PokemonPopulate({ pokedexList }) {
                     );
                 })
             }
-            <ArrowRight className='arrowIcon' />
+            <ArrowRight
+                className='arrowIcon'
+                onClick={() => handlePagination('right')}
+            />
         </div>
     );
 };
