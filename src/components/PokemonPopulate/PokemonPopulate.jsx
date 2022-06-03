@@ -29,11 +29,10 @@ PokemonPopulate.defaultProps = {
 };
 
 export default function PokemonPopulate({ pokedexList }) {
-
+    const pokedexListLength = pokedexList.length;
     const [sliceParameter, setSliceParameter] = useState(0);
 
     async function handlePagination(direction) {
-        const pokedexListLength = pokedexList.length;
 
         if (direction === 'left') {
             if (sliceParameter <= 0) {
@@ -59,40 +58,32 @@ export default function PokemonPopulate({ pokedexList }) {
 
 
     return (
-        <div className="pokedexContainer">
-            <ArrowLeft
-                className='arrowIcon'
-                onClick={() => handlePagination('left')}
-            />
+        <div className={`${pokedexListLength > 5 ?
+            'pokedexContainer' : 'notGrid'
+            }`}>
             {
-                pokedexList.slice(sliceParameter, sliceParameter + 5).map((pokemon, index) => {
+                pokedexList.map((pokemon, index) => {
                     const { types, sprites } = pokemon;
                     const backgroundFirstType = types[0].name;
 
                     return (
                         <div
-                            className={`pokemonContainer ${backgroundFirstType}`}
+                            className={`pokemonContainer`}
                             key={index}
                         >
-
+                            <PokemonSprites
+                                sprites={sprites}
+                            />
+                            <h3>#{pokemon.id}</h3>
                             <h2>{pokemon.name}</h2>
 
                             <PokemonTypes
                                 types={types}
                             />
-
-                            <h3>#{pokemon.id}</h3>
-                            <PokemonSprites
-                                sprites={sprites}
-                            />
                         </div>
                     );
                 })
             }
-            <ArrowRight
-                className='arrowIcon'
-                onClick={() => handlePagination('right')}
-            />
         </div>
     );
 };
