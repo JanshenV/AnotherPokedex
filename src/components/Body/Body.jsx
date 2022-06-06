@@ -4,6 +4,10 @@ import './Body.css';
 //Components
 import Header from '../Header';
 import PokemonPopulate from '../PokemonPopulate';
+import PokedexRegion from '../PokedexRegion/PokedexRegion';
+
+//Util
+import allRegions from '../../util/staticArray';
 
 //React Hooks
 import { useState, useEffect } from 'react';
@@ -58,6 +62,24 @@ export default function Body({ }) {
             <Header
                 searchPokemon={searchPokemon}
             />
+
+            {!loading &&
+                <div className="pokedexRegionMenu">
+                    {
+                        allRegions.map(({ textContent }, index) => {
+                            return (
+                                <PokedexRegion
+                                    key={index}
+                                    textContent={textContent}
+                                    setPermaPokedexList={setPermaPokedexList}
+                                    setPokedexList={setPokedexList}
+                                    setLoading={setLoading}
+                                />
+                            )
+                        })
+                    }
+                </div>
+            }
 
             {loading ?
                 <img
