@@ -23,13 +23,13 @@ export default function Body({ }) {
     const [pokedexList, setPokedexList] = useState([]);
     const [permaPokedexList, setPermaPokedexList] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [selectedRegion, setSelectedRegion] = useState('Kanto Pokedex');
+    const selectedRegion = localStorage.getItem('selectedRegion');
 
     useEffect(() => {
         async function fetchPokedex() {
             const {
                 pokedexResponse, error
-            } = await handlePokedex('kanto');
+            } = await handlePokedex(selectedRegion ? selectedRegion : 'kanto');
             if (error) return alert(`${error}. Refresh page`);
 
             setPokedexList(pokedexResponse);
@@ -58,7 +58,7 @@ export default function Body({ }) {
     };
 
     async function handleRegionalPokedex(region) {
-        if (!region || selectedRegion.includes(region)) return;
+        if (!region || selectedRegion === region) return;
         setLoading(true);
 
         const {
@@ -69,7 +69,7 @@ export default function Body({ }) {
         if (error) return alert(`${error}. Refresh page.`);
         setPermaPokedexList(pokedexResponse);
         setPokedexList(pokedexResponse);
-        setSelectedRegion(`${region} Pokedex`);
+        localStorage.setItem('selectedRegion', region);
         setLoading(false);
     };
 
@@ -84,12 +84,11 @@ export default function Body({ }) {
             {!loading &&
                 <>
                     <div className="pokedexRegionMenu">
-                        <label for="chooseRegion">
+                        <label>
                             Choose Pokedex Region:
                         </label>
                         <select
                             onChange={({ target: { value } }) => handleRegionalPokedex(value)}
-                            name="chooseRegion"
                         >
                             <option value=""> - </option>
                             {
@@ -113,7 +112,7 @@ export default function Body({ }) {
                         fontFamily: 'Montserrat, sansSerif',
                         marginBottom: '20px'
                     }}>
-                        {selectedRegion}
+                        {selectedRegion ? `${selectedRegion} Pokedex` : 'Kanto Pokedex'}
                     </h1>
                 </>
             }
