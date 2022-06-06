@@ -58,7 +58,7 @@ export default function Body({ }) {
     };
 
     async function handleRegionalPokedex(region) {
-        if (!region) return;
+        if (!region || selectedRegion.includes(region)) return;
         setLoading(true);
 
         const {
@@ -109,7 +109,12 @@ export default function Body({ }) {
                         </select>
 
                     </div>
-                    <h1>{selectedRegion}</h1>
+                    <h1 style={{
+                        fontFamily: 'Montserrat, sansSerif',
+                        marginBottom: '20px'
+                    }}>
+                        {selectedRegion}
+                    </h1>
                 </>
             }
 
