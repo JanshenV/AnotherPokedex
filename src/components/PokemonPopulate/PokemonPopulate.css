@@ -37,11 +37,3 @@
     height: 80px;
     cursor: pointer;
 }
-
-.pokemonInfo{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 40%;
-}

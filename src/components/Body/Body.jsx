@@ -4,7 +4,7 @@ import './Body.css';
 //Components
 import Header from '../Header';
 import PokemonPopulate from '../PokemonPopulate';
-import PokedexRegion from '../PokedexRegion/PokedexRegion';
+
 
 //Util
 import allRegions from '../../util/staticArray';
@@ -23,6 +23,7 @@ export default function Body({ }) {
     const [pokedexList, setPokedexList] = useState([]);
     const [permaPokedexList, setPermaPokedexList] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [selectedRegion, setSelectedRegion] = useState('Kanto Pokedex');
 
     useEffect(() => {
         async function fetchPokedex() {
@@ -56,6 +57,23 @@ export default function Body({ }) {
         return setPokedexList(filteredPokedexList);
     };
 
+    async function handleRegionalPokedex(region) {
+        if (!region) return;
+        setLoading(true);
+
+        const {
+            pokedexResponse,
+            error
+        } = await handlePokedex(region);
+
+        if (error) return alert(`${error}. Refresh page.`);
+        setPermaPokedexList(pokedexResponse);
+        setPokedexList(pokedexResponse);
+        setSelectedRegion(`${region} Pokedex`);
+        setLoading(false);
+    };
+
+
 
     return (
         <main className='bodyContainer'>
@@ -64,21 +82,35 @@ export default function Body({ }) {
             />
 
             {!loading &&
-                <div className="pokedexRegionMenu">
-                    {
-                        allRegions.map(({ textContent }, index) => {
-                            return (
-                                <PokedexRegion
-                                    key={index}
-                                    textContent={textContent}
-                                    setPermaPokedexList={setPermaPokedexList}
-                                    setPokedexList={setPokedexList}
-                                    setLoading={setLoading}
-                                />
-                            )
-                        })
-                    }
-                </div>
+                <>
+                    <div className="pokedexRegionMenu">
+                        <label for="chooseRegion">
+                            Choose Pokedex Region:
+                        </label>
+                        <select
+                            onChange={({ target: { value } }) => handleRegionalPokedex(value)}
+                            name="chooseRegion"
+                        >
+                            <option value=""> - </option>
+                            {
+                                allRegions.map(({ textContent }, index) => {
+                                    return (
+                                        <option
+                                            value={textContent}
+                                            key={index}
+                                        >
+                                            {
+                                                `${textContent} Pokedex`
+                                            }
+                                        </option>
+                                    )
+                                })
+                            }
+                        </select>
+
+                    </div>
+                    <h1>{selectedRegion}</h1>
+                </>
             }
 
             {loading ?
