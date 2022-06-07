@@ -42,12 +42,17 @@ export default function PokemonPopulate({ pokedexList, selectedRegion }) {
                 className={
                     `${pokedexListLength > 5 ? 'pokedexContainer' : 'notGrid'}`
                 }>
-                <img
-                    className='pokeballChangeSprites'
-                    src={pokeballIcon}
-                    alt="Change pokemon sprite"
-                    onClick={() => { setIconSprites(!iconSprites) }}
-                />
+                {
+                    pokedexListLength ?
+                        <img
+                            className='pokeballChangeSprites'
+                            src={pokeballIcon}
+                            alt="Change pokemon sprite"
+                            onClick={() => { setIconSprites(!iconSprites) }}
+                        />
+                        :
+                        null
+                }
                 {
                     pokedexList.map((pokemon, index) => {
                         const { types, sprites } = pokemon;
