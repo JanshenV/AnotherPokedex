@@ -1,8 +1,10 @@
 .pokedexContainer {
-       display: grid;
+    display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: 20px;
     height: 80vh;
+    position: relative;
+    padding-top: 40px;
 }
 
 .notGrid{
@@ -11,6 +13,7 @@
     justify-content: center;
     height: 56vh;
     gap: 20px;
+    position: relative;
 }
 
 .pokemonContainer {
@@ -35,5 +38,16 @@
 
 .pokemonContainer:hover{
      transform: scale(1.1);
+}
+
+.pokeballChangeSprites{
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    transition: transform .1s;
+}
+
+.pokeballChangeSprites:hover{
+         transform: scale(1.5);
 }
 

@@ -8,12 +8,20 @@ async function organizingSprites(sprites, setPokemonSprites, iconSprites) {
     if (frontDefaultLength) {
         sprite = localSprites.front[2];
         if (iconSprites) {
-            sprite = localSprites.front[12];
+            for (let icon of localSprites.front) {
+                if (icon.includes('icons')) {
+                    sprite = icon;
+                };
+            };
         };
     } else {
         sprite = sprites[0].front[2];
         if (iconSprites) {
-            sprite = sprites[0].front[12];
+            for (let icon of sprites[0].front) {
+                if (icon.includes('icons')) {
+                    sprite = icon;
+                };
+            };
         };
 
     };

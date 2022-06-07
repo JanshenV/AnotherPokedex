@@ -2,6 +2,9 @@
 import './PokemonPopulate.css';
 import '../../css/Global.css';
 
+//Assets
+import pokeballIcon from '../../assets/pokeballIcon.png';
+
 //React
 import { useState } from 'react';
 
@@ -39,15 +42,12 @@ export default function PokemonPopulate({ pokedexList, selectedRegion }) {
                 className={
                     `${pokedexListLength > 5 ? 'pokedexContainer' : 'notGrid'}`
                 }>
-                {/* <img
-                    onClick={() => setIconSprites(!iconSprites)}
-                    src=""
-                    alt="y"
-                /> */}
-                <h1 onClick={() => {
-                    console.log('yes')
-                    setIconSprites(!iconSprites)
-                }}>yes</h1>
+                <img
+                    className='pokeballChangeSprites'
+                    src={pokeballIcon}
+                    alt="Change pokemon sprite"
+                    onClick={() => { setIconSprites(!iconSprites) }}
+                />
                 {
                     pokedexList.map((pokemon, index) => {
                         const { types, sprites } = pokemon;
