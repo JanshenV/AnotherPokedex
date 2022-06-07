@@ -2,11 +2,8 @@
 import './PokemonPopulate.css';
 import '../../css/Global.css';
 
-//Icons
-import {
-    ArrowCircleLeftIcon as ArrowLeft,
-    ArrowCircleRightIcon as ArrowRight
-} from '@heroicons/react/solid'
+//React
+import { useState } from 'react';
 
 //Components
 import PokemonSprites from '../PokemonSprites';
@@ -28,6 +25,7 @@ PokemonPopulate.defaultProps = {
 
 export default function PokemonPopulate({ pokedexList, selectedRegion }) {
     const pokedexListLength = pokedexList.length;
+    const [iconSprites, setIconSprites] = useState(false);
 
     return (
         <>
@@ -37,14 +35,22 @@ export default function PokemonPopulate({ pokedexList, selectedRegion }) {
             }}>
                 {selectedRegion ? `${selectedRegion} Pokedex` : 'Kanto Pokedex'}
             </h1>
-            <div className={`${pokedexListLength > 5 ?
-                'pokedexContainer' : 'notGrid'
-                }`}>
-
+            <div
+                className={
+                    `${pokedexListLength > 5 ? 'pokedexContainer' : 'notGrid'}`
+                }>
+                {/* <img
+                    onClick={() => setIconSprites(!iconSprites)}
+                    src=""
+                    alt="y"
+                /> */}
+                <h1 onClick={() => {
+                    console.log('yes')
+                    setIconSprites(!iconSprites)
+                }}>yes</h1>
                 {
                     pokedexList.map((pokemon, index) => {
                         const { types, sprites } = pokemon;
-                        const backgroundFirstType = types[0].name;
 
                         return (
                             <div
@@ -53,6 +59,7 @@ export default function PokemonPopulate({ pokedexList, selectedRegion }) {
                             >
                                 <PokemonSprites
                                     sprites={sprites}
+                                    iconSprites={iconSprites}
                                 />
                                 <h3>#{pokemon.id}</h3>
                                 <h2>{pokemon.name}</h2>
