@@ -12,9 +12,6 @@ import {
 import PokemonSprites from '../PokemonSprites';
 import PokemonTypes from '../PokemonTypes';
 
-//React
-import { useEffect, useState } from 'react';
-
 //PropTypes
 import PropTypes from 'prop-types';
 
@@ -31,32 +28,6 @@ PokemonPopulate.defaultProps = {
 
 export default function PokemonPopulate({ pokedexList, selectedRegion }) {
     const pokedexListLength = pokedexList.length;
-    const [sliceParameter, setSliceParameter] = useState(0);
-
-    async function handlePagination(direction) {
-
-        if (direction === 'left') {
-            if (sliceParameter <= 0) {
-                setSliceParameter(0);
-                return;
-            };
-            setSliceParameter(sliceParameter - 1);
-            return;
-        };
-
-        if (direction === 'right') {
-            if (sliceParameter + 5 >= pokedexListLength) {
-                return;
-            };
-            setSliceParameter(sliceParameter + 1);
-            return;
-        };
-    };
-
-    useEffect(() => {
-        setSliceParameter(0);
-    }, [pokedexList]);
-
 
     return (
         <>
