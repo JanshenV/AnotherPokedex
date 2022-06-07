@@ -5,7 +5,6 @@ import './Body.css';
 import Header from '../Header';
 import PokemonPopulate from '../PokemonPopulate';
 
-
 //Util
 import allRegions from '../../util/staticArray';
 
@@ -13,7 +12,9 @@ import allRegions from '../../util/staticArray';
 import { useState, useEffect } from 'react';
 
 //Api
-import handlePokedex from '../../api/apiCalls';
+import {
+    handlePokedex, handleIndividualPokemon
+} from '../../api/apiCalls';
 
 //Assets
 import loadingIcon from '../../assets/loadingIcon.png';
@@ -39,7 +40,7 @@ export default function Body({ }) {
         fetchPokedex();
     }, []);
 
-    async function searchPokemon(event, setSearchInputValue) {
+    async function searchPokemonFilter(event, setSearchInputValue) {
         let pokemonName = event.target.value;
         setSearchInputValue(pokemonName);
         pokemonName = pokemonName.toLowerCase();
@@ -51,8 +52,7 @@ export default function Body({ }) {
             return pokemon.name.toLowerCase().includes(pokemonName) ||
                 String(pokemon.dexnr).includes(pokemonName)
         });
-
-        if (!filteredPokedexList) return setPokedexList(permaPokedexList);
+        if (!filteredPokedexList) return setPokedexList(setPermaPokedexList);
 
         return setPokedexList(filteredPokedexList);
     };
@@ -73,24 +73,35 @@ export default function Body({ }) {
         setLoading(false);
     };
 
+    async function requestPokemon(event, searchInputValue) {
+        const keyPressed = event.key;
 
+        if (keyPressed !== 'Enter') return;
+
+        const {
+            pokedexResponse,
+            error
+        } = await handleIndividualPokemon(searchInputValue);
+
+        if (error) return;
+
+        setPokedexList(pokedexResponse);
+    };
 
     return (
         <main className='bodyContainer'>
             <Header
-                searchPokemon={searchPokemon}
+                searchPokemon={searchPokemonFilter}
+                requestPokemon={requestPokemon}
             />
 
             {!loading &&
                 <>
                     <div className="pokedexRegionMenu">
-                        <label>
-                            Choose Pokedex Region:
-                        </label>
                         <select
                             onChange={({ target: { value } }) => handleRegionalPokedex(value)}
                         >
-                            <option value=""> - </option>
+                            <option value=""> Choose Pokedex Region </option>
                             {
                                 allRegions.map(({ textContent }, index) => {
                                     return (
@@ -106,14 +117,7 @@ export default function Body({ }) {
                                 })
                             }
                         </select>
-
                     </div>
-                    <h1 style={{
-                        fontFamily: 'Montserrat, sansSerif',
-                        marginBottom: '20px'
-                    }}>
-                        {selectedRegion ? `${selectedRegion} Pokedex` : 'Kanto Pokedex'}
-                    </h1>
                 </>
             }
 
@@ -126,6 +130,7 @@ export default function Body({ }) {
                 :
                 <PokemonPopulate
                     pokedexList={pokedexList}
+                    selectedRegion={selectedRegion}
                 />
             }
         </main>

@@ -12,15 +12,17 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 Header.propTypes = {
-    searchPokemon: PropTypes.func
+    searchPokemon: PropTypes.func,
+    requestPokemon: PropTypes.func
 };
 
 Header.defaultProps = {
-    searchPokemon: () => null
+    searchPokemon: () => null,
+    requestPokemon: () => null
 };
 
 
-export default function Header({ searchPokemon }) {
+export default function Header({ searchPokemon, requestPokemon }) {
     const [searchInputValue, setSearchInputValue] = useState('');
 
     return (
@@ -36,7 +38,7 @@ export default function Header({ searchPokemon }) {
                 value={searchInputValue}
                 placeholder="Pokemon's name or Pokedex Nr."
                 onChange={(e) => searchPokemon(e, setSearchInputValue)}
-            />
+                onKeyDown={(e) => requestPokemon(e, searchInputValue)} />
 
             <SearchIcon className='searchIcon' />
         </header>

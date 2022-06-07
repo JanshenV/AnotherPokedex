@@ -21,14 +21,15 @@ import PropTypes from 'prop-types';
 PokemonPopulate.propTypes = {
     pokedexList: PropTypes.arrayOf(
         PropTypes.object
-    )
+    ),
+    selectedRegion: PropTypes.string
 };
 
 PokemonPopulate.defaultProps = {
-    pokedexList: [{}]
+    pokedexList: [{}],
 };
 
-export default function PokemonPopulate({ pokedexList }) {
+export default function PokemonPopulate({ pokedexList, selectedRegion }) {
     const pokedexListLength = pokedexList.length;
     const [sliceParameter, setSliceParameter] = useState(0);
 
@@ -58,33 +59,42 @@ export default function PokemonPopulate({ pokedexList }) {
 
 
     return (
-        <div className={`${pokedexListLength > 5 ?
-            'pokedexContainer' : 'notGrid'
-            }`}>
-            {
-                pokedexList.map((pokemon, index) => {
-                    const { types, sprites } = pokemon;
-                    const backgroundFirstType = types[0].name;
+        <>
+            <h1 style={{
+                fontFamily: 'Montserrat, sansSerif',
+                marginBottom: '20px'
+            }}>
+                {selectedRegion ? `${selectedRegion} Pokedex` : 'Kanto Pokedex'}
+            </h1>
+            <div className={`${pokedexListLength > 5 ?
+                'pokedexContainer' : 'notGrid'
+                }`}>
 
-                    return (
-                        <div
-                            className={`pokemonContainer`}
-                            key={index}
-                        >
-                            <PokemonSprites
-                                sprites={sprites}
-                            />
-                            <h3>#{pokemon.id}</h3>
-                            <h2>{pokemon.name}</h2>
+                {
+                    pokedexList.map((pokemon, index) => {
+                        const { types, sprites } = pokemon;
+                        const backgroundFirstType = types[0].name;
 
-                            <PokemonTypes
-                                types={types}
-                            />
-                        </div>
-                    );
-                })
-            }
-        </div>
+                        return (
+                            <div
+                                className={`pokemonContainer`}
+                                key={index}
+                            >
+                                <PokemonSprites
+                                    sprites={sprites}
+                                />
+                                <h3>#{pokemon.id}</h3>
+                                <h2>{pokemon.name}</h2>
+
+                                <PokemonTypes
+                                    types={types}
+                                />
+                            </div>
+                        );
+                    })
+                }
+            </div>
+        </>
     );
 };
 
