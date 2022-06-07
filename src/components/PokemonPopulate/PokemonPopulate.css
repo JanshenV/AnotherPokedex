@@ -1,6 +1,6 @@
 .pokedexContainer {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 20px;
     height: 80vh;
     position: relative;
@@ -28,6 +28,7 @@
     font-weight: bold;
     line-height: 1.2;
     transition: transform 0.1s;
+    padding: 10px;
 }
 
 .mainPokemonContainer:hover {
@@ -37,7 +38,6 @@
 .pokemonContainer {
     height: 300px;
     width: 167px;
-    padding: 10px;
     border: 5px solid rgb(14, 14, 14);
 }
 
