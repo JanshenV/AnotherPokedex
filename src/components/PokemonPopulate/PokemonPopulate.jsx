@@ -54,7 +54,8 @@ export default function PokemonPopulate({ pokedexList, selectedRegion }) {
 
                         return (
                             <div
-                                className={`pokemonContainer`}
+                                className={`mainPokemonContainer
+                                ${iconSprites ? 'pokemonIconsContainer' : 'pokemonContainer'}`}
                                 key={index}
                             >
                                 <PokemonSprites
