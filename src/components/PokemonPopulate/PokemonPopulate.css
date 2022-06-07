@@ -24,11 +24,16 @@
     width: 167px;
     padding: 10px;
     border: 5px solid rgb(14, 14, 14);
+    transition: transform .1s;
 }
 
 .pokemonContainer h2 {
     font-family: "Fira Sans", "Trebuchet MS", Ubuntu, Helvetica, Arial sans-serif;
     font-weight: bold;
     line-height: 1.2;
+}
+
+.pokemonContainer:hover{
+     transform: scale(1.1);
 }
 
