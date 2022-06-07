@@ -1,6 +1,6 @@
 const baseUrl = 'https://anotherpokedexdb.herokuapp.com/';
 
-async function handlePokedex(region) {
+export async function handlePokedex(region) {
     try {
         const requestOptions = {
             method: 'GET',
@@ -20,7 +20,7 @@ async function handlePokedex(region) {
     };
 };
 
-async function handleIndividualPokemon(pokemonName) {
+export async function handleIndividualPokemon(pokemonName) {
     try {
         const requestOptions = {
             method: 'GET',
@@ -40,7 +40,3 @@ async function handleIndividualPokemon(pokemonName) {
     };
 };
 
-module.exports = {
-    handlePokedex,
-    handleIndividualPokemon
-}
