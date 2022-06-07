@@ -6,7 +6,7 @@ import Header from '../Header';
 import PokemonPopulate from '../PokemonPopulate';
 
 //Util
-import allRegions from '../../util/staticArray';
+import { allRegions } from '../../util/staticArray';
 
 //React Hooks
 import { useState, useEffect } from 'react';

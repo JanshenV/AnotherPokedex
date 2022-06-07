@@ -1,4 +1,4 @@
-const allRegions = [
+export const allRegions = [
     {
         textContent: 'Kanto'
     },
@@ -24,5 +24,3 @@ const allRegions = [
         textContent: 'Galar'
     }
 ];
-
-module.exports = allRegions;
