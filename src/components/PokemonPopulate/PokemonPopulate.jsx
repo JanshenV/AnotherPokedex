@@ -39,9 +39,7 @@ export default function PokemonPopulate({ pokedexList, selectedRegion }) {
                 {selectedRegion ? `${selectedRegion} Pokedex` : 'Kanto Pokedex'}
             </h1>
             <div
-                className={
-                    `${pokedexListLength > 5 ? 'pokedexContainer' : 'notGrid'}`
-                }>
+                className={`${pokedexListLength > 5 ? 'pokedexContainer' : 'notGrid'}`}>
                 {
                     pokedexListLength ?
                         <img
@@ -59,8 +57,7 @@ export default function PokemonPopulate({ pokedexList, selectedRegion }) {
 
                         return (
                             <div
-                                className={`mainPokemonContainer
-                                ${iconSprites ? 'pokemonIconsContainer' : 'pokemonContainer'}`}
+                                className={`mainPokemonContainer ${iconSprites ? 'pokemonIconsContainer' : 'pokemonContainer'}`}
                                 key={index}
                             >
                                 <PokemonSprites
