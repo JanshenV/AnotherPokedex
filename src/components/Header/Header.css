@@ -33,9 +33,13 @@ header input {
 }
 
 /* Responsiviness */
-@media (max-width: 821px) {
-    .logoIcon,
+@media (max-width: 1071px) {
     .searchIcon {
+        display: none;
+    }
+}
+@media (max-width: 821px) {
+    .logoIcon {
         display: none;
     }
 
