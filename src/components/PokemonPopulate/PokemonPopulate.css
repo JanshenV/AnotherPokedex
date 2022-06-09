@@ -1,6 +1,6 @@
 .pokedexContainer {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 20px;
     height: 80vh;
     position: relative;
@@ -54,4 +54,36 @@
 
 .pokemonIconsContainer {
     height: 180px;
+}
+
+/* Responsiviness */
+
+@media (max-width: 1920px) and (min-width: 1367px) {
+    .pokedexContainer {
+        grid-template-columns: repeat(7, 1fr);
+    }
+}
+
+@media (max-width: 1071px) {
+    .pokedexContainer {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 821px) {
+    .pokedexContainer {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .notGrid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .pokemonContainer {
+    }
+}
+
+@media (max-width: 689px) {
+    .pokedexContainer {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }

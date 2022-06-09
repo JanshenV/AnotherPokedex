@@ -31,3 +31,19 @@ header input {
     position: absolute;
     left: 5%;
 }
+
+/* Responsiviness */
+@media (max-width: 1071px) {
+    .searchIcon {
+        display: none;
+    }
+}
+@media (max-width: 821px) {
+    .logoIcon {
+        display: none;
+    }
+
+    header input {
+        width: 50vw;
+    }
+}
