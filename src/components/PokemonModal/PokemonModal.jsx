@@ -1,6 +1,9 @@
 //Styles
 import './PokemonModal.css';
 
+//React
+import { useState } from 'react';
+
 //PropTypes
 import PropTypes from 'prop-types';
 PokemonModal.propTypes = {
@@ -22,7 +25,11 @@ export default function PokemonModal({
 
     console.log(pokemonModalData.sprites);
     return (
-        <div>PokemonModal</div>
+        <div className='outerContainer'>
+            <div className="innerContainer">
+
+            </div>
+        </div>
     );
 };
 
