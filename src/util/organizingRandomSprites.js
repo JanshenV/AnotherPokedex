@@ -1,4 +1,4 @@
-async function organizingSprites(sprites, setPokemonSprites, iconSprites) {
+export async function organizingSprites(sprites, setPokemonSprites, iconSprites) {
     const randomZeroOne = Math.floor(Math.random() * 2);
     const localSprites = sprites[randomZeroOne];
     const frontDefaultLength = localSprites.front.length;
@@ -25,7 +25,5 @@ async function organizingSprites(sprites, setPokemonSprites, iconSprites) {
         };
 
     };
-    setPokemonSprites(sprite);
+    return setPokemonSprites(sprite);
 };
-
-module.exports = organizingSprites;

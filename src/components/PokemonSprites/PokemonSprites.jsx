@@ -5,7 +5,7 @@ import './PokemonSprites.css';
 import { useState, useEffect } from 'react';
 
 //Util
-import organizingSprites from '../../util/organizingRandomSprites';
+import { organizingSprites } from '../../util/organizingRandomSprites';
 
 //PropTypes
 import PropTypes from 'prop-types';
