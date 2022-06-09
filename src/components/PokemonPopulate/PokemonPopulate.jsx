@@ -11,6 +11,7 @@ import { useState } from 'react';
 //Components
 import PokemonSprites from '../PokemonSprites';
 import PokemonTypes from '../PokemonTypes';
+import PokemonModal from '../PokemonModal/PokemonModal';
 
 //PropTypes
 import PropTypes from 'prop-types';
@@ -29,6 +30,14 @@ PokemonPopulate.defaultProps = {
 export default function PokemonPopulate({ pokedexList, selectedRegion }) {
     const pokedexListLength = pokedexList.length;
     const [iconSprites, setIconSprites] = useState(false);
+    const [modalUp, setModalUp] = useState(false);
+    const [pokemonModalData, setPokemonModalData] = useState();
+
+
+    function handleModalUp(pokemonData) {
+        setPokemonModalData(pokemonData);
+        setModalUp(true);
+    };
 
     return (
         <>
@@ -51,6 +60,7 @@ export default function PokemonPopulate({ pokedexList, selectedRegion }) {
                         :
                         null
                 }
+
                 {
                     pokedexList.map((pokemon, index) => {
                         const { types, sprites } = pokemon;
@@ -59,6 +69,7 @@ export default function PokemonPopulate({ pokedexList, selectedRegion }) {
                             <div
                                 className={`mainPokemonContainer ${iconSprites ? 'pokemonIconsContainer' : 'pokemonContainer'}`}
                                 key={index}
+                                onClick={() => handleModalUp(pokemon)}
                             >
                                 <PokemonSprites
                                     sprites={sprites}
@@ -73,6 +84,15 @@ export default function PokemonPopulate({ pokedexList, selectedRegion }) {
                             </div>
                         );
                     })
+                }
+
+                {
+                    modalUp &&
+                    <PokemonModal
+                        setModalUp={setModalUp}
+                        setPokemonModalData={setPokemonModalData}
+                        pokemonModalData={pokemonModalData}
+                    />
                 }
             </div>
         </>
