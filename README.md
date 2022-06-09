@@ -1,6 +1,6 @@
 # Creating another Pokedex for personal Project
 
-## Online: https://another-pokedex-ivory.vercel.app/.
+## Online: https://another-pokedex-one.vercel.app/.
 
 # Another Pokedex:
 
