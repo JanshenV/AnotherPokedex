@@ -7,14 +7,26 @@
     left: 0;
     right: 0;
     bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
 }
 
-.innerContainer {
+.innerContainer,
+.contentLoading {
     display: flex;
     border: 5px solid black;
     background: white;
     width: 50vw;
     height: 75vh;
+}
+
+.contentLoading {
+    align-items: center;
+    justify-content: center;
+}
+
+.contentLoading img {
+    width: 120px;
+    height: 120px;
 }
 
 .spritesContainer {
@@ -49,4 +61,30 @@
 
 .genderIcons img:hover {
     transform: scale(1.1);
+}
+
+.closeModalContainer {
+    position: absolute;
+    right: 5vw;
+    top: 10vh;
+    cursor: pointer;
+}
+
+.closeModalContainer span {
+    position: absolute;
+    left: -2vw;
+    top: -8vh;
+    background: white;
+    font-weight: bolder;
+    border-radius: 10px;
+    width: 150%;
+}
+
+.closeModalImg {
+    width: 75px;
+    transition: transform 0.1s;
+}
+
+.closeModalImg:hover {
+    transform: scale(1.7);
 }

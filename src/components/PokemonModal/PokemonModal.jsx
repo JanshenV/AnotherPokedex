@@ -4,6 +4,8 @@ import './PokemonModal.css';
 //Assets
 import femaleIcon from '../../assets/femaleIcon.png';
 import maleIcon from '../../assets/maleIcon.png';
+import pokeballCloseIcon from '../../assets/pokeballClose.png';
+import loadingIcon from '../../assets/loadingIcon.png';
 
 //Components
 import PokemonTypes from '../PokemonTypes';
@@ -37,22 +39,24 @@ export default function PokemonModal({
     const [forms, setForms] = useState([]);
     const [stats, setStats] = useState([]);
     const [genderMessage, setGenderMessage] = useState('');
+    const [closeModalMessage, setCloseModalMessage] = useState(false);
+    const [modalLoading, setModalLoading] = useState(true);
 
     function setSpriteByGender(sprites, gender) {
-                if (gender === 'female') {
-                    if (sprites[1]?.front.length) {
-                        console.log('there are female sprites', sprites[1]?.front);
-                        return setSprites(sprites[1]?.front);
-                    };
+        if (gender === 'female') {
+            if (sprites[1]?.front.length) {
+                console.log('there are female sprites', sprites[1]?.front);
+                return setSprites(sprites[1]?.front);
+            };
 
-                    if (sprites[1]?.shiny_front.length) {
-                        setGenderMessage('There are only shiny female sprites to be shown.')
-                        return setSprites(sprites[1]?.shiny_front);
-                    };
-                    setGenderMessage('There are not female sprites to be shown.');
-                    return setSprites(sprites[0]?.front);
-                };
+            if (sprites[1]?.shiny_front.length) {
+                setGenderMessage('There are only shiny female sprites to be shown.')
+                return setSprites(sprites[1]?.shiny_front);
+            };
+            setGenderMessage('There are not female sprites to be shown.');
             return setSprites(sprites[0]?.front);
+        };
+    return setSprites(sprites[0]?.front);
     };
 
     useEffect(() => {
@@ -101,12 +105,12 @@ export default function PokemonModal({
             const localAllSprites = pokemonModalData.sprites;
             setallSprites([...localAllSprites]);
             setCurrentSprite(localAllSprites[0].front[2]);
-            setSpriteByGender(localAllSprites, 'female');
+            setSpriteByGender(localAllSprites, 'male');
         };
         requestSpecies();
         requestForms();
         organizeStats();
-        organiSprites();
+        organiSprites().then(setModalLoading(false));
 
     }, [pokemonModalData]);
 
@@ -116,68 +120,91 @@ export default function PokemonModal({
 
     return (
         <div className='outerContainer'>
-            <div className="innerContainer">
-                <div className="spritesContainer">
-                    <select onChange={(e) => setCurrentSprite(e.target.value)}>
-                        {
-                            sprites?.length &&
-                            sprites.map((sprite, index) => {
-                                return (
-                                    <option value={sprite} key={index}>Sprite:
-                                        {index + 1}</option>
-                                )
-                            })
-                        }
-                    </select>
-                    {
-                        currentSprite &&
+            {
+                !modalLoading ?
+                <div className="innerContainer">
+                    <div className='closeModalContainer'>
                         <img
-                            src={currentSprite}
-                            alt={pokemonModalData.name}
-                            className="pokemonImg"
+                            className="closeModalImg"
+                            src={pokeballCloseIcon}
+                            alt="close modal"
+                            onMouseEnter={() => setCloseModalMessage(true)}
+                            onMouseLeave={() => setCloseModalMessage(false)}
+                            onClick={() => setModalUp(false)}
                         />
-                    }
-                    <div className="genderIcons">
                         {
-                            genderMessage &&
+                            closeModalMessage &&
+                            <span>Click to close!</span>
+                        }
+                    </div>
+                    <div className="spritesContainer">
+                        <select onChange={(e) => setCurrentSprite(e.target.value)}>
+                            {
+                                sprites?.length &&
+                                sprites.map((sprite, index) => {
+                                    return (
+                                        <option value={sprite} key={index}>Sprite:
+                                            {index + 1}</option>
+                                    )
+                                })
+                            }
+                        </select>
+                        {
+                            currentSprite &&
+                            <img
+                                src={currentSprite}
+                                alt={pokemonModalData.name}
+                                className="pokemonImg"
+                            />
+                        }
+                        <div className="genderIcons">
+                            {
+                                genderMessage &&
                                 <span>{genderMessage}</span>
-                        }
-                        <img
-                            src={femaleIcon}
-                            alt="Venus"
-                        />
-                        <img
-                            src={maleIcon}
-                            alt="Mars"
-                            onClick={() => setSpriteByGender(allSprites, 'male')}
-                        />
+                            }
+                            <img
+                                src={femaleIcon}
+                                alt="Venus"
+                            />
+                            <img
+                                src={maleIcon}
+                                alt="Mars"
+                                onClick={() => setSpriteByGender(allSprites, 'male')}
+                            />
+                        </div>
                     </div>
-                </div>
-                <div className="pokemonInfo">
-                    <h3>{pokemonModalData.name}</h3>
+                    <div className="pokemonInfo">
+                        <h3>{pokemonModalData.name}</h3>
 
-                    <PokemonTypes
-                        types={pokemonModalData.types}
-                    />
-                    <div>
-                        <span>National Dex: </span>
-                        <span>#{pokemonModalData.dexnr}</span>
+                        <PokemonTypes
+                            types={pokemonModalData.types}
+                        />
+                        <div>
+                            <span>National Dex: </span>
+                            <span>#{pokemonModalData.dexnr}</span>
+                        </div>
+                        <div>
+                            <span>Species: </span>
+                            <span>{species}</span>
+                        </div>
+                        <div>
+                            <span>Height: </span>
+                            <span>{pokemonModalData.height}</span>
+                        </div>
+                        <div>
+                            <span>Weight: </span>
+                            <span>{pokemonModalData.weight}</span>
+                        </div>
                     </div>
-                    <div>
-                        <span>Species: </span>
-                        <span>{species}</span>
+                    </div> 
+                    :
+                    <div className='contentLoading'>
+                        <img src={loadingIcon} alt="content loading" />
                     </div>
-                    <div>
-                        <span>Height: </span>
-                        <span>{pokemonModalData.height}</span>
-                    </div>
-                    <div>
-                        <span>Weight: </span>
-                        <span>{pokemonModalData.weight}</span>
-                    </div>
-                </div>
-            </div>
+            }
         </div>
     );
 };
+
+
 
