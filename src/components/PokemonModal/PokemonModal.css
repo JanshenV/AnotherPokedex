@@ -10,18 +10,26 @@
     background: rgba(0, 0, 0, 0.6);
 }
 
-.innerContainer,
+.innerContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border: 5px solid black;
+    background: white;
+    width: 50vw;
+    overflow-y: scroll;
+    max-height: 100vh;
+}
+
 .contentLoading {
     display: flex;
+    align-items: center;
+    justify-content: center;
     border: 5px solid black;
     background: white;
     width: 50vw;
     height: 75vh;
-}
-
-.contentLoading {
-    align-items: center;
-    justify-content: center;
 }
 
 .contentLoading img {
@@ -33,16 +41,26 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 50%;
 }
 
 .pokemonImg {
     cursor: pointer;
-    width: 50%;
-    /* transition: transform 0.1s; */
+    width: 100%;
+    transition: transform 0.1s;
 }
 
 .pokemonImg:hover {
-    /* transform: scale(1.1); */
+    transform: scale(1.05);
+}
+
+.spritesContainer select {
+    transition: transform 0.1s;
+}
+.spritesContainer select:hover {
+    transform: scale(1.1);
 }
 
 .genderIcons {
