@@ -10,7 +10,43 @@
 }
 
 .innerContainer {
+    display: flex;
+    border: 5px solid black;
+    background: white;
     width: 50vw;
     height: 75vh;
-    background: white;
+}
+
+.spritesContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.pokemonImg {
+    cursor: pointer;
+    width: 50%;
+    /* transition: transform 0.1s; */
+}
+
+.pokemonImg:hover {
+    /* transform: scale(1.1); */
+}
+
+.genderIcons {
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-left: 4%;
+}
+
+.genderIcons img {
+    width: 15%;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+.genderIcons img:hover {
+    transform: scale(1.1);
 }
