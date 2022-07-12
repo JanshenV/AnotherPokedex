@@ -56,7 +56,8 @@ export default function PokemonModal({
             setGenderMessage('There are not female sprites to be shown.');
             return setSprites(sprites[0]?.front);
         };
-    return setSprites(sprites[0]?.front);
+
+        return setSprites(sprites[0]?.front);
     };
 
     useEffect(() => {
@@ -107,11 +108,16 @@ export default function PokemonModal({
             setCurrentSprite(localAllSprites[0].front[2]);
             setSpriteByGender(localAllSprites, 'male');
         };
-        requestSpecies();
-        requestForms();
-        organizeStats();
-        organiSprites().then(setModalLoading(false));
 
+        async function makeAllRequests() {
+            await requestSpecies();
+            await requestForms();
+            await organizeStats();
+            await organiSprites();
+            setModalLoading(false);
+        };
+
+        makeAllRequests();
     }, [pokemonModalData]);
 
     useEffect(() => {
