@@ -1,5 +1,6 @@
 //Styles
 import './PokemonModal.css';
+import '../../css/Global.css';
 
 //Assets
 import femaleIcon from '../../assets/femaleIcon.png';
@@ -38,6 +39,8 @@ export default function PokemonModal({
     const [species, setSpecies] = useState('');
     const [forms, setForms] = useState([]);
     const [stats, setStats] = useState([]);
+
+    const backgroundByType = pokemonModalData.types[0].name;
     const [genderMessage, setGenderMessage] = useState('');
     const [closeModalMessage, setCloseModalMessage] = useState(false);
     const [modalLoading, setModalLoading] = useState(true);
@@ -45,12 +48,13 @@ export default function PokemonModal({
     function setSpriteByGender(sprites, gender) {
         if (gender === 'female') {
             if (sprites[1]?.front.length) {
-                console.log('there are female sprites', sprites[1]?.front);
+                setCurrentSprite(sprites[1].front[0]);
                 return setSprites(sprites[1]?.front);
             };
 
             if (sprites[1]?.shiny_front.length) {
                 setGenderMessage('There are only shiny female sprites to be shown.')
+                setCurrentSprite(sprites[1].shiny_front[0]);
                 return setSprites(sprites[1]?.shiny_front);
             };
             setGenderMessage('There are not female sprites to be shown.');
@@ -128,81 +132,96 @@ export default function PokemonModal({
         <div className='outerContainer'>
             {
                 !modalLoading ?
-                <div className="innerContainer">
-                    <div className='closeModalContainer'>
-                        <img
-                            className="closeModalImg"
-                            src={pokeballCloseIcon}
-                            alt="close modal"
-                            onMouseEnter={() => setCloseModalMessage(true)}
-                            onMouseLeave={() => setCloseModalMessage(false)}
-                            onClick={() => setModalUp(false)}
-                        />
-                        {
-                            closeModalMessage &&
-                            <span>Click to close!</span>
-                        }
-                    </div>
-                    <div className="spritesContainer">
-                        <select onChange={(e) => setCurrentSprite(e.target.value)}>
+                    <div className="innerContainer">
+                        <div className='closeModalContainer'>
+                            <img
+                                className="closeModalImg"
+                                src={pokeballCloseIcon}
+                                alt="close modal"
+                                onMouseEnter={() => setCloseModalMessage(true)}
+                                onMouseLeave={() => setCloseModalMessage(false)}
+                                onClick={() => setModalUp(false)}
+                            />
                             {
-                                sprites?.length &&
-                                sprites.map((sprite, index) => {
-                                    return (
-                                        <option value={sprite} key={index}>Sprite:
-                                            {index + 1}</option>
-                                    )
-                                })
+                                closeModalMessage &&
+                                <span>Click to close!</span>
                             }
-                        </select>
-                        {
-                            currentSprite &&
-                            <img
-                                src={currentSprite}
-                                alt={pokemonModalData.name}
-                                className="pokemonImg"
-                            />
-                        }
-                        <div className="genderIcons">
-                            {
-                                genderMessage &&
-                                <span>{genderMessage}</span>
-                            }
-                            <img
-                                src={femaleIcon}
-                                alt="Venus"
-                            />
-                            <img
-                                src={maleIcon}
-                                alt="Mars"
-                                onClick={() => setSpriteByGender(allSprites, 'male')}
-                            />
                         </div>
-                    </div>
-                    <div className="pokemonInfo">
-                        <h3>{pokemonModalData.name}</h3>
+                        <div className={`spritesContainer ${backgroundByType}`}>
+                            <select defaultValue={currentSprite} onChange={(e) => setCurrentSprite(e.target.value)}>
+                                {
+                                    sprites?.length &&
+                                    sprites.map((sprite, index) => {
+                                        return (
+                                            <option
+                                                value={sprite}
+                                                key={index}
+                                                selected={currentSprite === sprite}
+                                            >
+                                                Sprite: {index + 1}
+                                            </option>
+                                        )
+                                    })
+                                }
+                            </select>
+                            {
+                                currentSprite &&
+                                <img
+                                    src={currentSprite}
+                                    alt={pokemonModalData.name}
+                                    className="pokemonImg"
+                                />
+                            }
+                            <div className="genderIcons">
+                                {
+                                    genderMessage &&
+                                    <span>{genderMessage}</span>
+                                }
+                                <button
+                                    onClick={() => setSpriteByGender(allSprites, 'female')}
+                                >
+                                    <img
+                                        src={femaleIcon}
+                                        alt="Venus"
+                                    />
+                                </button>
 
-                        <PokemonTypes
-                            types={pokemonModalData.types}
-                        />
-                        <div>
-                            <span>National Dex: </span>
-                            <span>#{pokemonModalData.dexnr}</span>
+                                <button
+                                    onClick={() => setSpriteByGender(allSprites, 'male')}
+                                >
+                                    <img
+                                        src={maleIcon}
+                                        alt="Mars"
+                                    />
+                                </button>
+                              
+                            </div>
                         </div>
-                        <div>
-                            <span>Species: </span>
-                            <span>{species}</span>
+                        <div className="pokemonInfo">
+                            <h3>{pokemonModalData.name}</h3>
+
+                            <PokemonTypes
+                                types={pokemonModalData.types}
+                            />
+                            <div>
+                                <span>National Dex: </span>
+                                <span>#{pokemonModalData.dexnr}</span>
+                            </div>
+                            <div>
+                                <span>Species: </span>
+                                <span>{species}</span>
+                            </div>
+                            <div>
+                                <span>Height: </span>
+                                <span>{pokemonModalData.height}</span>
+                            </div>
+                            <div>
+                                <span>Weight: </span>
+                                <span>{pokemonModalData.weight}</span>
+                            </div>
                         </div>
-                        <div>
-                            <span>Height: </span>
-                            <span>{pokemonModalData.height}</span>
-                        </div>
-                        <div>
-                            <span>Weight: </span>
-                            <span>{pokemonModalData.weight}</span>
-                        </div>
+
                     </div>
-                    </div> 
                     :
                     <div className='contentLoading'>
                         <img src={loadingIcon} alt="content loading" />
