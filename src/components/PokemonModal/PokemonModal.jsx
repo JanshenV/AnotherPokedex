@@ -128,6 +128,8 @@ export default function PokemonModal({
         setTimeout(() => setGenderMessage(''), 3000);
     }, [genderMessage]);
 
+    console.log(pokemonModalData)
+
     return (
         <div className='outerContainer'>
             {
@@ -190,26 +192,54 @@ export default function PokemonModal({
                             </div>
                         </div>
                         <div className="pokemonInfo">
-                            <h3>{pokemonModalData.name}</h3>
+                            <div className='unitInfo'>
+                                <h3>Pokémon:</h3>
+                                <h3 >{pokemonModalData.name}</h3>
+                            </div>
 
-                            <PokemonTypes
-                                types={pokemonModalData.types}
-                            />
-                            <div>
-                                <span>National Dex: </span>
+                            <div className='unitInfo'>
+                                <h3>Type:</h3>
+                                <PokemonTypes
+                                    types={pokemonModalData.types}
+                                />
+                            </div>
+
+
+                            <div className='unitInfo'>
+                                <h3>National Dex: </h3>
                                 <span>#{pokemonModalData.dexnr}</span>
                             </div>
-                            <div>
-                                <span>Species: </span>
+
+                            <div className='unitInfo'>
+                                <h3>Species: </h3>
                                 <span>{species}</span>
                             </div>
-                            <div>
-                                <span>Height: </span>
-                                <span>{pokemonModalData.height}</span>
+
+                            <div className='unitInfo'>
+                                <h3>Height: </h3>
+                                <span>{pokemonModalData.height / 10} m</span>
                             </div>
-                            <div>
-                                <span>Weight: </span>
-                                <span>{pokemonModalData.weight}</span>
+
+                            <div className='unitInfo'>
+                                <h3>Weight: </h3>
+                                <span>{pokemonModalData.weight / 10} kg</span>
+                            </div>
+
+                            <div className='unitInfo'>
+                                <h3>Abilities: </h3>
+                                {
+                                    pokemonModalData?.abilities?.length &&
+                                    pokemonModalData.abilities.map((ability, index) => {
+                                        const { ability: { name }, is_hidden } = ability;
+                                        return (
+                                            <span key={index}>
+                                                {`${index + 1}.
+                                                 ${name}
+                                                 ${is_hidden ? '(hidden ability)' : ''}`}
+                                            </span>
+                                        )
+                                    })
+                                }
                             </div>
                         </div>
 
