@@ -18,7 +18,7 @@
     border: 5px solid transparent;
     border-image-slice: 1;
     background: white;
-    border-radius: 20px;
+    border-radius: 10px;
     max-height: 90vh;
     width: 30%;
     max-width: 30%;
@@ -26,6 +26,7 @@
     overflow-x: hidden;
 }
 
+/* Scrollbar */
 .innerContainer::-webkit-scrollbar {
     width: 10px;
 }
@@ -38,6 +39,10 @@
 ::-webkit-scrollbar-thumb:hover {
     background: rgb(179, 33, 33);
 }
+
+/* Scrollbar */
+
+/* Conditional div when loading content */
 .contentLoading {
     display: flex;
     align-items: center;
@@ -53,18 +58,24 @@
     height: 120px;
 }
 
+/* Conditional div when loading content */
+
+/* Sprites */
 .spritesContainer {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
     border-radius: 20px;
-    width: 100%;
+    gap: 20px;
+    /* width: 100%; */
 }
 
 .pokemonImg {
     cursor: pointer;
     width: 80%;
+    height: 300px;
+    max-height: max-content;
     transition: transform 0.2s;
     object-fit: contain;
 }
@@ -104,6 +115,10 @@
     transform: scale(1.1);
 }
 
+/* Sprites */
+
+/* Button to close modal */
+
 .closeModalContainer {
     position: absolute;
     right: 5vw;
@@ -113,8 +128,8 @@
 
 .closeModalContainer span {
     position: absolute;
-    left: -2vw;
-    top: -8vh;
+    left: -25%;
+    top: -65%;
     background: white;
     font-weight: bolder;
     border-radius: 10px;
@@ -123,9 +138,11 @@
 
 .closeModalImg {
     width: 75px;
-    transition: transform 0.1s;
+    transition: transform 0.3s;
 }
 
 .closeModalImg:hover {
-    transform: scale(1.7);
+    transform: scale(1.5);
 }
+
+/* Button to close modal */
