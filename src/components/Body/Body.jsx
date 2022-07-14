@@ -101,7 +101,7 @@ export default function Body({ }) {
                         <select
                             onChange={({ target: { value } }) => handleRegionalPokedex(value)}
                         >
-                            <option value="" disabled={true}> Choose Pokedex Region </option>
+                            <option value=""> Choose Pokedex Region </option>
                             {
                                 allRegions.map(({ textContent }, index) => {
                                     return (

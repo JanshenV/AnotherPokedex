@@ -1,0 +1,131 @@
+.outerContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.innerContainer {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-direction: column;
+    border: 5px solid transparent;
+    border-image-slice: 1;
+    background: white;
+    border-radius: 20px;
+    max-height: 90vh;
+    width: 30%;
+    max-width: 30%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.innerContainer::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(226, 113, 8);
+    border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(179, 33, 33);
+}
+.contentLoading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 5px solid black;
+    background: white;
+    width: 50vw;
+    height: 75vh;
+}
+
+.contentLoading img {
+    width: 120px;
+    height: 120px;
+}
+
+.spritesContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 20px;
+    width: 100%;
+}
+
+.pokemonImg {
+    cursor: pointer;
+    width: 80%;
+    transition: transform 0.2s;
+    object-fit: contain;
+}
+
+.pokemonImg:hover {
+    transform: scale(1.1);
+}
+
+.spritesContainer select {
+    transition: transform 0.1s;
+    padding: 6px 0;
+    cursor: pointer;
+}
+.spritesContainer select:hover {
+    transform: scale(1.1);
+}
+
+.genderIcons {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.genderIcons button {
+    width: 15%;
+}
+
+.genderIcons img {
+    width: 100%;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+.genderIcons button:hover {
+    transform: scale(1.1);
+}
+
+.closeModalContainer {
+    position: absolute;
+    right: 5vw;
+    top: 10vh;
+    cursor: pointer;
+}
+
+.closeModalContainer span {
+    position: absolute;
+    left: -2vw;
+    top: -8vh;
+    background: white;
+    font-weight: bolder;
+    border-radius: 10px;
+    width: 150%;
+}
+
+.closeModalImg {
+    width: 75px;
+    transition: transform 0.1s;
+}
+
+.closeModalImg:hover {
+    transform: scale(1.7);
+}
