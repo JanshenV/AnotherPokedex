@@ -58,7 +58,7 @@
 
 /* Responsiviness */
 
-@media (max-width: 1920px) and (min-width: 1380px) {
+@media (min-width: 1380px) {
     .pokedexContainer {
         grid-template-columns: repeat(7, 1fr);
     }
