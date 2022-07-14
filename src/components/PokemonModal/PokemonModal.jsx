@@ -180,19 +180,11 @@ export default function PokemonModal({
                                 <button
                                     onClick={() => setSpriteByGender(allSprites, 'female')}
                                 >
-                                    <img
-                                        src={femaleIcon}
-                                        alt="Venus"
-                                    />
                                 </button>
 
                                 <button
                                     onClick={() => setSpriteByGender(allSprites, 'male')}
                                 >
-                                    <img
-                                        src={maleIcon}
-                                        alt="Mars"
-                                    />
                                 </button>
                               
                             </div>
