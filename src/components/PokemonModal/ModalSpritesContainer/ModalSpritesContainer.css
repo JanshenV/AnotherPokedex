@@ -97,6 +97,7 @@
     background-position: center;
     position: absolute;
     object-fit: contain;
+    opacity: 0.1;
 }
 
 .genderIcons button {

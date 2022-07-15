@@ -10,8 +10,8 @@ import pokeballCloseIcon from '../../assets/pokeballClose.png';
 import loadingIcon from '../../assets/loadingIcon.png';
 
 //Components
-import PokemonTypes from '../PokemonTypes';
 import ModalSpritesContainer from './ModalSpritesContainer/ModalSpritesContainer';
+import ModalPokemonInfo from './ModalPokemonInfo/ModalPokemonInfo';
 
 //PropTypes
 import PropTypes from 'prop-types';
@@ -38,6 +38,7 @@ export default function PokemonModal({
     } = useGlobal();
 
     const [species, setSpecies] = useState('');
+    const [description, setDescription] = useState('');
     const [forms, setForms] = useState([]);
     const [stats, setStats] = useState([]);
 
@@ -84,8 +85,10 @@ export default function PokemonModal({
             const request = await fetch(url);
             if (!request.ok) return;
 
-            const { genera } = await request.json();
+            const { genera, flavor_text_entries } = await request.json();
+            const removingBreakLines = flavor_text_entries[0].flavor_text.replace(/(\n|\f)/gm, " ");
             setSpecies(genera[7].genus);
+            setDescription(removingBreakLines);
         };
 
         async function requestForms() {
@@ -153,6 +156,8 @@ export default function PokemonModal({
         makeAllRequests();
     }, [pokemonModalData]);
 
+    console.log(pokemonModalData);
+    
 
     return (
         <div className='outerContainer'>
@@ -180,80 +185,13 @@ export default function PokemonModal({
                             pokemonName={pokemonModalData.name}
                             pokemonDexNr={pokemonModalData.dexnr}
                         />
-                        
-                        <div className="pokemonInfo">
-                            <div className='unitInfo'>
-                                <PokemonTypes
-                                    types={pokemonModalData.types}
-                                />
-                            </div>
-
-                            <div className='unitInfo'>
-                                <h3>Species: </h3>
-                                <span>{species}</span>
-                            </div>
-
-                            <div className='unitInfo'>
-                                <h3>Height: </h3>
-                                <span>{pokemonModalData.height / 10} m</span>
-                            </div>
-
-                            <div className='unitInfo'>
-                                <h3>Weight: </h3>
-                                <span>{pokemonModalData.weight / 10} kg</span>
-                            </div>
-
-                            <div className='unitInfo'>
-                                <h3>Abilities: </h3>
-                                {
-                                    pokemonModalData?.abilities?.length &&
-                                    pokemonModalData.abilities.map((ability, index) => {
-                                        const { ability: { name }, is_hidden } = ability;
-                                        return (
-                                            <span key={index}>
-                                                {`${index + 1}.
-                                                 ${name}
-                                                 ${is_hidden ? '(hidden ability)' : ''}`}
-                                            </span>
-                                        )
-                                    })
-                                }
-                            </div>
-
-                            <div className='unitInfo'>
-                                <h3>Stats: </h3>
-                                {
-                                    stats?.length &&
-                                    stats.map((stat, index) => {
-                                        const { name, base, statLv } = stat;
-                                        return (
-                                            <div
-                                                className='pokemonStats'
-                                                key={index}
-                                            >
-                                                
-                                                <div className='statsBaseName'>
-                                                    <span>{name}</span>
-                                                    <span>{base}</span>
-                                                </div>
-
-                                            
-
-                                                <div className='emptyStatBar'>
-                                                    <div
-                                                        className={`statBar ${statLv}`} style={{
-                                                            width: `${base * 2}px`,
-                                                        }}>
-                                                    
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        )
-                                    })
-                                }
-                            </div>
-                        </div>
-
+                        <ModalPokemonInfo
+                            pokemonModalData={pokemonModalData}
+                            species={species}
+                            stats={stats}
+                            description={description}
+                            color={backgroundByType}
+                        />
                     </div>
                     :
                     <div className='contentLoading'>

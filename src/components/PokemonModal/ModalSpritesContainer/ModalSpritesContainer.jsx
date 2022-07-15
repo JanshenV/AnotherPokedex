@@ -5,7 +5,7 @@ import './ModalSpritesContainer.css';
 import useGlobal from '../../../hooks/useGlobal';
 
 //Assets
-import pokeballBackGround from '../../../assets/pokeballBackground.svg';
+import darkerPokeballBackGround from '../../../assets/darkerPokeballBackground.svg';
 
 //PropTypes
 import PropTypes from 'prop-types';
@@ -49,9 +49,7 @@ export default function ModalSpritesContainer({
 
     useEffect(() => {
         setTimeout(() => setGenderMessage(''), 3000);
-    }, [genderMessage]);
-
-    console.log(currentSprite);
+    }, [setGenderMessage]);
 
     return (
         <div className={`spritesContainer`}>
@@ -67,7 +65,7 @@ export default function ModalSpritesContainer({
 
             <div className='spritesContainerMain'>
                 <img
-                    src={pokeballBackGround}
+                    src={darkerPokeballBackGround}
                     alt="Background Pokeball"
                     className='pokeballBackGround'
                 />
