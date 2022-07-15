@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 //PropTypes
 import PropTypes from 'prop-types';
 ModalSpritesContainer.propTypes = {
-    currentSprite: PropTypes.string(),
+    currentSprite: PropTypes.string,
     setCurrentSprite: PropTypes.func,
     currentGender: PropTypes.shape(
         {
@@ -17,15 +17,15 @@ ModalSpritesContainer.propTypes = {
         }
     ),
     selectionSprites: PropTypes.arrayOf(
-        PropTypes.string()
+        PropTypes.string
     ),
-    handleSpriteByGender: PropTypes.func(),
-    pokemonName: PropTypes.string(),
+    handleSpriteByGender: PropTypes.func,
+    pokemonName: PropTypes.string,
 };
 
-ModalSpritesContainer.defaultProps = {
+// ModalSpritesContainer.defaultProps = {
 
-};
+// };
 
 export default function ModalSpritesContainer({
     currentSprite, setCurrentSprite,
@@ -35,7 +35,7 @@ export default function ModalSpritesContainer({
 }) {
 
     const [genderMessage, setGenderMessage] = useState('');
-    
+
     useEffect(() => {
         setTimeout(() => setGenderMessage(''), 3000);
     }, [genderMessage]);
