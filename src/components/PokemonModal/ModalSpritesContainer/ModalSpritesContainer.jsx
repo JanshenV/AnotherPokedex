@@ -25,9 +25,16 @@ ModalSpritesContainer.propTypes = {
     pokemonName: PropTypes.string,
 };
 
-// ModalSpritesContainer.defaultProps = {
-
-// };
+ModalSpritesContainer.defaultProps = {
+    setCurrentSprite: () => null,
+    currentGender: {
+        male: true,
+        female: false
+    },
+    selectionSprites: ['option 1', 'option 2', 'option ...'],
+    handleSpriteByGender: () => null,
+    pokemonName: 'Noah'
+};
 
 export default function ModalSpritesContainer({
     pokemonName, handleSpriteByGender, pokemonDexNr
