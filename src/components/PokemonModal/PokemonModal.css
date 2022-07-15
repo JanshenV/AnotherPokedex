@@ -21,7 +21,7 @@
     border-radius: 10px;
     max-height: 90vh;
     padding-bottom: 20px;
-    width: 42%;
+    width: 40%;
     max-width: 42%;
     overflow-y: scroll;
     overflow-x: hidden;
@@ -89,6 +89,7 @@
     transition: transform 0.1s;
     padding: 6px 0;
     cursor: pointer;
+    border-radius: 6px;
 }
 .spritesContainer select:hover {
     transform: scale(1.1);
@@ -110,6 +111,7 @@
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+    border-radius: 6px;
 }
 
 .genderIcons button:nth-child(1) {
@@ -161,11 +163,11 @@
     flex-direction: column;
     width: 100%;
     gap: 12px;
-    align-items: flex-start;
+    align-items: center;
 }
 .unitInfo {
     display: flex;
-    width: 48%;
+    width: 100%;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -183,9 +185,54 @@
     text-transform: uppercase;
 }
 
-.unitInfo:nth-child(7) {
+.unitInfo:nth-child(7),
+.unitInfo:nth-child(8) {
     flex-direction: column;
     align-items: flex-start;
+}
+
+.unitInfo:nth-child(8) {
+    width: 100%;
+    gap: 10px;
+    padding-bottom: 10px;
+}
+
+.pokemonStats {
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    border-top: 1px solid rgb(202, 198, 198);
+}
+
+.statsBaseName {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 16%;
+    text-transform: uppercase;
+}
+
+.statsBaseName span {
+    text-transform: uppercase;
+}
+
+.statBar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    border: 1px solid #737373;
+    height: 20px;
+    color: black;
+    font-weight: bolder;
+}
+
+.emptyStatBar {
+    flex-grow: 1;
+    background: #dbd3d3;
+    border-radius: 20px;
 }
 
 /* PokemonInfo */

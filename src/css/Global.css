@@ -51,7 +51,7 @@
 }
 
 .ghost {
-    background-color: #66b
+    background-color: #66b;
 }
 
 .dragon {
@@ -68,4 +68,20 @@
 
 .fairy {
     background-color: #e9e;
+}
+
+.low {
+    background: #ff7f0f;
+}
+
+.medium {
+    background: #ffdd57;
+}
+
+.high {
+    background: #a0e515;
+}
+
+.higher {
+    background: #00c2b8;
 }

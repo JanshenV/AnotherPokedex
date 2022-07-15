@@ -3,8 +3,6 @@ import './PokemonModal.css';
 import '../../css/Global.css';
 
 //Assets
-import femaleIcon from '../../assets/femaleIcon.png';
-import maleIcon from '../../assets/maleIcon.png';
 import pokeballCloseIcon from '../../assets/pokeballClose.png';
 import loadingIcon from '../../assets/loadingIcon.png';
 
@@ -97,9 +95,23 @@ export default function PokemonModal({
             const localStats = [];
 
             for (let stat of pokemonModalData.stats) {
+                let name = stat.stat.name;
+                let statLv = stat.base_stat;
+                if (name === 'attack') name = 'ATK';
+                if (name === 'defense') name = 'DEF';
+                if (name === 'special-attack') name = 'SATK';
+                if (name === 'special-defense') name = 'SDEF';
+                if (name === 'speed') name = 'SPD';
+
+                if (statLv <= 50) statLv = 'low';
+                if (statLv > 50 & statLv <= 80) statLv = 'medium';
+                if (statLv > 80 & statLv <= 120) statLv = 'high';
+                if (statLv > 120) statLv = 'higher';
+
                 const statData = {
-                    name: stat.stat.name,
-                    base: stat.base_stat
+                    name,
+                    base: stat.base_stat,
+                    statLv
                 };
                 localStats.push(statData);
             };
@@ -237,6 +249,39 @@ export default function PokemonModal({
                                                  ${name}
                                                  ${is_hidden ? '(hidden ability)' : ''}`}
                                             </span>
+                                        )
+                                    })
+                                }
+                            </div>
+
+                            <div className='unitInfo'>
+                                <h3>Stats: </h3>
+                                {
+                                    stats?.length &&
+                                    stats.map((stat, index) => {
+                                        const { name, base, statLv } = stat;
+                                        return (
+                                            <div
+                                                className='pokemonStats'
+                                                key={index}
+                                            >
+                                                
+                                                <div className='statsBaseName'>
+                                                    <span>{name}</span>
+                                                    <span>{base}</span>
+                                                </div>
+
+                                            
+
+                                                <div className='emptyStatBar'>
+                                                    <div
+                                                    className={`statBar ${statLv}`} style={{
+                                                    width: `${base*2}px`,   
+                                                    }}>
+                                                    
+                                                </div>
+                                                </div>
+                                            </div>
                                         )
                                     })
                                 }
