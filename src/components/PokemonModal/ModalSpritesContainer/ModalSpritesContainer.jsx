@@ -51,6 +51,8 @@ export default function ModalSpritesContainer({
         setTimeout(() => setGenderMessage(''), 3000);
     }, [genderMessage]);
 
+    console.log(currentSprite);
+
     return (
         <div className={`spritesContainer`}>
             <div className='spritesContainerHeader'>
@@ -72,11 +74,14 @@ export default function ModalSpritesContainer({
 
                 {
                     currentSprite &&
-                    <img
-                        src={currentSprite}
-                        alt={pokemonName}
+                    <div
                         className="pokemonImg"
-                    />
+                        style={{
+                            backgroundImage: `url(${currentSprite})`
+                        }}
+                    >
+                        
+                    </div>
                 }
                 
                 {
