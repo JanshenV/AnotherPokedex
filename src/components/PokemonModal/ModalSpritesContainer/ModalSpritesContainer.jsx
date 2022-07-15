@@ -4,6 +4,9 @@ import './ModalSpritesContainer.css';
 //Global Provider
 import useGlobal from '../../../hooks/useGlobal';
 
+//Assets
+import darkerPokeballBackGround from '../../../assets/darkerPokeballBackground.svg';
+
 //PropTypes
 import PropTypes from 'prop-types';
 ModalSpritesContainer.propTypes = {
@@ -22,12 +25,19 @@ ModalSpritesContainer.propTypes = {
     pokemonName: PropTypes.string,
 };
 
-// ModalSpritesContainer.defaultProps = {
-
-// };
+ModalSpritesContainer.defaultProps = {
+    setCurrentSprite: () => null,
+    currentGender: {
+        male: true,
+        female: false
+    },
+    selectionSprites: ['option 1', 'option 2', 'option ...'],
+    handleSpriteByGender: () => null,
+    pokemonName: 'Noah'
+};
 
 export default function ModalSpritesContainer({
-    pokemonName, handleSpriteByGender
+    pokemonName, handleSpriteByGender, pokemonDexNr
 }) {
 
     //From Global Provider
@@ -39,56 +49,83 @@ export default function ModalSpritesContainer({
 
     useEffect(() => {
         setTimeout(() => setGenderMessage(''), 3000);
-    }, [genderMessage]);
+    }, [setGenderMessage]);
 
     return (
         <div className={`spritesContainer`}>
-            <select
-                defaultValue={currentSprite}
-                onChange={(e) => setCurrentSprite(e.target.value)}
-            >
-                {
-                    selectionSprites?.length &&
-                    selectionSprites.map((sprite, index) => {
-                        return (
-                            <option
-                                value={sprite}
-                                key={index}
-                                selected={currentSprite === sprite}
-                            >
-                                Sprite: {index + 1}
-                            </option>
-                        )
-                    })
-                }
-            </select>
-            {
-                currentSprite &&
+            <div className='spritesContainerHeader'>
+                <h2 className='titleName'>
+                    {pokemonName}
+                </h2>
+                
+                <span className='titleDexnr'>
+                    #{pokemonDexNr}
+                </span>
+            </div>
+
+            <div className='spritesContainerMain'>
                 <img
-                    src={currentSprite}
-                    alt={pokemonName}
-                    className="pokemonImg"
+                    src={darkerPokeballBackGround}
+                    alt="Background Pokeball"
+                    className='pokeballBackGround'
                 />
-            }
-            <div className="genderIcons">
+
+                {
+                    currentSprite &&
+                    <div
+                        className="pokemonImg"
+                        style={{
+                            backgroundImage: `url(${currentSprite})`
+                        }}
+                    >
+                        
+                    </div>
+                }
+                
                 {
                     genderMessage &&
-                    <span>{genderMessage}</span>
+                    <span className='genderMessage'>
+                        {genderMessage}
+                    </span>
                 }
-                <button
-                    onClick={() => handleSpriteByGender('female')}
-                    className="femaleButton"
-                    disabled={currentGender.female}
-                >
-                </button>
+            </div>
+            
+            <div className='spritesContainerFooter'>
+                <div className="genderIcons">
+                    <button
+                        onClick={() => handleSpriteByGender('female')}
+                        className="femaleButton"
+                        disabled={currentGender.female}
+                    >
+                    </button>
 
-                <button
-                    onClick={() => handleSpriteByGender('male')}
-                    className="maleButton"
-                    disabled={currentGender.male}
+                    <button
+                        onClick={() => handleSpriteByGender('male')}
+                        className="maleButton"
+                        disabled={currentGender.male}
+                    >
+                    </button>
+                </div>
+
+                <select
+                    defaultValue={currentSprite}
+                    onChange={(e) => setCurrentSprite(e.target.value)}
                 >
-                </button>
-                              
+                    {
+                        selectionSprites?.length &&
+                        selectionSprites.map((sprite, index) => {
+                            return (
+                                <option
+                                    value={sprite}
+                                    key={index}
+                                    selected={currentSprite === sprite}
+                                >
+                                    Sprite: {index + 1}
+                                </option>
+                            )
+                        })
+                    }
+                </select>
             </div>
         </div>
     );
