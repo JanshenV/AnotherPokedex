@@ -8,6 +8,7 @@ import loadingIcon from '../../assets/loadingIcon.png';
 
 //Components
 import PokemonTypes from '../PokemonTypes';
+import ModalSpritesContainer from './ModalSpritesContainer/ModalSpritesContainer';
 
 //React
 import { useState, useEffect } from 'react';
@@ -28,38 +29,55 @@ PokemonModal.defaultProps = {
 
 
 export default function PokemonModal({
-    setModalUp, setPokemonModalData, pokemonModalData
+    setModalUp, pokemonModalData
 }) {
     const [allSprites, setallSprites] = useState([]);
-    const [sprites, setSprites] = useState([]);
+    const [selectionSprites, setSelectionSprites] = useState([]);
     const [currentSprite, setCurrentSprite] = useState('');
-    const [index, setIndex] = useState(0);
     const [species, setSpecies] = useState('');
     const [forms, setForms] = useState([]);
     const [stats, setStats] = useState([]);
 
+    const [currentGender, setCurrentGender] = useState({
+        male: '',
+        female: ''
+    });
+
     const backgroundByType = pokemonModalData.types[0].name;
-    const [genderMessage, setGenderMessage] = useState('');
     const [closeModalMessage, setCloseModalMessage] = useState(false);
     const [modalLoading, setModalLoading] = useState(true);
 
-    function setSpriteByGender(sprites, gender) {
+    function handleSpriteByGender(gender, sprites, first) {
+        if (allSprites.length && !sprites) sprites = [...allSprites];
+
         if (gender === 'female') {
+            setCurrentGender({
+                male: false,
+                female: true
+            });
             if (sprites[1]?.front.length) {
                 setCurrentSprite(sprites[1].front[0]);
-                return setSprites(sprites[1]?.front);
+                return setSelectionSprites(sprites[1]?.front);
             };
 
             if (sprites[1]?.shiny_front.length) {
-                setGenderMessage('There are only shiny female sprites to be shown.')
+                // setGenderMessage('There are only shiny female sprites to be shown.')
                 setCurrentSprite(sprites[1].shiny_front[0]);
-                return setSprites(sprites[1]?.shiny_front);
+                return setSelectionSprites(sprites[1]?.shiny_front);
             };
-            setGenderMessage('There are not female sprites to be shown.');
-            return setSprites(sprites[0]?.front);
+            // setGenderMessage('There are not female sprites to be shown.');
         };
 
-        return setSprites(sprites[0]?.front);
+        setCurrentGender({
+            male: true,
+            female: false
+        });
+
+        if (!first) {
+            setCurrentSprite(sprites[0].front[0]);
+        };
+
+        return setSelectionSprites(sprites[0]?.front);
     };
 
     useEffect(() => {
@@ -97,6 +115,7 @@ export default function PokemonModal({
             for (let stat of pokemonModalData.stats) {
                 let name = stat.stat.name;
                 let statLv = stat.base_stat;
+
                 if (name === 'attack') name = 'ATK';
                 if (name === 'defense') name = 'DEF';
                 if (name === 'special-attack') name = 'SATK';
@@ -122,7 +141,7 @@ export default function PokemonModal({
             const localAllSprites = pokemonModalData.sprites;
             setallSprites([...localAllSprites]);
             setCurrentSprite(localAllSprites[0].front[2]);
-            setSpriteByGender(localAllSprites, 'male');
+            handleSpriteByGender('male', localAllSprites, true);
         };
 
         async function makeAllRequests() {
@@ -136,11 +155,8 @@ export default function PokemonModal({
         makeAllRequests();
     }, [pokemonModalData]);
 
-    useEffect(() => {
-        setTimeout(() => setGenderMessage(''), 3000);
-    }, [genderMessage]);
 
-    console.log(pokemonModalData)
+    // console.log(pokemonModalData)
 
     return (
         <div className='outerContainer'>
@@ -161,48 +177,16 @@ export default function PokemonModal({
                                 <span>Click to close!</span>
                             }
                         </div>
-                        <div className={`spritesContainer ${backgroundByType}`}>
-                            <select defaultValue={currentSprite} onChange={(e) => setCurrentSprite(e.target.value)}>
-                                {
-                                    sprites?.length &&
-                                    sprites.map((sprite, index) => {
-                                        return (
-                                            <option
-                                                value={sprite}
-                                                key={index}
-                                                selected={currentSprite === sprite}
-                                            >
-                                                Sprite: {index + 1}
-                                            </option>
-                                        )
-                                    })
-                                }
-                            </select>
-                            {
-                                currentSprite &&
-                                <img
-                                    src={currentSprite}
-                                    alt={pokemonModalData.name}
-                                    className="pokemonImg"
-                                />
-                            }
-                            <div className="genderIcons">
-                                {
-                                    genderMessage &&
-                                    <span>{genderMessage}</span>
-                                }
-                                <button
-                                    onClick={() => setSpriteByGender(allSprites, 'female')}
-                                >
-                                </button>
 
-                                <button
-                                    onClick={() => setSpriteByGender(allSprites, 'male')}
-                                >
-                                </button>
-                              
-                            </div>
-                        </div>
+                        <ModalSpritesContainer
+                            currentSprite={currentSprite}
+                            setCurrentSprite={setCurrentSprite}
+                            currentGender={currentGender}
+                            selectionSprites={selectionSprites}
+                            handleSpriteByGender={handleSpriteByGender}
+                            pokemonName={pokemonModalData.name}
+                        />
+                        
                         <div className="pokemonInfo">
                             <div className='unitInfo'>
                                 <h3>Pokémon:</h3>
