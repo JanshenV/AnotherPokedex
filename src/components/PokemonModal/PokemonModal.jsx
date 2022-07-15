@@ -3,8 +3,6 @@ import './PokemonModal.css';
 import '../../css/Global.css';
 
 //Assets
-import femaleIcon from '../../assets/femaleIcon.png';
-import maleIcon from '../../assets/maleIcon.png';
 import pokeballCloseIcon from '../../assets/pokeballClose.png';
 import loadingIcon from '../../assets/loadingIcon.png';
 
@@ -97,9 +95,23 @@ export default function PokemonModal({
             const localStats = [];
 
             for (let stat of pokemonModalData.stats) {
+                let name = stat.stat.name;
+                let statLv = stat.base_stat;
+                if (name === 'attack') name = 'ATK';
+                if (name === 'defense') name = 'DEF';
+                if (name === 'special-attack') name = 'SATK';
+                if (name === 'special-defense') name = 'SDEF';
+                if (name === 'speed') name = 'SPD';
+
+                if (statLv <= 50) statLv = 'low';
+                if (statLv > 50 & statLv <= 80) statLv = 'medium';
+                if (statLv > 80 & statLv <= 120) statLv = 'high';
+                if (statLv > 120) statLv = 'higher';
+
                 const statData = {
-                    name: stat.stat.name,
-                    base: stat.base_stat
+                    name,
+                    base: stat.base_stat,
+                    statLv
                 };
                 localStats.push(statData);
             };
@@ -127,6 +139,8 @@ export default function PokemonModal({
     useEffect(() => {
         setTimeout(() => setGenderMessage(''), 3000);
     }, [genderMessage]);
+
+    console.log(pokemonModalData)
 
     return (
         <div className='outerContainer'>
@@ -180,44 +194,97 @@ export default function PokemonModal({
                                 <button
                                     onClick={() => setSpriteByGender(allSprites, 'female')}
                                 >
-                                    <img
-                                        src={femaleIcon}
-                                        alt="Venus"
-                                    />
                                 </button>
 
                                 <button
                                     onClick={() => setSpriteByGender(allSprites, 'male')}
                                 >
-                                    <img
-                                        src={maleIcon}
-                                        alt="Mars"
-                                    />
                                 </button>
                               
                             </div>
                         </div>
                         <div className="pokemonInfo">
-                            <h3>{pokemonModalData.name}</h3>
+                            <div className='unitInfo'>
+                                <h3>Pokémon:</h3>
+                                <h3 >{pokemonModalData.name}</h3>
+                            </div>
 
-                            <PokemonTypes
-                                types={pokemonModalData.types}
-                            />
-                            <div>
-                                <span>National Dex: </span>
+                            <div className='unitInfo'>
+                                <h3>Type:</h3>
+                                <PokemonTypes
+                                    types={pokemonModalData.types}
+                                />
+                            </div>
+
+
+                            <div className='unitInfo'>
+                                <h3>National Dex: </h3>
                                 <span>#{pokemonModalData.dexnr}</span>
                             </div>
-                            <div>
-                                <span>Species: </span>
+
+                            <div className='unitInfo'>
+                                <h3>Species: </h3>
                                 <span>{species}</span>
                             </div>
-                            <div>
-                                <span>Height: </span>
-                                <span>{pokemonModalData.height}</span>
+
+                            <div className='unitInfo'>
+                                <h3>Height: </h3>
+                                <span>{pokemonModalData.height / 10} m</span>
                             </div>
-                            <div>
-                                <span>Weight: </span>
-                                <span>{pokemonModalData.weight}</span>
+
+                            <div className='unitInfo'>
+                                <h3>Weight: </h3>
+                                <span>{pokemonModalData.weight / 10} kg</span>
+                            </div>
+
+                            <div className='unitInfo'>
+                                <h3>Abilities: </h3>
+                                {
+                                    pokemonModalData?.abilities?.length &&
+                                    pokemonModalData.abilities.map((ability, index) => {
+                                        const { ability: { name }, is_hidden } = ability;
+                                        return (
+                                            <span key={index}>
+                                                {`${index + 1}.
+                                                 ${name}
+                                                 ${is_hidden ? '(hidden ability)' : ''}`}
+                                            </span>
+                                        )
+                                    })
+                                }
+                            </div>
+
+                            <div className='unitInfo'>
+                                <h3>Stats: </h3>
+                                {
+                                    stats?.length &&
+                                    stats.map((stat, index) => {
+                                        const { name, base, statLv } = stat;
+                                        return (
+                                            <div
+                                                className='pokemonStats'
+                                                key={index}
+                                            >
+                                                
+                                                <div className='statsBaseName'>
+                                                    <span>{name}</span>
+                                                    <span>{base}</span>
+                                                </div>
+
+                                            
+
+                                                <div className='emptyStatBar'>
+                                                    <div
+                                                    className={`statBar ${statLv}`} style={{
+                                                    width: `${base*2}px`,   
+                                                    }}>
+                                                    
+                                                </div>
+                                                </div>
+                                            </div>
+                                        )
+                                    })
+                                }
                             </div>
                         </div>
 
