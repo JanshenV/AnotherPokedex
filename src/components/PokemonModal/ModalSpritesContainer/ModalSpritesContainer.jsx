@@ -1,9 +1,8 @@
 //Styles
 import './ModalSpritesContainer.css';
 
-//React
-import { useState, useEffect } from 'react';
-
+//Global Provider
+import useGlobal from '../../../hooks/useGlobal';
 
 //PropTypes
 import PropTypes from 'prop-types';
@@ -28,17 +27,20 @@ ModalSpritesContainer.propTypes = {
 // };
 
 export default function ModalSpritesContainer({
-    currentSprite, setCurrentSprite,
-    currentGender,
-    selectionSprites, handleSpriteByGender,
-    pokemonName,
+    pokemonName, handleSpriteByGender
 }) {
 
-    const [genderMessage, setGenderMessage] = useState('');
+    //From Global Provider
+    const {
+        useEffect, currentSprite, setCurrentSprite,
+        selectionSprites, currentGender,
+        genderMessage, setGenderMessage
+    } = useGlobal();
 
     useEffect(() => {
         setTimeout(() => setGenderMessage(''), 3000);
     }, [genderMessage]);
+
     return (
         <div className={`spritesContainer`}>
             <select
@@ -75,11 +77,15 @@ export default function ModalSpritesContainer({
                 }
                 <button
                     onClick={() => handleSpriteByGender('female')}
+                    className="femaleButton"
+                    disabled={currentGender.female}
                 >
                 </button>
 
                 <button
                     onClick={() => handleSpriteByGender('male')}
+                    className="maleButton"
+                    disabled={currentGender.male}
                 >
                 </button>
                               

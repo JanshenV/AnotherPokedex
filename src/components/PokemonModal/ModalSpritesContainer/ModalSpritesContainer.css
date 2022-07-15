@@ -33,11 +33,12 @@
 }
 
 .genderIcons {
-    width: 50%;
+    width: 40%;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
     margin-bottom: 6px;
+    position: relative;
 }
 
 .genderIcons button {
@@ -49,17 +50,30 @@
     background-repeat: no-repeat;
     background-position: center;
     border-radius: 6px;
+    position: relative;
 }
 
-.genderIcons button:nth-child(1) {
+.femaleButton {
     background-image: url("../../../assets/femaleIcon.png");
 }
-.genderIcons button:nth-child(2) {
+.maleButton {
     background-image: url("../../../assets/maleIcon.png");
 }
 
 .genderIcons button:hover {
     transform: scale(1.1);
+}
+
+.genderIcons span {
+    margin: 50px auto;
+    background: #84acac;
+    text-align: center;
+    font-weight: 900;
+    color: #fff;
+    font-family: arial;
+    position: absolute;
+    bottom: 0;
+    border-radius: 20px;
 }
 
 /* Sprites */

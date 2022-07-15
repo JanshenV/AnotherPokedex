@@ -2,6 +2,9 @@
 import './PokemonModal.css';
 import '../../css/Global.css';
 
+//Global Provider
+import useGlobal from '../../hooks/useGlobal';
+
 //Assets
 import pokeballCloseIcon from '../../assets/pokeballClose.png';
 import loadingIcon from '../../assets/loadingIcon.png';
@@ -9,9 +12,6 @@ import loadingIcon from '../../assets/loadingIcon.png';
 //Components
 import PokemonTypes from '../PokemonTypes';
 import ModalSpritesContainer from './ModalSpritesContainer/ModalSpritesContainer';
-
-//React
-import { useState, useEffect } from 'react';
 
 //PropTypes
 import PropTypes from 'prop-types';
@@ -26,22 +26,20 @@ PokemonModal.defaultProps = {
     setPokemonModalData: () => null,
 };
 
-
-
 export default function PokemonModal({
     setModalUp, pokemonModalData
 }) {
-    const [allSprites, setallSprites] = useState([]);
-    const [selectionSprites, setSelectionSprites] = useState([]);
-    const [currentSprite, setCurrentSprite] = useState('');
+
+    //From Global Provider
+    const {
+        useState, useEffect, setCurrentSprite,
+        allSprites, setAllSprites, setSelectionSprites,
+        setCurrentGender, setGenderMessage
+    } = useGlobal();
+
     const [species, setSpecies] = useState('');
     const [forms, setForms] = useState([]);
     const [stats, setStats] = useState([]);
-
-    const [currentGender, setCurrentGender] = useState({
-        male: '',
-        female: ''
-    });
 
     const backgroundByType = pokemonModalData.types[0].name;
     const [closeModalMessage, setCloseModalMessage] = useState(false);
@@ -61,11 +59,11 @@ export default function PokemonModal({
             };
 
             if (sprites[1]?.shiny_front.length) {
-                // setGenderMessage('There are only shiny female sprites to be shown.')
+                setGenderMessage('There are only shiny female sprites to be shown.')
                 setCurrentSprite(sprites[1].shiny_front[0]);
                 return setSelectionSprites(sprites[1]?.shiny_front);
             };
-            // setGenderMessage('There are not female sprites to be shown.');
+            setGenderMessage('There are not female sprites to be shown.');
         };
 
         setCurrentGender({
@@ -139,7 +137,7 @@ export default function PokemonModal({
 
         async function organiSprites() {
             const localAllSprites = pokemonModalData.sprites;
-            setallSprites([...localAllSprites]);
+            setAllSprites([...localAllSprites]);
             setCurrentSprite(localAllSprites[0].front[2]);
             handleSpriteByGender('male', localAllSprites, true);
         };
@@ -179,10 +177,6 @@ export default function PokemonModal({
                         </div>
 
                         <ModalSpritesContainer
-                            currentSprite={currentSprite}
-                            setCurrentSprite={setCurrentSprite}
-                            currentGender={currentGender}
-                            selectionSprites={selectionSprites}
                             handleSpriteByGender={handleSpriteByGender}
                             pokemonName={pokemonModalData.name}
                         />
