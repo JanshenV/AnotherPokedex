@@ -27,7 +27,7 @@ ModalSpritesContainer.propTypes = {
 // };
 
 export default function ModalSpritesContainer({
-    pokemonName, handleSpriteByGender
+    pokemonName, handleSpriteByGender, pokemonDexNr
 }) {
 
     //From Global Provider
@@ -43,7 +43,14 @@ export default function ModalSpritesContainer({
 
     return (
         <div className={`spritesContainer`}>
-            <select
+            <h2 className='titleName'>
+                {pokemonName}
+            </h2>
+
+            <span className='titleDexnr'>
+                #{pokemonDexNr}
+            </span>
+            {/* <select
                 defaultValue={currentSprite}
                 onChange={(e) => setCurrentSprite(e.target.value)}
             >
@@ -61,7 +68,7 @@ export default function ModalSpritesContainer({
                         )
                     })
                 }
-            </select>
+            </select> */}
             {
                 currentSprite &&
                 <img
@@ -70,11 +77,15 @@ export default function ModalSpritesContainer({
                     className="pokemonImg"
                 />
             }
+
+            {/* {
+                genderMessage &&
+                <span className='genderMessage'>
+                    {genderMessage}
+                </span>
+            } */}
+{/* 
             <div className="genderIcons">
-                {
-                    genderMessage &&
-                    <span>{genderMessage}</span>
-                }
                 <button
                     onClick={() => handleSpriteByGender('female')}
                     className="femaleButton"
@@ -89,7 +100,7 @@ export default function ModalSpritesContainer({
                 >
                 </button>
                               
-            </div>
+            </div> */}
         </div>
     );
 };

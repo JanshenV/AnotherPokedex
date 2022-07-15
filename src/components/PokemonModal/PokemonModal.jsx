@@ -63,7 +63,7 @@ export default function PokemonModal({
                 setCurrentSprite(sprites[1].shiny_front[0]);
                 return setSelectionSprites(sprites[1]?.shiny_front);
             };
-            setGenderMessage('There are not female sprites to be shown.');
+            setGenderMessage('There are no female sprites to be shown.');
         };
 
         setCurrentGender({
@@ -154,50 +154,38 @@ export default function PokemonModal({
     }, [pokemonModalData]);
 
 
-    // console.log(pokemonModalData)
-
     return (
         <div className='outerContainer'>
+
+            {/* Close Modal */}
+            <div className='closeModalContainer'>
+                <img
+                    className="closeModalImg"
+                    src={pokeballCloseIcon}
+                    alt="close modal"
+                    onMouseEnter={() => setCloseModalMessage(true)}
+                    onMouseLeave={() => setCloseModalMessage(false)}
+                    onClick={() => setModalUp(false)}
+                />
+                {
+                    closeModalMessage &&
+                    <span>Click to close!</span>
+                }
+            </div>
             {
                 !modalLoading ?
-                    <div className="innerContainer">
-                        <div className='closeModalContainer'>
-                            <img
-                                className="closeModalImg"
-                                src={pokeballCloseIcon}
-                                alt="close modal"
-                                onMouseEnter={() => setCloseModalMessage(true)}
-                                onMouseLeave={() => setCloseModalMessage(false)}
-                                onClick={() => setModalUp(false)}
-                            />
-                            {
-                                closeModalMessage &&
-                                <span>Click to close!</span>
-                            }
-                        </div>
-
+                    <div className={`innerContainer ${backgroundByType}`}>
                         <ModalSpritesContainer
                             handleSpriteByGender={handleSpriteByGender}
                             pokemonName={pokemonModalData.name}
+                            pokemonDexNr={pokemonModalData.dexnr}
                         />
                         
                         <div className="pokemonInfo">
                             <div className='unitInfo'>
-                                <h3>Pokémon:</h3>
-                                <h3 >{pokemonModalData.name}</h3>
-                            </div>
-
-                            <div className='unitInfo'>
-                                <h3>Type:</h3>
                                 <PokemonTypes
                                     types={pokemonModalData.types}
                                 />
-                            </div>
-
-
-                            <div className='unitInfo'>
-                                <h3>National Dex: </h3>
-                                <span>#{pokemonModalData.dexnr}</span>
                             </div>
 
                             <div className='unitInfo'>
@@ -253,11 +241,11 @@ export default function PokemonModal({
 
                                                 <div className='emptyStatBar'>
                                                     <div
-                                                    className={`statBar ${statLv}`} style={{
-                                                    width: `${base*2}px`,   
-                                                    }}>
+                                                        className={`statBar ${statLv}`} style={{
+                                                            width: `${base * 2}px`,
+                                                        }}>
                                                     
-                                                </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         )
