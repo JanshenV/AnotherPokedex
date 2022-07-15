@@ -18,11 +18,12 @@
     border-image-slice: 1;
     border-radius: 10px;
     width: 40%;
-    max-width: 42%;
-    min-height: 90vh;
+    max-width: 60%;
+    /* min-height: 90vh; */
+    height: 90vh;
     overflow-y: scroll;
     overflow-x: hidden;
-    position: relative;
+    /* position: relative; */
 }
 
 /* Scrollbar */
@@ -99,9 +100,9 @@
     align-items: center;
     background: white;
     border-radius: 10px;
-    position: absolute;
-    top: 40%;
-    padding-top: 50px;
+    /* position: absolute;
+    top: 40%; */
+    /* padding-top: 50px; */
 }
 
 .unitInfo {
