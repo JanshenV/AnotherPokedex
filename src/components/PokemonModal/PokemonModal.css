@@ -17,8 +17,8 @@
     border: 5px solid transparent;
     border-image-slice: 1;
     border-radius: 10px;
-    width: 40%;
-    max-width: 60%;
+    width: 30%;
+    /* max-width: 40%; */
     /* min-height: 90vh; */
     height: 90vh;
     overflow-y: scroll;

@@ -49,7 +49,7 @@ export default function ModalSpritesContainer({
 
     useEffect(() => {
         setTimeout(() => setGenderMessage(''), 3000);
-    }, [setGenderMessage]);
+    }, [genderMessage]);
 
     return (
         <div className={`spritesContainer`}>
