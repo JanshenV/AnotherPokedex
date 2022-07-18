@@ -79,7 +79,6 @@ export default function PokemonModal({
         return setSelectionSprites(sprites[0]?.front);
     };
 
-    console.log(width)
     useEffect(() => {
         async function requestSpecies() {
             const { species: { url } } = pokemonModalData;

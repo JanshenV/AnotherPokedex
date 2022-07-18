@@ -1,6 +1,3 @@
-//Styles
-import './PokemonSprites.css';
-
 //React
 import { useState, useEffect } from 'react';
 
@@ -31,10 +28,8 @@ export default function PokemonSprites({ sprites, iconSprites }) {
 
     return (
         <img
-            style={{
-                width: '200px'
-            }}
-            className="pokemonSprite"
+            width='200px'
+            height='200px'
             src={pokemonSprites}
             alt='Pokemon Image'
         />
