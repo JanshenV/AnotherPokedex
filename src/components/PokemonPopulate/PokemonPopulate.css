@@ -1,8 +1,9 @@
 .pokedexContainer {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    width: 90%;
+    max-width: 90%;
     gap: 20px;
-    height: 80vh;
+    min-height: 80vh;
     position: relative;
     padding-top: 40px;
 }
@@ -58,7 +59,13 @@
 }
 
 .pokemonIconsContainer {
-    height: 180px;
+    height: 300px;
+    width: 167px;
+    border: 5px solid rgb(14, 14, 14);
+}
+
+.pokemonIconsContainer img {
+    object-fit: contain;
 }
 
 /* Responsiviness */
@@ -71,7 +78,8 @@
 
 @media only screen and (max-width: 1380px) {
     .pokedexContainer {
-        grid-template-columns: repeat(5, 1fr);
+        grid-template-columns: repeat(6, 1fr);
+        gap: 10px;
     }
 }
 
