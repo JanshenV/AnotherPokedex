@@ -29,7 +29,7 @@
         <script>
             window.addEventListener("load", (event) => {
                 let region = localStorage.getItem("selectedRegion") || "Kanto";
-                document.querySelectorAll(
+                document.querySelector(
                     "link[rel='preconnect']"
                 ).href = `https://anotherpokedexdb.herokuapp.com/${region}`;
             });
