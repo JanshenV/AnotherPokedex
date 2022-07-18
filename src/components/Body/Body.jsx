@@ -4,6 +4,7 @@ import './Body.css';
 //Components
 import Header from '../Header';
 import PokemonPopulate from '../PokemonPopulate';
+import CircularIndeterminate from '../LoadingComponent';
 
 //Util
 import { allRegions } from '../../util/staticArray';
@@ -122,11 +123,7 @@ export default function Body({ }) {
             }
 
             {loading ?
-                <img
-                    className="loadingIcon"
-                    src={loadingIcon}
-                    alt="Your Content is Loading"
-                />
+                <CircularIndeterminate />
                 :
                 <PokemonPopulate
                     pokedexList={pokedexList}
