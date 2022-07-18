@@ -1,12 +1,12 @@
 header {
     width: 100vw;
     height: 20vh;
-    background: linear-gradient(rgba(128, 128, 128, 3), rgb(87, 81, 81));
+    background: linear-gradient(to right, rgba(255, 0, 0, 0.7) 50%, rgb(253, 253, 253) 50%);
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 10px 15px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 5px;
 }
 
 header input {
@@ -28,7 +28,7 @@ header input {
 
 .focusMessage {
     position: absolute;
-    background: white;
+    background: rgb(255, 249, 249);
     border-radius: 10px;
     top: 0;
     padding: 0 10px;
