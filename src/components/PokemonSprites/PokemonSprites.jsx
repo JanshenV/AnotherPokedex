@@ -31,6 +31,9 @@ export default function PokemonSprites({ sprites, iconSprites }) {
 
     return (
         <img
+            style={{
+                width: '200px'
+            }}
             className="pokemonSprite"
             src={pokemonSprites}
             alt='Pokemon Image'

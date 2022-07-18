@@ -85,20 +85,12 @@
     }
 }
 
-@media (max-width: 689px) {
-    .pokedexContainer {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 400px) {
+@media (max-width: 639px) {
     .notGrid {
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
-    }
-
-    .pokeballChangeSprites {
-        right: -14vw;
+        height: 100%;
     }
 }
