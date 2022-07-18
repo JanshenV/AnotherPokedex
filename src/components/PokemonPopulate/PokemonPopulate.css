@@ -76,7 +76,7 @@
     }
 }
 
-@media only screen and (max-width: 1599) {
+@media only screen and (max-width: 1599px) {
     .pokedexContainer {
         grid-template-columns: repeat(6, 1fr);
         gap: 10px;
