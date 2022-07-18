@@ -8,6 +8,9 @@ import PokedexIcon from '../../assets/pokedex-icon-21.jpg';
 //React
 import { useState } from 'react';
 
+//Global Provider
+import  useGlobal  from '../../hooks/useGlobal';
+
 //PropTypes
 import PropTypes from 'prop-types';
 
@@ -23,10 +26,25 @@ Header.defaultProps = {
 
 
 export default function Header({ searchPokemon, requestPokemon }) {
-    const [searchInputValue, setSearchInputValue] = useState('');
+    const {
+        setSearchInputValue, searchInputValue,
+        useState, useEffect
+    } = useGlobal();
 
+    const [focusMessage, setFocusMessage] = useState('');
+
+    useEffect(() => {
+        setTimeout(() => setFocusMessage(''), 3000);
+    }, [focusMessage]);
+    
     return (
         <header>
+            {
+                focusMessage &&
+                <span className='focusMessage'>
+                    {focusMessage}
+                </span>
+            }
             <img
                 className="logoIcon"
                 src={PokedexIcon}
@@ -38,7 +56,8 @@ export default function Header({ searchPokemon, requestPokemon }) {
                 value={searchInputValue}
                 placeholder="Pokemon's name or Pokedex Nr."
                 onChange={(e) => searchPokemon(e, setSearchInputValue)}
-                onKeyDown={(e) => requestPokemon(e, searchInputValue)} />
+                onKeyDown={(e) => requestPokemon(e, searchInputValue)}
+                onFocus={() => setFocusMessage('If pokémon not found, press "Enter" to request it.')}/>
 
             <SearchIcon className='searchIcon' />
         </header>

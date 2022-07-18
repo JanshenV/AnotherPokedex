@@ -5,7 +5,7 @@ export default function useGlobalProvider() {
     const [allSprites, setAllSprites] = useState([]);
     const [selectionSprites, setSelectionSprites] = useState([]);
     const [genderMessage, setGenderMessage] = useState('');
-
+    const [searchInputValue, setSearchInputValue] = useState('');
     const [currentGender, setCurrentGender] = useState({
         male: '',
         female: ''
@@ -19,6 +19,6 @@ export default function useGlobalProvider() {
         selectionSprites, setSelectionSprites,
         currentGender, setCurrentGender,
         genderMessage, setGenderMessage,
-    
+        searchInputValue, setSearchInputValue
     };
 };

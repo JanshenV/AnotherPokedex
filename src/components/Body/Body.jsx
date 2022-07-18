@@ -43,10 +43,8 @@ export default function Body({ }) {
     }, []);
 
     async function searchPokemonFilter(event, setSearchInputValue) {
-        let pokemonName = event.target.value;
+        let pokemonName = event.target.value.toLowerCase();
         setSearchInputValue(pokemonName);
-        pokemonName = pokemonName.toLowerCase();
-
 
         if (!pokemonName.length) return setPokedexList(permaPokedexList);
 

@@ -6,6 +6,7 @@ header {
     align-items: center;
     justify-content: center;
     position: relative;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 10px 15px;
 }
 
 header input {
@@ -23,6 +24,15 @@ header input {
     position: absolute;
     left: 62%;
     cursor: pointer;
+}
+
+.focusMessage {
+    position: absolute;
+    background: white;
+    border-radius: 10px;
+    top: 0;
+    padding: 0 10px;
+    font-weight: bold;
 }
 
 .logoIcon {
