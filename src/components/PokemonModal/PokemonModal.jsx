@@ -7,7 +7,6 @@ import useGlobal from '../../hooks/useGlobal';
 
 //Assets
 import pokeballCloseIcon from '../../assets/pokeballClose.png';
-import loadingIcon from '../../assets/loadingIcon.png';
 
 //Components
 import ModalSpritesContainer from './ModalSpritesContainer/ModalSpritesContainer';

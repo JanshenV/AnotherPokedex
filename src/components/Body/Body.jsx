@@ -9,18 +9,19 @@ import CircularIndeterminate from '../LoadingComponent';
 //Util
 import { allRegions } from '../../util/staticArray';
 
-//React Hooks
-import { useState, useEffect } from 'react';
+//Global Provider
+import useGlobal from '../../hooks/useGlobal';
 
 //Api
 import {
     handlePokedex, handleIndividualPokemon
 } from '../../api/apiCalls';
 
-//Assets
-import loadingIcon from '../../assets/loadingIcon.png';
-
 export default function Body({ }) {
+
+    const {
+        useState, useEffect
+    } = useGlobal();
 
     const [pokedexList, setPokedexList] = useState([]);
     const [permaPokedexList, setPermaPokedexList] = useState([]);
@@ -101,8 +102,11 @@ export default function Body({ }) {
                     <div className="pokedexRegionMenu">
                         <select
                             onChange={({ target: { value } }) => handleRegionalPokedex(value)}
+                            defaultValue={selectedRegion}
                         >
-                            <option value=""> Choose Pokedex Region </option>
+                            <option value="">
+                                Choose Pokedex Region
+                            </option>
                             {
                                 allRegions.map(({ textContent }, index) => {
                                     return (
@@ -123,7 +127,9 @@ export default function Body({ }) {
             }
 
             {loading ?
-                <CircularIndeterminate />
+                <div className='loadingContent'>
+                    <CircularIndeterminate />
+                </div>
                 :
                 <PokemonPopulate
                     pokedexList={pokedexList}
