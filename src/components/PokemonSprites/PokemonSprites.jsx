@@ -28,8 +28,8 @@ export default function PokemonSprites({ sprites, iconSprites }) {
 
     return (
         <img
-            width='200px'
-            height='200px'
+            width={200}
+            height={200}
             src={pokemonSprites}
             alt='Pokemon Image'
         />
