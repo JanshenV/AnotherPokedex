@@ -11,12 +11,14 @@ export default function useGlobalProvider() {
         female: ''
     });
 
+
     return {
         useState, useEffect,
         currentSprite, setCurrentSprite,
         allSprites,  setAllSprites,
         selectionSprites, setSelectionSprites,
         currentGender, setCurrentGender,
-        genderMessage, setGenderMessage
+        genderMessage, setGenderMessage,
+    
     };
 };

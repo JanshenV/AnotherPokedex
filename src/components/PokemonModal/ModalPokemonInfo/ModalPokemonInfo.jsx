@@ -1,5 +1,6 @@
 //Styles
 import './ModalPokemonInfo.css';
+import '../../../css/Global.css';
 
 //Assets
 import HeightIcon from '../../../assets/heightIcon.svg';
@@ -12,7 +13,7 @@ export default function ModalPokemonInfo({
     pokemonModalData, species, stats, 
     description, color
 }) {
-
+    console.log(pokemonModalData.moves);
     return (
         <div className="pokemonInfo">
             <PokemonTypes
@@ -24,38 +25,64 @@ export default function ModalPokemonInfo({
 
 
             <div className='generalInfo'>
-                <div>
-                    <img src={HeightIcon} alt="Height Icon" />
-                    <h4>{pokemonModalData.height / 10} m</h4>
+                <div className='unitGeneralInfo'>
+                    <div className='flex-row'>
+                        <img src={HeightIcon} alt="Height Icon" />
+                        <h4>{pokemonModalData.height / 10} m</h4>
+                    </div>
                     <span>Height</span>
                 </div>
 
-                <div>
-                    <img src={WeightIcon} alt="Weight Icon" />
-                    <h4>{pokemonModalData.weight / 10} kg</h4>
+                <div className='unitGeneralInfo'>
+                    <div className='flex-row'>
+                        <img src={WeightIcon} alt="Weight Icon" />
+                        <h4>{pokemonModalData.weight / 10} kg</h4>
+                    </div>
                     <span>Weight</span>
                 </div>
 
-                <div>
+                <div className='unitGeneralInfo'>
                     <h4>{species}</h4>
                     <span>Species</span>
                 </div>
+            </div>
 
-                <div>
-                    {
-                        pokemonModalData?.abilities?.length &&
-                        pokemonModalData.abilities.map((ability, index) => {
-                            const { ability: { name }, is_hidden } = ability;
-                            return (
-                                <span key={index}>
-                                    {`${index + 1}.
-                                    ${name}
-                                    ${is_hidden ? '(hidden ability)' : ''}`}
-                                </span>
-                            )
-                        })
-                    }
+            <div className='abilities-Moves'>
+                <div className='flex-column'>
                     <h4>Abilities: </h4>
+                    <div className='flex-column'>
+                        {
+                            pokemonModalData?.abilities?.length &&
+                            pokemonModalData.abilities.map((ability, index) => {
+                                const { ability: { name }, is_hidden } = ability;
+                                return (
+                                    <span
+                                        className='ability'
+                                        key={index}>
+                                        {`${index + 1}. ${name}
+                                        ${is_hidden ? '(hidden ability)' : ''}`}
+                                    </span>
+                                )
+                            })
+                        }
+                    </div>
+                </div>
+
+                <div className='flex-column'>
+                    <h4>Moves: </h4>
+                    <div className='flex-column'>
+                        {
+                            pokemonModalData?.moves?.length ?
+                                pokemonModalData?.moves.slice(0,4).map(({ name }, index) => {
+                                    return (
+                                        <span key={index}>
+                                            {name}
+                                        </span>
+                                    )
+                                }) :
+                                <></>
+                        }
+                    </div>
                 </div>
             </div>
 
