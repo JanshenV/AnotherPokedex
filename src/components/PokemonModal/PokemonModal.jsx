@@ -12,6 +12,7 @@ import loadingIcon from '../../assets/loadingIcon.png';
 //Components
 import ModalSpritesContainer from './ModalSpritesContainer/ModalSpritesContainer';
 import ModalPokemonInfo from './ModalPokemonInfo/ModalPokemonInfo';
+import CircularIndeterminate from '../LoadingComponent';
 
 //PropTypes
 import PropTypes from 'prop-types';
@@ -195,7 +196,7 @@ export default function PokemonModal({
                     </div>
                     :
                     <div className='contentLoading'>
-                        <img src={loadingIcon} alt="content loading" />
+                        <CircularIndeterminate />
                     </div>
             }
         </div>
