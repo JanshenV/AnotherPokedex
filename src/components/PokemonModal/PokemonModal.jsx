@@ -2,17 +2,16 @@
 import './PokemonModal.css';
 import '../../css/Global.css';
 
+//Global Provider
+import useGlobal from '../../hooks/useGlobal';
+
 //Assets
-import femaleIcon from '../../assets/femaleIcon.png';
-import maleIcon from '../../assets/maleIcon.png';
 import pokeballCloseIcon from '../../assets/pokeballClose.png';
 import loadingIcon from '../../assets/loadingIcon.png';
 
 //Components
-import PokemonTypes from '../PokemonTypes';
-
-//React
-import { useState, useEffect } from 'react';
+import ModalSpritesContainer from './ModalSpritesContainer/ModalSpritesContainer';
+import ModalPokemonInfo from './ModalPokemonInfo/ModalPokemonInfo';
 
 //PropTypes
 import PropTypes from 'prop-types';
@@ -27,41 +26,57 @@ PokemonModal.defaultProps = {
     setPokemonModalData: () => null,
 };
 
-
-
 export default function PokemonModal({
-    setModalUp, setPokemonModalData, pokemonModalData
+    setModalUp, pokemonModalData
 }) {
-    const [allSprites, setallSprites] = useState([]);
-    const [sprites, setSprites] = useState([]);
-    const [currentSprite, setCurrentSprite] = useState('');
-    const [index, setIndex] = useState(0);
+
+    //From Global Provider
+    const {
+        useState, useEffect, setCurrentSprite,
+        allSprites, setAllSprites, setSelectionSprites,
+        setCurrentGender, setGenderMessage
+    } = useGlobal();
+
     const [species, setSpecies] = useState('');
+    const [description, setDescription] = useState('');
     const [forms, setForms] = useState([]);
     const [stats, setStats] = useState([]);
 
     const backgroundByType = pokemonModalData.types[0].name;
-    const [genderMessage, setGenderMessage] = useState('');
     const [closeModalMessage, setCloseModalMessage] = useState(false);
     const [modalLoading, setModalLoading] = useState(true);
 
-    function setSpriteByGender(sprites, gender) {
+    function handleSpriteByGender(gender, sprites, first) {
+        if (allSprites.length && !sprites) sprites = [...allSprites];
+
         if (gender === 'female') {
+            setCurrentGender({
+                male: false,
+                female: true
+            });
             if (sprites[1]?.front.length) {
                 setCurrentSprite(sprites[1].front[0]);
-                return setSprites(sprites[1]?.front);
+                return setSelectionSprites(sprites[1]?.front);
             };
 
             if (sprites[1]?.shiny_front.length) {
                 setGenderMessage('There are only shiny female sprites to be shown.')
                 setCurrentSprite(sprites[1].shiny_front[0]);
-                return setSprites(sprites[1]?.shiny_front);
+                return setSelectionSprites(sprites[1]?.shiny_front);
             };
-            setGenderMessage('There are not female sprites to be shown.');
-            return setSprites(sprites[0]?.front);
+            setGenderMessage('There are no female sprites to be shown.');
         };
 
-        return setSprites(sprites[0]?.front);
+        setCurrentGender({
+            male: true,
+            female: false
+        });
+
+        if (!first) {
+            setCurrentSprite(sprites[0].front[0]);
+        };
+
+        return setSelectionSprites(sprites[0]?.front);
     };
 
     useEffect(() => {
@@ -70,8 +85,10 @@ export default function PokemonModal({
             const request = await fetch(url);
             if (!request.ok) return;
 
-            const { genera } = await request.json();
+            const { genera, flavor_text_entries } = await request.json();
+            const removingBreakLines = flavor_text_entries[0].flavor_text.replace(/(\n|\f)/gm, " ");
             setSpecies(genera[7].genus);
+            setDescription(removingBreakLines);
         };
 
         async function requestForms() {
@@ -97,9 +114,24 @@ export default function PokemonModal({
             const localStats = [];
 
             for (let stat of pokemonModalData.stats) {
+                let name = stat.stat.name;
+                let statLv = stat.base_stat;
+
+                if (name === 'attack') name = 'ATK';
+                if (name === 'defense') name = 'DEF';
+                if (name === 'special-attack') name = 'SATK';
+                if (name === 'special-defense') name = 'SDEF';
+                if (name === 'speed') name = 'SPD';
+
+                if (statLv <= 50) statLv = 'low';
+                if (statLv > 50 & statLv <= 80) statLv = 'medium';
+                if (statLv > 80 & statLv <= 120) statLv = 'high';
+                if (statLv > 120) statLv = 'higher';
+
                 const statData = {
-                    name: stat.stat.name,
-                    base: stat.base_stat
+                    name,
+                    base: stat.base_stat,
+                    statLv
                 };
                 localStats.push(statData);
             };
@@ -108,9 +140,9 @@ export default function PokemonModal({
 
         async function organiSprites() {
             const localAllSprites = pokemonModalData.sprites;
-            setallSprites([...localAllSprites]);
+            setAllSprites([...localAllSprites]);
             setCurrentSprite(localAllSprites[0].front[2]);
-            setSpriteByGender(localAllSprites, 'male');
+            handleSpriteByGender('male', localAllSprites, true);
         };
 
         async function makeAllRequests() {
@@ -124,103 +156,42 @@ export default function PokemonModal({
         makeAllRequests();
     }, [pokemonModalData]);
 
-    useEffect(() => {
-        setTimeout(() => setGenderMessage(''), 3000);
-    }, [genderMessage]);
+    console.log(pokemonModalData);
+    
 
     return (
         <div className='outerContainer'>
+
+            {/* Close Modal */}
+            <div className='closeModalContainer'>
+                <img
+                    className="closeModalImg"
+                    src={pokeballCloseIcon}
+                    alt="close modal"
+                    onMouseEnter={() => setCloseModalMessage(true)}
+                    onMouseLeave={() => setCloseModalMessage(false)}
+                    onClick={() => setModalUp(false)}
+                />
+                {
+                    closeModalMessage &&
+                    <span>Click to close!</span>
+                }
+            </div>
             {
                 !modalLoading ?
-                    <div className="innerContainer">
-                        <div className='closeModalContainer'>
-                            <img
-                                className="closeModalImg"
-                                src={pokeballCloseIcon}
-                                alt="close modal"
-                                onMouseEnter={() => setCloseModalMessage(true)}
-                                onMouseLeave={() => setCloseModalMessage(false)}
-                                onClick={() => setModalUp(false)}
-                            />
-                            {
-                                closeModalMessage &&
-                                <span>Click to close!</span>
-                            }
-                        </div>
-                        <div className={`spritesContainer ${backgroundByType}`}>
-                            <select defaultValue={currentSprite} onChange={(e) => setCurrentSprite(e.target.value)}>
-                                {
-                                    sprites?.length &&
-                                    sprites.map((sprite, index) => {
-                                        return (
-                                            <option
-                                                value={sprite}
-                                                key={index}
-                                                selected={currentSprite === sprite}
-                                            >
-                                                Sprite: {index + 1}
-                                            </option>
-                                        )
-                                    })
-                                }
-                            </select>
-                            {
-                                currentSprite &&
-                                <img
-                                    src={currentSprite}
-                                    alt={pokemonModalData.name}
-                                    className="pokemonImg"
-                                />
-                            }
-                            <div className="genderIcons">
-                                {
-                                    genderMessage &&
-                                    <span>{genderMessage}</span>
-                                }
-                                <button
-                                    onClick={() => setSpriteByGender(allSprites, 'female')}
-                                >
-                                    <img
-                                        src={femaleIcon}
-                                        alt="Venus"
-                                    />
-                                </button>
-
-                                <button
-                                    onClick={() => setSpriteByGender(allSprites, 'male')}
-                                >
-                                    <img
-                                        src={maleIcon}
-                                        alt="Mars"
-                                    />
-                                </button>
-                              
-                            </div>
-                        </div>
-                        <div className="pokemonInfo">
-                            <h3>{pokemonModalData.name}</h3>
-
-                            <PokemonTypes
-                                types={pokemonModalData.types}
-                            />
-                            <div>
-                                <span>National Dex: </span>
-                                <span>#{pokemonModalData.dexnr}</span>
-                            </div>
-                            <div>
-                                <span>Species: </span>
-                                <span>{species}</span>
-                            </div>
-                            <div>
-                                <span>Height: </span>
-                                <span>{pokemonModalData.height}</span>
-                            </div>
-                            <div>
-                                <span>Weight: </span>
-                                <span>{pokemonModalData.weight}</span>
-                            </div>
-                        </div>
-
+                    <div className={`innerContainer ${backgroundByType}`}>
+                        <ModalSpritesContainer
+                            handleSpriteByGender={handleSpriteByGender}
+                            pokemonName={pokemonModalData.name}
+                            pokemonDexNr={pokemonModalData.dexnr}
+                        />
+                        <ModalPokemonInfo
+                            pokemonModalData={pokemonModalData}
+                            species={species}
+                            stats={stats}
+                            description={description}
+                            color={backgroundByType}
+                        />
                     </div>
                     :
                     <div className='contentLoading'>

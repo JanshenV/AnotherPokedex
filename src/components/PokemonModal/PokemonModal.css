@@ -13,19 +13,20 @@
 .innerContainer {
     display: flex;
     align-items: center;
-    gap: 20px;
     flex-direction: column;
     border: 5px solid transparent;
     border-image-slice: 1;
-    background: white;
-    border-radius: 20px;
-    max-height: 90vh;
-    width: 30%;
-    max-width: 30%;
+    border-radius: 10px;
+    width: 40%;
+    /* max-width: 40%; */
+    /* min-height: 90vh; */
+    height: 90vh;
     overflow-y: scroll;
     overflow-x: hidden;
+    /* position: relative; */
 }
 
+/* Scrollbar */
 .innerContainer::-webkit-scrollbar {
     width: 10px;
 }
@@ -38,13 +39,18 @@
 ::-webkit-scrollbar-thumb:hover {
     background: rgb(179, 33, 33);
 }
+
+/* Scrollbar */
+
+/* Conditional div when loading content */
 .contentLoading {
     display: flex;
     align-items: center;
     justify-content: center;
     border: 5px solid black;
     background: white;
-    width: 50vw;
+    width: 40%;
+    max-width: 42%;
     height: 75vh;
 }
 
@@ -53,56 +59,9 @@
     height: 120px;
 }
 
-.spritesContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    border-radius: 20px;
-    width: 100%;
-}
+/* Conditional div when loading content */
 
-.pokemonImg {
-    cursor: pointer;
-    width: 80%;
-    transition: transform 0.2s;
-    object-fit: contain;
-}
-
-.pokemonImg:hover {
-    transform: scale(1.1);
-}
-
-.spritesContainer select {
-    transition: transform 0.1s;
-    padding: 6px 0;
-    cursor: pointer;
-}
-.spritesContainer select:hover {
-    transform: scale(1.1);
-}
-
-.genderIcons {
-    width: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-}
-
-.genderIcons button {
-    width: 15%;
-}
-
-.genderIcons img {
-    width: 100%;
-    object-fit: cover;
-    cursor: pointer;
-    transition: transform 0.1s;
-}
-
-.genderIcons button:hover {
-    transform: scale(1.1);
-}
+/* Button to close modal */
 
 .closeModalContainer {
     position: absolute;
@@ -113,8 +72,8 @@
 
 .closeModalContainer span {
     position: absolute;
-    left: -2vw;
-    top: -8vh;
+    left: -25%;
+    top: -65%;
     background: white;
     font-weight: bolder;
     border-radius: 10px;
@@ -123,9 +82,11 @@
 
 .closeModalImg {
     width: 75px;
-    transition: transform 0.1s;
+    transition: transform 0.3s;
 }
 
 .closeModalImg:hover {
-    transform: scale(1.7);
+    transform: scale(1.5);
 }
+
+/* Button to close modal */

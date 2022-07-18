@@ -1,71 +1,96 @@
 .normal {
-    background-color: #aa9;
+    background: #aaa67f;
 }
 
 .fire {
-    background-color: #f42;
+    background: #f57d31;
 }
 
 .water {
-    background-color: #39f;
+    background: #6493eb;
 }
 
 .electric {
-    background-color: #fc3;
+    background: #f9cf30;
 }
 
 .grass {
-    background-color: #7c5;
+    background: #74cb48;
 }
 
 .ice {
-    background-color: #6cf;
+    background: #9ad6df;
 }
 
 .fighting {
-    background-color: #b54;
+    background: #c12239;
 }
 
 .poison {
-    background-color: #a59;
+    background: #a43e9e;
 }
 
 .ground {
-    background-color: #db5;
+    background: #dec16b;
 }
 
 .flying {
-    background-color: #89f;
+    background: #a891ec;
 }
 
 .psychic {
-    background-color: #f59;
+    background: #fb5584;
 }
 
 .bug {
-    background-color: #ab2;
+    background: #a7b723;
 }
 
 .rock {
-    background-color: #ba6;
+    background: #b69e31;
 }
 
 .ghost {
-    background-color: #66b
+    background: #70559b;
 }
 
 .dragon {
-    background-color: #76e;
+    background: #7037ff;
 }
 
 .dark {
-    background-color: #754;
+    background: #75574c;
 }
 
 .steel {
-    background-color: #aab;
+    background: #b7b9d0;
 }
 
 .fairy {
-    background-color: #e9e;
+    background: #e69eac;
+}
+
+.low {
+    background: #ff7f0f;
+}
+
+.medium {
+    background: #ffdd57;
+}
+
+.high {
+    background: #a0e515;
+}
+
+.higher {
+    background: #00c2b8;
+}
+
+.flex-row {
+    display: flex;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
 }
