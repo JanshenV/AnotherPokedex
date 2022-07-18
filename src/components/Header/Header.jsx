@@ -2,11 +2,7 @@
 import './Header.css';
 
 //Icons
-import { SearchIcon } from '@heroicons/react/solid'
 import PokedexIcon from '../../assets/pokedex-icon-21.jpg';
-
-//React
-import { useState } from 'react';
 
 //Global Provider
 import  useGlobal  from '../../hooks/useGlobal';
@@ -38,7 +34,7 @@ export default function Header({ searchPokemon, requestPokemon }) {
     }, [focusMessage]);
     
     return (
-        <header>
+        <header className='headerContainer'>
             {
                 focusMessage &&
                 <span className='focusMessage'>

@@ -10,7 +10,7 @@ export async function handlePokedex(region) {
         };
 
         const pokedexRequest = await fetch(`${baseUrl}pokedex/${region}`, requestOptions);
-        if (!pokedexRequest.ok) throw 'Pokedex request failed';
+        if (!pokedexRequest.ok) throw new Error('Pokedex request failed');
 
         const pokedexResponse = await pokedexRequest.json();
 
@@ -30,7 +30,8 @@ export async function handleIndividualPokemon(pokemonName) {
         };
 
         const pokedexRequest = await fetch(`${baseUrl}pokemon/${pokemonName}`, requestOptions);
-        if (!pokedexRequest.ok) throw 'Pokedex request failed';
+        if (!pokedexRequest.ok) throw new Error('Pokedex request failed');
+        
 
         const pokedexResponse = await pokedexRequest.json();
 
