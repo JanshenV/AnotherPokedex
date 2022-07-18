@@ -13,7 +13,6 @@ export default function ModalPokemonInfo({
     pokemonModalData, species, stats, 
     description, color
 }) {
-    console.log(pokemonModalData.moves);
     return (
         <div className="pokemonInfo">
             <PokemonTypes
@@ -73,7 +72,7 @@ export default function ModalPokemonInfo({
                     <div className='flex-column'>
                         {
                             pokemonModalData?.moves?.length ?
-                                pokemonModalData?.moves.slice(0,4).map(({ name }, index) => {
+                                pokemonModalData?.moves.slice(0, 4).map(({ name }, index) => {
                                     return (
                                         <span key={index}>
                                             {name}
@@ -86,7 +85,8 @@ export default function ModalPokemonInfo({
                 </div>
             </div>
 
-            {/* <h3>Stats: </h3>
+            <div className='pokemonStatsContainer'>
+                <h3>Base Stats: </h3>
                 {
                     stats?.length &&
                     stats.map((stat, index) => {
@@ -115,7 +115,8 @@ export default function ModalPokemonInfo({
                             </div>
                         )
                     })
-                } */}
+                }
+            </div>
         </div>
     );
 }
