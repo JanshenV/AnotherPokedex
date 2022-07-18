@@ -34,7 +34,7 @@ export default function PokemonModal({
     const {
         useState, useEffect, setCurrentSprite,
         allSprites, setAllSprites, setSelectionSprites,
-        setCurrentGender, setGenderMessage
+        setCurrentGender, setGenderMessage, width
     } = useGlobal();
 
     const [species, setSpecies] = useState('');
@@ -79,6 +79,7 @@ export default function PokemonModal({
         return setSelectionSprites(sprites[0]?.front);
     };
 
+    console.log(width)
     useEffect(() => {
         async function requestSpecies() {
             const { species: { url } } = pokemonModalData;
@@ -172,7 +173,7 @@ export default function PokemonModal({
                     onClick={() => setModalUp(false)}
                 />
                 {
-                    closeModalMessage &&
+                    (closeModalMessage || width <= 400) &&
                     <span>Click to close!</span>
                 }
             </div>

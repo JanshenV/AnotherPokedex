@@ -41,10 +41,7 @@ export default function PokemonPopulate({ pokedexList, selectedRegion }) {
 
     return (
         <>
-            <h1 style={{
-                fontFamily: 'Montserrat, sansSerif',
-                marginBottom: '10px'
-            }}>
+            <h1 className='pokedexTitle'>
                 {selectedRegion ? `${selectedRegion} Pokedex` : 'Kanto Pokedex'}
             </h1>
             <div

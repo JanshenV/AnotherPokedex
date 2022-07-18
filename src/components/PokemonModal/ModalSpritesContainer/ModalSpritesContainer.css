@@ -1,4 +1,3 @@
-/* Sprites */
 .spritesContainer {
     display: flex;
     flex-direction: column;
@@ -47,8 +46,6 @@
     transform: scale(1.1);
 }
 
-/* Footer */
-
 .spritesContainerFooter {
     display: flex;
     align-items: center;
@@ -94,7 +91,6 @@
 }
 
 .pokeballBackGround {
-    /* background-position: center; */
     position: absolute;
     right: 0;
     top: 0;
@@ -122,4 +118,4 @@
     transform: scale(1.1);
 }
 
-/* Sprites */
+/* Responsiviness */

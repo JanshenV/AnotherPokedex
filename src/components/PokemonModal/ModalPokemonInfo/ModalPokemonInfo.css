@@ -110,44 +110,19 @@
 }
 /* Stats */
 
-/* GeneralInfo */
+/* Responsiviness */
+@media only screen and (max-width: 844px) {
+    .abilities-Moves {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
 
-/* .unitInfo {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    .pokemonStats {
+        padding-left: 0;
+    }
+
+    .statsBaseName {
+        padding-left: 0;
+    }
 }
-
-.unitInfo span {
-    color: grey;
-    font-weight: bolder;
-    text-transform: capitalize;
-}
-
-.unitInfo:nth-child(1) {
-    justify-content: center;
-    border-bottom: none;
-}
-
-.unitInfo:nth-child(1) span {
-    justify-content: center;
-    color: white;
-    text-transform: uppercase;
-}
-
-.unitInfo:nth-child(7),
-.unitInfo:nth-child(8) {
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.unitInfo:nth-child(8) {
-    width: 100%;
-    gap: 10px;
-    padding-bottom: 10px;
-}
-
-
-/* PokemonInfo */

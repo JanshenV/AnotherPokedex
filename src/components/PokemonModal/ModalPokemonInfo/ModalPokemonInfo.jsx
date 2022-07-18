@@ -9,12 +9,29 @@ import WeightIcon from '../../../assets/weightIcon.svg';
 //Components
 import PokemonTypes from '../../PokemonTypes';
 
+//Global Provider
+import useGlobal from '../../../hooks/useGlobal';
+
 export default function ModalPokemonInfo({
     pokemonModalData, species, stats, 
     description, color
 }) {
     
-    const { innerWidth: width, innerHeight: height } = window;
+    const {
+        useState, width, useEffect
+    } = useGlobal();
+
+    const [widthMultiplier, setWidthMultiplier] = useState(0);
+
+    useEffect(() => {
+        function handleWidthMultiplier() {
+            if (width <= 844) return setWidthMultiplier(1);
+            if (width >= 1920) return setWidthMultiplier(2.5);
+            setWidthMultiplier(2);
+        };
+
+        handleWidthMultiplier();
+    }, [width]);
 
     return (
         <div className="pokemonInfo">
@@ -111,7 +128,7 @@ export default function ModalPokemonInfo({
                                     <div
                                         className={`statBar ${statLv}`}
                                         style={{
-                                            width: `${width>= 1920 ? base * 4 : base*2}px`,
+                                            width: `${base*widthMultiplier}px`,
                                         }}>
                                                     
                                     </div>

@@ -7,6 +7,11 @@
     padding-top: 40px;
 }
 
+.pokedexTitle {
+    font-family: "Montserrat, sansSerif";
+    margin-bottom: "10px";
+}
+
 .notGrid {
     display: flex;
     align-items: center;
@@ -78,12 +83,22 @@
         display: grid;
         grid-template-columns: repeat(2, 1fr);
     }
-    .pokemonContainer {
-    }
 }
 
 @media (max-width: 689px) {
     .pokedexContainer {
         grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 400px) {
+    .notGrid {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .pokeballChangeSprites {
+        right: -14vw;
     }
 }

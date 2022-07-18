@@ -11,6 +11,7 @@ export default function useGlobalProvider() {
         female: ''
     });
 
+       const { innerWidth: width, innerHeight: height } = window;
 
     return {
         useState, useEffect,
@@ -19,6 +20,7 @@ export default function useGlobalProvider() {
         selectionSprites, setSelectionSprites,
         currentGender, setCurrentGender,
         genderMessage, setGenderMessage,
-        searchInputValue, setSearchInputValue
+        searchInputValue, setSearchInputValue,
+        width, height
     };
 };
