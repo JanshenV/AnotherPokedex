@@ -13,6 +13,9 @@ export default function ModalPokemonInfo({
     pokemonModalData, species, stats, 
     description, color
 }) {
+    
+    const { innerWidth: width, innerHeight: height } = window;
+
     return (
         <div className="pokemonInfo">
             <PokemonTypes
@@ -106,8 +109,9 @@ export default function ModalPokemonInfo({
 
                                 <div className='emptyStatBar'>
                                     <div
-                                        className={`statBar ${statLv}`} style={{
-                                            width: `${base * 2}px`,
+                                        className={`statBar ${statLv}`}
+                                        style={{
+                                            width: `${width>= 1920 ? base * 4 : base*2}px`,
                                         }}>
                                                     
                                     </div>

@@ -157,7 +157,6 @@ export default function PokemonModal({
         makeAllRequests();
     }, [pokemonModalData]);
 
-    console.log(pokemonModalData);
     
 
     return (
