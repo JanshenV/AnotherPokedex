@@ -58,8 +58,6 @@ export default function Header({ searchPokemon, requestPokemon }) {
                 onChange={(e) => searchPokemon(e, setSearchInputValue)}
                 onKeyDown={(e) => requestPokemon(e, searchInputValue)}
                 onFocus={() => setFocusMessage('If pokémon not found, press "Enter" to request it.')}/>
-
-            <SearchIcon className='searchIcon' />
         </header>
     );
 };

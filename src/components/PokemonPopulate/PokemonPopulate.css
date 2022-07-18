@@ -92,6 +92,9 @@
 }
 
 @media (max-width: 639px) {
+    .pokedexContainer {
+        grid-template-columns: repeat(2, 1fr);
+    }
     .notGrid {
         display: flex;
         flex-direction: column;
