@@ -126,7 +126,9 @@ export default function Body({ }) {
 
             {loading ?
                 <div className='loadingContent'>
-                    <CircularIndeterminate />
+                    <CircularIndeterminate
+                        size={'120px'}
+                    />
                 </div>
                 :
                 <PokemonPopulate
