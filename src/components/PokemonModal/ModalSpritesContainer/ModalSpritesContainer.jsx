@@ -4,6 +4,9 @@ import './ModalSpritesContainer.css';
 //Global Provider
 import useGlobal from '../../../hooks/useGlobal';
 
+//Components
+import GenderIcons  from '../../GenderIcon/GenderIcons';
+
 //Assets
 import darkerPokeballBackGround from '../../../assets/darkerPokeballBackground.svg';
 
@@ -92,19 +95,17 @@ export default function ModalSpritesContainer({
             
             <div className='spritesContainerFooter'>
                 <div className="genderIcons">
-                    <button
+                    <GenderIcons
+                        gender={'female'}
                         onClick={() => handleSpriteByGender('female')}
-                        className="femaleButton"
                         disabled={currentGender.female}
-                    >
-                    </button>
+                    />
 
-                    <button
+                    <GenderIcons
+                        gender={'male'}
                         onClick={() => handleSpriteByGender('male')}
-                        className="maleButton"
                         disabled={currentGender.male}
-                    >
-                    </button>
+                    />
                 </div>
 
                 <select

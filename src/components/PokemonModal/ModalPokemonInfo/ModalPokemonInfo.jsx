@@ -13,7 +13,7 @@ import PokemonTypes from '../../PokemonTypes';
 import useGlobal from '../../../hooks/useGlobal';
 
 export default function ModalPokemonInfo({
-    pokemonModalData, species, stats, 
+    pokemonModalData: Pokemon, species, stats, 
     description, color
 }) {
     
@@ -35,20 +35,25 @@ export default function ModalPokemonInfo({
     return (
         <div className="pokemonInfo">
             <PokemonTypes
-                types={pokemonModalData.types}
+                types={Pokemon.types}
             />
 
-            <h1 className={`color-${color}`}>
-                About:
-            </h1>
-            {/* {description} */}
 
+            <div className='descriptionContainer'>
+                <h1 className={`color-${color}`}>
+                    About:
+                </h1>
 
+                <h4>
+                    {description}
+                </h4>
+            </div>
+ 
             <div className='generalInfo'>
                 <div className='unitGeneralInfo'>
                     <div className='flex-row'>
                         <img src={HeightIcon} alt="Height Icon" />
-                        <h4>{pokemonModalData.height / 10} m</h4>
+                        <h4>{Pokemon.height / 10} m</h4>
                     </div>
                     <span>Height</span>
                 </div>
@@ -56,7 +61,7 @@ export default function ModalPokemonInfo({
                 <div className='unitGeneralInfo'>
                     <div className='flex-row'>
                         <img src={WeightIcon} alt="Weight Icon" />
-                        <h4>{pokemonModalData.weight / 10} kg</h4>
+                        <h4>{Pokemon.weight / 10} kg</h4>
                     </div>
                     <span>Weight</span>
                 </div>
@@ -72,8 +77,8 @@ export default function ModalPokemonInfo({
                     <h4>Abilities: </h4>
                     <div className='flex-column'>
                         {
-                            pokemonModalData?.abilities?.length &&
-                            pokemonModalData.abilities.map((ability, index) => {
+                            Pokemon?.abilities?.length &&
+                            Pokemon.abilities.map((ability, index) => {
                                 const { ability: { name }, is_hidden } = ability;
                                 return (
                                     <span
@@ -92,8 +97,8 @@ export default function ModalPokemonInfo({
                     <h4>Moves: </h4>
                     <div className='flex-column'>
                         {
-                            pokemonModalData?.moves?.length ?
-                                pokemonModalData?.moves.slice(0, 4).map(({ name }, index) => {
+                            Pokemon?.moves?.length ?
+                                Pokemon?.moves.slice(0, 4).map(({ name }, index) => {
                                     return (
                                         <span key={index}>
                                             {name}
@@ -121,15 +126,14 @@ export default function ModalPokemonInfo({
                                 <div className='statsBaseName'>
                                     <span>{name}</span>
                                     <span>{base}</span>
-                                </div>               
+                                </div>
 
                                 <div className='emptyStatBar'>
                                     <div
                                         className={`statBar ${statLv}`}
                                         style={{
-                                            width: `${base*widthMultiplier}px`,
-                                        }}>
-                                                    
+                                            width: `${base * widthMultiplier}px`,
+                                        }}>         
                                     </div>
                                 </div>
                             </div>
@@ -139,5 +143,5 @@ export default function ModalPokemonInfo({
             </div>
         </div>
     );
-}
+};
 
