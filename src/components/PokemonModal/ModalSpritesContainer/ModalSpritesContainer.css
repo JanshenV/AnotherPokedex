@@ -83,8 +83,8 @@
     color: #fff;
     position: absolute;
     border-radius: 20px;
-    top: -2;
-    right: 0;
+    top: 0;
+    padding: 10px;
 }
 
 .pokeballBackGround {

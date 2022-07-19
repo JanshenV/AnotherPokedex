@@ -15,8 +15,8 @@
 .generalInfo {
     display: grid;
     grid-row: auto;
-    grid-template-columns: repeat(3, 2fr);
-    padding: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 0px;
 }
 
 .unitGeneralInfo {
@@ -74,7 +74,8 @@
     align-items: center;
     padding-left: 22px;
     gap: 22px;
-    border-top: 1px solid rgb(202, 198, 198);
+    font-weight: bolder;
+    border-bottom: 1px solid rgb(202, 198, 198);
 }
 
 .statsBaseName {
@@ -94,13 +95,11 @@
 }
 
 .statBar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     border-radius: 20px;
-    border: 1px solid #737373;
+    border: 2px solid #737373;
     height: 20px;
     color: black;
+    flex-grow: 0.7;
     font-weight: bolder;
 }
 
@@ -112,7 +111,36 @@
 /* Stats */
 
 /* Responsiviness */
-@media only screen and (max-width: 844px) {
+@media only screen and (min-width: 1600px) {
+    .statsBaseName {
+        width: 16%;
+        font-size: large;
+    }
+
+    .abilities-Moves {
+        font-size: larger;
+    }
+
+    .unitGeneralInfo {
+        font-size: larger;
+    }
+}
+
+@media only screen and (max-width: 1599px) {
+    .statsBaseName {
+        width: 16%;
+    }
+
+    .abilities-Moves {
+        font-size: medium;
+    }
+
+    .generalInfo {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 639px) {
     .abilities-Moves {
         display: flex;
         flex-direction: column;
@@ -125,5 +153,6 @@
 
     .statsBaseName {
         padding-left: 0;
+        width: 20%;
     }
 }

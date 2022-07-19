@@ -38,7 +38,9 @@ export default function ModalPokemonInfo({
                 types={pokemonModalData.types}
             />
 
-            <h1 className={`color-${color}`}>About:</h1>
+            <h1 className={`color-${color}`}>
+                About:
+            </h1>
             {/* {description} */}
 
 
@@ -112,7 +114,7 @@ export default function ModalPokemonInfo({
                         const { name, base, statLv } = stat;
                         return (
                             <div
-                                className='pokemonStats'
+                                className={`color-${color} pokemonStats`}
                                 key={index}
                             >
                                                 
