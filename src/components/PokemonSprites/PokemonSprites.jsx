@@ -19,7 +19,9 @@ PokemonSprites.defaultProps = {
 };
 
 
-export default function PokemonSprites({ sprites, iconSprites }) {
+export default function PokemonSprites({
+    sprites, iconSprites, sizes
+}) {
     const [pokemonSprites, setPokemonSprites] = useState([]);
 
     useEffect(() => {
@@ -28,8 +30,8 @@ export default function PokemonSprites({ sprites, iconSprites }) {
 
     return (
         <img
-            width={200}
-            height={200}
+            width={sizes?.width}
+            height={sizes?.height}
             src={pokemonSprites}
             alt='Pokemon Image'
         />

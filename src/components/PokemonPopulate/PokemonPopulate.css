@@ -2,23 +2,21 @@
     display: grid;
     width: 90%;
     max-width: 90%;
-    gap: 20px;
-    min-height: 80vh;
     position: relative;
     padding-top: 40px;
+    gap: 20px;
+    min-height: 100vh;
 }
 
 .pokedexTitle {
     font-family: "Montserrat, sansSerif";
-    margin-bottom: "10px";
 }
 
 .notGrid {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 56vh;
-    padding-top: 20px;
+    padding-top: 40px;
     gap: 20px;
     position: relative;
 }
@@ -72,30 +70,48 @@
 
 @media only screen and (min-width: 1600px) {
     .pokedexContainer {
-        grid-template-columns: repeat(8, 1fr);
+        grid-template-columns: repeat(6, 1fr);
+    }
+
+    .pokemonContainer {
+        height: 400px;
+        width: 220px;
+    }
+
+    .pokemonIconsContainer {
+        height: 330px;
+        width: 220px;
     }
 }
 
 @media only screen and (max-width: 1599px) {
     .pokedexContainer {
         grid-template-columns: repeat(6, 1fr);
-        gap: 10px;
+    }
+
+    .pokemonContainer {
+        height: 300px;
+        width: 177px;
+    }
+
+    .pokemonIconsContainer {
+        height: 300px;
+        width: 177px;
     }
 }
 
 @media (max-width: 1071px) {
     .pokedexContainer {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(5, 1fr);
     }
 }
 
 @media (max-width: 821px) {
     .pokedexContainer {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(4, 1fr);
     }
     .notGrid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        flex-wrap: wrap;
     }
 }
 
@@ -103,11 +119,14 @@
     .pokedexContainer {
         grid-template-columns: repeat(2, 1fr);
     }
-    .notGrid {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
+
+    .pokemonContainer {
+        height: 210px;
+        width: 167px;
+    }
+
+    .pokemonIconsContainer {
+        height: 210px;
+        width: 167px;
     }
 }

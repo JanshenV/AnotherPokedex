@@ -5,8 +5,8 @@ import '../../css/Global.css';
 //Assets
 import pokeballIcon from '../../assets/pokeballIcon.png';
 
-//React
-import { useEffect, useState } from 'react';
+//Global Provider
+import useGlobal from '../../hooks/useGlobal';
 
 //Components
 import PokemonSprites from '../PokemonSprites';
@@ -28,11 +28,21 @@ PokemonPopulate.defaultProps = {
 };
 
 export default function PokemonPopulate({ pokedexList, selectedRegion }) {
+
+    const {
+        useState, useEffect, width
+    } = useGlobal();
+
     const pokedexListLength = pokedexList.length;
     let storageIconSprites = localStorage.getItem('iconSprites');
+
     const [iconSprites, setIconSprites] = useState(storageIconSprites === 'icons' ? true : false);
     const [modalUp, setModalUp] = useState(false);
     const [pokemonModalData, setPokemonModalData] = useState();
+    const [spritesSizes, setSpritesSizes] = useState({
+        height: 0,
+        width: 0
+    });
 
 
     function handleModalUp(pokemonData) {
@@ -44,13 +54,39 @@ export default function PokemonPopulate({ pokedexList, selectedRegion }) {
         const localInconSprite = !iconSprites;
         setIconSprites(localInconSprite);
         storageIconSprites = localStorage.setItem('iconSprites', localInconSprite ? 'icons' : 'images');
-    }
+    };
 
     useEffect(() => {
         if (!storageIconSprites) {
             storageIconSprites = localStorage.setItem('iconSprites', 'images');
         };
     }, []);
+
+    useEffect(() => {
+        function handleSpritesSizes() {
+            if (width <= 640) {
+                return setSpritesSizes({
+                    height: 96,
+                    width: 96
+                });
+            };
+
+            if (width > 640 && width <= 1521) {
+                return setSpritesSizes({
+                    height: 160,
+                    width: 160
+                });
+            };
+
+            if (width > 1521) {
+                return setSpritesSizes({
+                    height: 300,
+                    width: 300
+                });
+            };
+        };
+        handleSpritesSizes();
+    }, [width]);
 
 
     return (
@@ -85,6 +121,7 @@ export default function PokemonPopulate({ pokedexList, selectedRegion }) {
                                 <PokemonSprites
                                     sprites={sprites}
                                     iconSprites={iconSprites}
+                                    sizes={spritesSizes}
                                 />
                                 <h3>#{pokemon.id}</h3>
                                 <h2>{pokemon.name}</h2>
