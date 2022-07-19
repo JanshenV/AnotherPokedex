@@ -10,7 +10,7 @@
 }
 
 .headerContainer input {
-    width: 28%;
+    width: 30%;
     height: 28%;
     border-radius: 30px;
     padding-left: 20px;
@@ -38,11 +38,23 @@
 }
 
 /* Responsiviness */
-@media (max-width: 1071px) {
+@media (min-width: 1600px) {
+    .headerContainer input {
+        font-size: larger;
+    }
+
+    .focusMessage {
+        font-size: larger;
+    }
 }
-@media (max-width: 821px) {
-    .header input {
-        width: 50vw;
+
+@media (max-width: 1599px) {
+    .headerContainer input {
+        font-size: medium;
+    }
+
+    .focusMessage {
+        font-size: medium;
     }
 }
 
@@ -57,12 +69,11 @@
     }
 
     .focusMessage {
-        font-size: x-small;
-        color: red;
+        font-size: small;
     }
 
     .headerContainer input {
-        font-size: x-small;
+        font-size: small;
         padding-left: 0;
     }
 }
