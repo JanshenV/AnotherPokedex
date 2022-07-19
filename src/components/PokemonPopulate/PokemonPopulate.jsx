@@ -30,7 +30,8 @@ PokemonPopulate.defaultProps = {
 export default function PokemonPopulate({ pokedexList, selectedRegion }) {
 
     const {
-        useState, useEffect, width
+        useState, useEffect, width,
+        setWidth
     } = useGlobal();
 
     const pokedexListLength = pokedexList.length;
@@ -63,7 +64,11 @@ export default function PokemonPopulate({ pokedexList, selectedRegion }) {
     }, []);
 
     useEffect(() => {
-        function handleSpritesSizes() {
+        async function handleSpritesSizes() {
+            if (!width) {
+                await setWidth(window.innerWidth);
+            };
+
             if (width <= 640) {
                 return setSpritesSizes({
                     height: 96,
@@ -71,10 +76,10 @@ export default function PokemonPopulate({ pokedexList, selectedRegion }) {
                 });
             };
 
-            if (width > 640 && width <= 1521) {
+            if (width <= 1521) {
                 return setSpritesSizes({
-                    height: 160,
-                    width: 160
+                    height: 200,
+                    width: 200
                 });
             };
 

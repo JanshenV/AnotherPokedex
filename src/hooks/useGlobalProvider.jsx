@@ -14,11 +14,14 @@ export default function useGlobalProvider() {
     const [height, setHeight] = useState('');
 
     useEffect(() => {
-        const { innerWidth, innerHeight } = window;
-        setWidth(innerWidth);
-        setHeight(innerHeight);
-    }, []);
+        function handleWindowSizes() {
+            const { innerWidth, innerHeight } = window;
+            setWidth(innerWidth);
+            setHeight(innerHeight);
+        };
 
+        window.addEventListener('resize', handleWindowSizes);
+    }, []);
 
 
     return {
@@ -29,6 +32,7 @@ export default function useGlobalProvider() {
         currentGender, setCurrentGender,
         genderMessage, setGenderMessage,
         searchInputValue, setSearchInputValue,
-        width, height
+        width, height,
+        setWidth
     };
 };

@@ -17,12 +17,12 @@
 
 .pokedexRegionMenu select {
     text-align: center;
-    width: 160px;
+    width: 220px;
     height: 40px;
     cursor: pointer;
     background: orange;
     color: white;
-    font-weight: bolder;
+    font-size: medium;
 }
 
 .loadingContent {
