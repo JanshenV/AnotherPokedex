@@ -6,7 +6,7 @@ import '../../css/Global.css';
 import pokeballIcon from '../../assets/pokeballIcon.png';
 
 //React
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 //Components
 import PokemonSprites from '../PokemonSprites';
@@ -29,7 +29,8 @@ PokemonPopulate.defaultProps = {
 
 export default function PokemonPopulate({ pokedexList, selectedRegion }) {
     const pokedexListLength = pokedexList.length;
-    const [iconSprites, setIconSprites] = useState(false);
+    let storageIconSprites = localStorage.getItem('iconSprites');
+    const [iconSprites, setIconSprites] = useState(storageIconSprites === 'icons' ? true : false);
     const [modalUp, setModalUp] = useState(false);
     const [pokemonModalData, setPokemonModalData] = useState();
 
@@ -38,6 +39,19 @@ export default function PokemonPopulate({ pokedexList, selectedRegion }) {
         setPokemonModalData(pokemonData);
         setModalUp(true);
     };
+
+    function handleIconSprites() {
+        const localInconSprite = !iconSprites;
+        setIconSprites(localInconSprite);
+        storageIconSprites = localStorage.setItem('iconSprites', localInconSprite ? 'icons' : 'images');
+    }
+
+    useEffect(() => {
+        if (!storageIconSprites) {
+            storageIconSprites = localStorage.setItem('iconSprites', 'images');
+        };
+    }, []);
+
 
     return (
         <>
@@ -52,7 +66,7 @@ export default function PokemonPopulate({ pokedexList, selectedRegion }) {
                             className='pokeballChangeSprites'
                             src={pokeballIcon}
                             alt="Change pokemon sprite"
-                            onClick={() => { setIconSprites(!iconSprites) }}
+                            onClick={() => handleIconSprites()}
                         />
                         :
                         null
