@@ -1,3 +1,6 @@
+//Styles
+import './PokemonSprites.css';
+
 //React
 import { useState, useEffect } from 'react';
 
@@ -19,9 +22,7 @@ PokemonSprites.defaultProps = {
 };
 
 
-export default function PokemonSprites({
-    sprites, iconSprites, sizes
-}) {
+export default function PokemonSprites({sprites, iconSprites}) {
     const [pokemonSprites, setPokemonSprites] = useState([]);
 
     useEffect(() => {
@@ -30,8 +31,7 @@ export default function PokemonSprites({
 
     return (
         <img
-            width={sizes?.width}
-            height={sizes?.height}
+            className="PokemonSprite"
             src={pokemonSprites}
             alt='Pokemon Image'
         />

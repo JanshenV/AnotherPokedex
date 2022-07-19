@@ -1,7 +1,6 @@
 //Styles
 import './PokemonPopulate.css';
 import '../../css/Global.css';
-import '../../css/BorderTypes.css';
 
 //Assets
 import pokeballIcon from '../../assets/pokeballIcon.png';
@@ -29,11 +28,7 @@ PokemonPopulate.defaultProps = {
 };
 
 export default function PokemonPopulate({ pokedexList, selectedRegion }) {
-
-    const {
-        useState, useEffect, width,
-        setWidth
-    } = useGlobal();
+    const { useState, useEffect } = useGlobal();
 
     const pokedexListLength = pokedexList.length;
     let storageIconSprites = localStorage.getItem('iconSprites');
@@ -41,10 +36,6 @@ export default function PokemonPopulate({ pokedexList, selectedRegion }) {
     const [iconSprites, setIconSprites] = useState(storageIconSprites === 'icons' ? true : false);
     const [modalUp, setModalUp] = useState(false);
     const [pokemonModalData, setPokemonModalData] = useState();
-    const [spritesSizes, setSpritesSizes] = useState({
-        height: 0,
-        width: 0
-    });
 
 
     function handleModalUp(pokemonData) {
@@ -63,37 +54,6 @@ export default function PokemonPopulate({ pokedexList, selectedRegion }) {
             storageIconSprites = localStorage.setItem('iconSprites', 'images');
         };
     }, []);
-
-    useEffect(() => {
-        async function handleSpritesSizes() {
-            if (!width) {
-                await setWidth(window.innerWidth);
-            };
-
-            if (width <= 640) {
-                return setSpritesSizes({
-                    height: 96,
-                    width: 96
-                });
-            };
-
-            if (width <= 1521) {
-                return setSpritesSizes({
-                    height: 200,
-                    width: 200
-                });
-            };
-
-            if (width > 1521) {
-                return setSpritesSizes({
-                    height: 300,
-                    width: 300
-                });
-            };
-        };
-        handleSpritesSizes();
-    }, [width]);
-
 
     return (
         <>
@@ -129,7 +89,6 @@ export default function PokemonPopulate({ pokedexList, selectedRegion }) {
                                 <PokemonSprites
                                     sprites={sprites}
                                     iconSprites={iconSprites}
-                                    sizes={spritesSizes}
                                 />
                                 <h3>#{pokemon.id}</h3>
                                 <h2>{pokemon.name}</h2>

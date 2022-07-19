@@ -21,13 +21,12 @@ export default function ModalPokemonInfo({
         useState, width, useEffect
     } = useGlobal();
 
-    const [widthMultiplier, setWidthMultiplier] = useState(0);
+    const [widthMultiplier, setWidthMultiplier] = useState(1.2);
 
     useEffect(() => {
         function handleWidthMultiplier() {
-            if (width <= 844) return setWidthMultiplier(1);
-            if (width >= 1920) return setWidthMultiplier(2.5);
-            setWidthMultiplier(2);
+            if (width > 844 && width <= 1599) return setWidthMultiplier(2);
+            if (width > 1600) return setWidthMultiplier(2.5);
         };
 
         handleWidthMultiplier();
@@ -39,7 +38,7 @@ export default function ModalPokemonInfo({
                 types={pokemonModalData.types}
             />
 
-            <h1>About:</h1>
+            <h1 className={`color-${color}`}>About:</h1>
             {/* {description} */}
 
 
@@ -120,9 +119,7 @@ export default function ModalPokemonInfo({
                                 <div className='statsBaseName'>
                                     <span>{name}</span>
                                     <span>{base}</span>
-                                </div>
-
-                                            
+                                </div>               
 
                                 <div className='emptyStatBar'>
                                     <div

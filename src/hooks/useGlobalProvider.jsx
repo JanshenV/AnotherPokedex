@@ -13,15 +13,18 @@ export default function useGlobalProvider() {
     const [width, setWidth] = useState('');
     const [height, setHeight] = useState('');
 
-    useEffect(() => {
-        function handleWindowSizes() {
-            const { innerWidth, innerHeight } = window;
-            setWidth(innerWidth);
-            setHeight(innerHeight);
-        };
+    function handleWindowSizes() {
+        const { innerWidth, innerHeight } = window;
+        setWidth(innerWidth);
+        setHeight(innerHeight);
+    };
 
-        window.addEventListener('resize', handleWindowSizes);
+
+    useEffect(() => {
+        handleWindowSizes();
     }, []);
+
+    window.addEventListener('resize', handleWindowSizes);
 
 
     return {
