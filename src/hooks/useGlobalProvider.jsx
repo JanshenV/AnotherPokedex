@@ -36,6 +36,5 @@ export default function useGlobalProvider() {
         genderMessage, setGenderMessage,
         searchInputValue, setSearchInputValue,
         width, height,
-        setWidth
     };
 };

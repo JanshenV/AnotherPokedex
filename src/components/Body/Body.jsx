@@ -20,7 +20,8 @@ import {
 export default function Body({ }) {
 
     const {
-        useState, useEffect
+        useState, useEffect, searchInputValue,
+        setSearchInputValue
     } = useGlobal();
 
     const [pokedexList, setPokedexList] = useState([]);
@@ -42,8 +43,8 @@ export default function Body({ }) {
         fetchPokedex();
     }, []);
 
-    async function searchPokemonFilter(event, setSearchInputValue) {
-        let pokemonName = event.target.value.toLowerCase();
+    async function searchPokemonFilter(value) {
+        let pokemonName = value.toLowerCase();
         setSearchInputValue(pokemonName);
 
         if (!pokemonName.length) return setPokedexList(permaPokedexList);
@@ -53,7 +54,7 @@ export default function Body({ }) {
                 String(pokemon.dexnr).includes(pokemonName)
         });
         if (!filteredPokedexList) return setPokedexList(setPermaPokedexList);
-
+        
         return setPokedexList(filteredPokedexList);
     };
 
@@ -73,7 +74,7 @@ export default function Body({ }) {
         setLoading(false);
     };
 
-    async function requestPokemon(event, searchInputValue) {
+    async function requestPokemon(event) {
         const keyPressed = event.key;
 
         if (keyPressed !== 'Enter') return;
@@ -85,6 +86,7 @@ export default function Body({ }) {
 
         if (error) return;
 
+        setSearchInputValue('');
         setPokedexList(pokedexResponse);
     };
 

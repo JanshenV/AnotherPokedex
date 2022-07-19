@@ -23,7 +23,7 @@ Header.defaultProps = {
 
 export default function Header({ searchPokemon, requestPokemon }) {
     const {
-        setSearchInputValue, searchInputValue,
+        searchInputValue,
         useState, useEffect, width
     } = useGlobal();
 
@@ -60,8 +60,8 @@ export default function Header({ searchPokemon, requestPokemon }) {
                 type="text"
                 value={searchInputValue}
                 placeholder={placeholderMessage}
-                onChange={(e) => searchPokemon(e, setSearchInputValue)}
-                onKeyDown={(e) => requestPokemon(e, searchInputValue)}
+                onChange={({target: {value}}) => searchPokemon(value)}
+                onKeyDown={(e) => requestPokemon(e)}
                 onFocus={() => handleFocusMessage()}
             />
 
