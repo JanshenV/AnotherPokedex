@@ -22,24 +22,20 @@
 }
 
 .spritesContainerMain {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     position: relative;
     height: 267px;
 }
 
 .pokemonImg {
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     transition: transform 0.2s;
     cursor: pointer;
-    width: 100%;
-    height: 200px;
-    cursor: pointer;
-    transition: transform 0.2s;
-    position: absolute;
-    top: 0;
 }
 
 .pokemonImg:hover {
@@ -60,6 +56,7 @@
     cursor: pointer;
     border-radius: 6px;
 }
+
 .spritesContainer select:hover {
     transform: scale(1.1);
 }
@@ -91,9 +88,6 @@
 }
 
 .pokeballBackGround {
-    position: absolute;
-    right: 0;
-    top: 0;
     object-fit: contain;
     opacity: 0.5;
 }
@@ -119,8 +113,38 @@
 }
 
 /* Responsiviness */
-@media only screen and (max-width: 400px) {
+@media only screen and (min-width: 1600px) {
     .pokemonImg {
-        width: 50%;
+        width: 320px;
+        height: 320px;
+    }
+
+    .pokeballBackGround {
+        width: 220px;
+        height: 220px;
+    }
+}
+
+@media only screen and (max-width: 1599px) {
+    .pokemonImg {
+        width: 250px;
+        height: 250px;
+    }
+
+    .pokeballBackGround {
+        width: 150px;
+        height: 150px;
+    }
+}
+
+@media (max-width: 639px) {
+    .pokemonImg {
+        width: 200px;
+        height: 200px;
+    }
+
+    .pokeballBackGround {
+        width: 100px;
+        height: 100px;
     }
 }
