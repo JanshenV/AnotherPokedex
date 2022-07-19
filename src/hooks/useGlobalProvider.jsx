@@ -10,8 +10,16 @@ export default function useGlobalProvider() {
         male: '',
         female: ''
     });
+    const [width, setWidth] = useState('');
+    const [height, setHeight] = useState('');
 
-       const { innerWidth: width, innerHeight: height } = window;
+    useEffect(() => {
+        const { innerWidth, innerHeight } = window;
+        setWidth(innerWidth);
+        setHeight(innerHeight);
+    }, []);
+
+
 
     return {
         useState, useEffect,

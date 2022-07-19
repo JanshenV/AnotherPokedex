@@ -24,15 +24,29 @@ Header.defaultProps = {
 export default function Header({ searchPokemon, requestPokemon }) {
     const {
         setSearchInputValue, searchInputValue,
-        useState, useEffect
+        useState, useEffect, width
     } = useGlobal();
 
     const [focusMessage, setFocusMessage] = useState('');
+    const [placeholderMessage, setPlaceholderMessage] = useState('');
 
     useEffect(() => {
         setTimeout(() => setFocusMessage(''), 3000);
     }, [focusMessage]);
-    
+
+    useEffect(() => {
+        function handlePlaceholder() {
+            if (width <= 500) return setPlaceholderMessage('Name or Dex Nrº');
+            setPlaceholderMessage("Search by Pokémon's name or Pokédex Number.");
+        };
+        handlePlaceholder();
+    }, [width]);
+
+    function handleFocusMessage() {
+        if (width <= 500) return setFocusMessage('"Enter" to request.');
+        setFocusMessage("If pokémon not filtered, press 'Enter' to request.");
+    };
+
     return (
         <header className='headerContainer'>
             {
@@ -41,19 +55,21 @@ export default function Header({ searchPokemon, requestPokemon }) {
                     {focusMessage}
                 </span>
             }
+
+             <input
+                type="text"
+                value={searchInputValue}
+                placeholder={placeholderMessage}
+                onChange={(e) => searchPokemon(e, setSearchInputValue)}
+                onKeyDown={(e) => requestPokemon(e, searchInputValue)}
+                onFocus={() => handleFocusMessage()}
+            />
+
             <img
                 className="logoIcon"
                 src={PokedexIcon}
                 alt="Logo Icon"
             />
-
-            <input
-                type="text"
-                value={searchInputValue}
-                placeholder="Pokemon's name or Pokedex Nr."
-                onChange={(e) => searchPokemon(e, setSearchInputValue)}
-                onKeyDown={(e) => requestPokemon(e, searchInputValue)}
-                onFocus={() => setFocusMessage('If pokémon not found, press "Enter" to request it.')}/>
         </header>
     );
 };
