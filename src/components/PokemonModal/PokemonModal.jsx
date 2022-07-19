@@ -178,7 +178,7 @@ export default function PokemonModal({
             </div>
             {
                 !modalLoading ?
-                    <div className={`innerContainer ${backgroundByType}`}>
+                    <div className={`innerContainer background-${backgroundByType}`}>
                         <ModalSpritesContainer
                             handleSpriteByGender={handleSpriteByGender}
                             pokemonName={pokemonModalData.name}

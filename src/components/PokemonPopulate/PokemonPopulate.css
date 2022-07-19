@@ -10,6 +10,7 @@
 
 .pokedexTitle {
     font-family: "Montserrat, sansSerif";
+    color: black;
 }
 
 .notGrid {
@@ -42,7 +43,6 @@
 .pokemonContainer {
     height: 300px;
     width: 167px;
-    border: 5px solid rgb(14, 14, 14);
 }
 
 .pokeballChangeSprites {

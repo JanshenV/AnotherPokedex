@@ -5,6 +5,7 @@
     width: 100%;
     max-width: 100%;
     padding-bottom: 10px;
+    background: #ffffff;
 }
 
 .pokedexRegionMenu {
@@ -20,8 +21,9 @@
     width: 220px;
     height: 40px;
     cursor: pointer;
-    background: orange;
-    color: white;
+    background: rgba(255, 0, 0, 0.7);
+    font-weight: bolder;
+    color: rgb(255, 255, 255);
     font-size: medium;
 }
 

@@ -1,0 +1,71 @@
+.border-normal {
+    border: 5px solid #aaa67f;
+}
+
+.border-fire {
+    border: 5px solid #f57d31;
+}
+
+.border-water {
+    border: 5px solid #6493eb;
+}
+
+.border-electric {
+    border: 5px solid #f9cf30;
+}
+
+.border-grass {
+    border: 5px solid #74cb48;
+}
+
+.border-ice {
+    border: 5px solid #9ad6df;
+}
+
+.border-fighting {
+    border: 5px solid #c12239;
+}
+
+.border-poison {
+    border: 5px solid #a43e9e;
+}
+
+.border-ground {
+    border: 5px solid #dec16b;
+}
+
+.border-flying {
+    border: 5px solid #a891ec;
+}
+
+.border-psychic {
+    border: 5px solid #fb5584;
+}
+
+.border-bug {
+    border: 5px solid #a7b723;
+}
+
+.border-rock {
+    border: 5px solid #b69e31;
+}
+
+.border-ghost {
+    border: 5px solid #70559b;
+}
+
+.border-dragon {
+    border: 5px solid #7037ff;
+}
+
+.border-dark {
+    border: 5px solid #75574c;
+}
+
+.border-steel {
+    border: 5px solid #b7b9d0;
+}
+
+.border-fairy {
+    border: 5px solid #e69eac;
+}

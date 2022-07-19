@@ -1,6 +1,7 @@
 //Styles
 import './PokemonPopulate.css';
 import '../../css/Global.css';
+import '../../css/BorderTypes.css';
 
 //Assets
 import pokeballIcon from '../../assets/pokeballIcon.png';
@@ -116,10 +117,12 @@ export default function PokemonPopulate({ pokedexList, selectedRegion }) {
                 {
                     pokedexList.map((pokemon, index) => {
                         const { types, sprites } = pokemon;
-
                         return (
                             <div
-                                className={`mainPokemonContainer ${iconSprites ? 'pokemonIconsContainer' : 'pokemonContainer'}`}
+                                className={`mainPokemonContainer
+                                 ${iconSprites ? 'pokemonIconsContainer' : 'pokemonContainer'}
+                                 border-${types[0].name}
+                                 `}
                                 key={index}
                                 onClick={() => handleModalUp(pokemon)}
                             >

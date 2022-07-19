@@ -42,12 +42,12 @@ export default function PokemonTypes({ types }) {
 
     return (
         <div className="pokemonTypes">
-            <span className={`${firstType}`}>
+            <span className={`background-${firstType}`}>
                 {firstType}
             </span>
             {
                 secondType &&
-                <span className={`${secondType}`} >
+                <span className={`background-${secondType}`} >
                     {secondType}
                 </span>
             }
