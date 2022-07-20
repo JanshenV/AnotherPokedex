@@ -46,7 +46,7 @@ export default function ModalSpritesContainer({
     //From Global Provider
     const {
         useEffect, currentSprite, setCurrentSprite,
-        selectionSprites, currentGender,
+        selectionSprites, currentGender, allSprites,
         genderMessage, setGenderMessage
     } = useGlobal();
 
@@ -80,8 +80,7 @@ export default function ModalSpritesContainer({
                         style={{
                             backgroundImage: `url(${currentSprite})`
                         }}
-                    >
-                        
+                    > 
                     </div>
                 }
                 
@@ -100,7 +99,6 @@ export default function ModalSpritesContainer({
                         onClick={() => handleSpriteByGender('female')}
                         disabled={currentGender.female}
                     />
-
                     <GenderIcons
                         gender={'male'}
                         onClick={() => handleSpriteByGender('male')}

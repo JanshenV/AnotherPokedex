@@ -35,7 +35,7 @@ export default function PokemonModal({
         useState, useEffect, setCurrentSprite,
         allSprites, setAllSprites, setSelectionSprites,
         setCurrentGender, setGenderMessage, width,
-        currentSprite
+        currentGender
     } = useGlobal();
 
     const [species, setSpecies] = useState('');
@@ -51,6 +51,8 @@ export default function PokemonModal({
         if (allSprites.length && !sprites) sprites = [...allSprites];
 
         if (gender === 'female') {
+            if (currentGender.female) return;
+
             setCurrentGender({
                 male: false,
                 female: true
@@ -66,10 +68,11 @@ export default function PokemonModal({
                 return setSelectionSprites(sprites[1]?.shiny_front);
             };
             setGenderMessage('There are no female sprites to be shown.');
-            return;
         };
 
-        setCurrentGender({
+        if (currentGender.male) return;
+
+        await setCurrentGender({
             male: true,
             female: false
         });

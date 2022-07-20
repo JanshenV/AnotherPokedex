@@ -17,7 +17,7 @@ import {
     handlePokedex, handleIndividualPokemon
 } from '../../api/apiCalls';
 
-export default function Body({ }) {
+export default function Body() {
 
     const {
         useState, useEffect, searchInputValue,
