@@ -25,8 +25,8 @@ export default function ModalPokemonInfo({
 
     useEffect(() => {
         function handleWidthMultiplier() {
-            if (width > 844 && width <= 1599) return setWidthMultiplier(2);
-            if (width > 1600) return setWidthMultiplier(2.5);
+            if (width > 844 && width <= 1599) return setWidthMultiplier(1.8);
+            if (width > 1600) return setWidthMultiplier(2.8);
         };
 
         handleWidthMultiplier();

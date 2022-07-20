@@ -70,7 +70,7 @@
 
 @media only screen and (min-width: 1600px) {
     .pokedexContainer {
-        grid-template-columns: repeat(6, 1fr);
+        grid-template-columns: repeat(7, 1fr);
     }
 
     .pokemonContainer {
