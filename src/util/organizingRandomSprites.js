@@ -2,26 +2,28 @@ export async function organizingSprites(sprites, setPokemonSprites, iconSprites)
     const randomZeroOne = Math.floor(Math.random() * 2);
     const localSprites = sprites[randomZeroOne];
     const frontDefaultLength = localSprites.front.length;
-    const indexOfLocalSprites = sprites.indexOf(localSprites)
+    const indexOfLocalSprites = sprites.indexOf(localSprites);
 
     let sprite;
     if (frontDefaultLength && indexOfLocalSprites === 1) {
         sprite = localSprites.front[1];
-        if (iconSprites) {
-            for (let icon of localSprites.front) {
-                if (icon.includes('icons')) {
-                    sprite = icon;
-                };
-            };
-        };
     } else {
         sprite = sprites[0].front[2];
-        if (iconSprites) {
-            for (let icon of sprites[0].front) {
-                if (icon.includes('icons')) {
-                    sprite = icon;
-                };
-            };
+    };
+
+    if (iconSprites) {
+        const existingFemaleIcons = sprites[1].front.filter(icon => {
+            if (icon.includes('icons')) return icon;
+        });
+        const existingMaleIcons = sprites[0].front.filter(icon => {
+            if (icon.includes('icons')) return icon;
+        });
+
+
+        if (indexOfLocalSprites === 1 && existingFemaleIcons.length) {
+            sprite = existingFemaleIcons[0];
+        } else if (!existingFemaleIcons.length) {
+            sprite = existingMaleIcons[0];
         };
     };
     return setPokemonSprites(sprite);

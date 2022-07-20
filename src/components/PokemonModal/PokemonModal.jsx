@@ -68,7 +68,6 @@ export default function PokemonModal({
             setGenderMessage('There are no female sprites to be shown.');
         };
 
-
         await setCurrentGender({
             male: true,
             female: false
