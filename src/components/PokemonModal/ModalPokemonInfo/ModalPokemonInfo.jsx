@@ -13,8 +13,8 @@ import PokemonTypes from '../../PokemonTypes';
 import useGlobal from '../../../hooks/useGlobal';
 
 export default function ModalPokemonInfo({
-    pokemonModalData: Pokemon, species, stats, 
-    description, color
+    pokemonModalData: Pokemon, species,
+    stats, color, description
 }) {
     
     const {
@@ -43,9 +43,19 @@ export default function ModalPokemonInfo({
                     About:
                 </h1>
 
-                <h4>
-                    {description}
+                <h4 style={{color: 'grey'}}>
+                    {description.text}
                 </h4>
+
+                <div className='descriptionInfos'>
+                    <h4>Language: </h4>
+                    <span>{description.language}</span>
+                </div>
+
+                <div className='descriptionInfos'>
+                    <h4>Version: </h4>
+                    <span>{description.version}</span>
+                </div>
             </div>
  
             <div className='generalInfo'>

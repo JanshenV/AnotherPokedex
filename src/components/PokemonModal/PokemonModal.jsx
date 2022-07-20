@@ -13,6 +13,9 @@ import ModalSpritesContainer from './ModalSpritesContainer/ModalSpritesContainer
 import ModalPokemonInfo from './ModalPokemonInfo/ModalPokemonInfo';
 import CircularIndeterminate from '../LoadingComponent';
 
+//Util
+import { randomDescriptions } from '../../util/randomDescriptions';
+
 //PropTypes
 import PropTypes from 'prop-types';
 PokemonModal.propTypes = {
@@ -37,7 +40,7 @@ export default function PokemonModal({
     } = useGlobal();
 
     const [species, setSpecies] = useState('');
-    const [description, setDescription] = useState('');
+    const [pokemonDescription, setPokemonDescription] = useState('');
     const [forms, setForms] = useState([]);
     const [stats, setStats] = useState([]);
 
@@ -77,20 +80,18 @@ export default function PokemonModal({
             await setCurrentSprite(sprites[0].front[0]);
         };
 
-
         return setSelectionSprites(sprites[0]?.front);
     };
 
     useEffect(() => {
-        async function requestSpecies() {
+        async function requestSpeciesAndDescription() {
             const { species: { url } } = pokemonModalData;
             const request = await fetch(url);
             if (!request.ok) return;
 
             const { genera, flavor_text_entries } = await request.json();
-            const removingBreakLines = flavor_text_entries[0].flavor_text.replace(/(\n|\f)/gm, " ");
             setSpecies(genera[7].genus);
-            setDescription(removingBreakLines);
+            randomDescriptions(flavor_text_entries, setPokemonDescription);
         };
 
         async function requestForms() {
@@ -148,7 +149,7 @@ export default function PokemonModal({
         };
 
         async function makeAllRequests() {
-            await requestSpecies();
+            await requestSpeciesAndDescription();
             await requestForms();
             await organizeStats();
             await organizeSprites();
@@ -190,8 +191,8 @@ export default function PokemonModal({
                             pokemonModalData={pokemonModalData}
                             species={species}
                             stats={stats}
-                            description={description}
                             color={backgroundByType}
+                            description={pokemonDescription}
                         />
                     </div>
                     :
