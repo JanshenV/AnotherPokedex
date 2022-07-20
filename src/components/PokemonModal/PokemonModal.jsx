@@ -34,7 +34,8 @@ export default function PokemonModal({
     const {
         useState, useEffect, setCurrentSprite,
         allSprites, setAllSprites, setSelectionSprites,
-        setCurrentGender, setGenderMessage, width
+        setCurrentGender, setGenderMessage, width,
+        currentSprite
     } = useGlobal();
 
     const [species, setSpecies] = useState('');
@@ -46,7 +47,7 @@ export default function PokemonModal({
     const [closeModalMessage, setCloseModalMessage] = useState(false);
     const [modalLoading, setModalLoading] = useState(true);
 
-    function handleSpriteByGender(gender, sprites, first) {
+    async function handleSpriteByGender(gender, sprites, first) {
         if (allSprites.length && !sprites) sprites = [...allSprites];
 
         if (gender === 'female') {
@@ -55,16 +56,17 @@ export default function PokemonModal({
                 female: true
             });
             if (sprites[1]?.front.length) {
-                setCurrentSprite(sprites[1].front[0]);
+                setCurrentSprite(sprites[1]?.front[0]);
                 return setSelectionSprites(sprites[1]?.front);
             };
 
             if (sprites[1]?.shiny_front.length) {
                 setGenderMessage('There are only shiny female sprites to be shown.')
-                setCurrentSprite(sprites[1].shiny_front[0]);
+                setCurrentSprite(sprites[1]?.shiny_front[0]);
                 return setSelectionSprites(sprites[1]?.shiny_front);
             };
             setGenderMessage('There are no female sprites to be shown.');
+            return;
         };
 
         setCurrentGender({
@@ -72,9 +74,12 @@ export default function PokemonModal({
             female: false
         });
 
-        if (!first) {
-            setCurrentSprite(sprites[0].front[0]);
+        if (first) {
+            await setCurrentSprite(sprites[0].front[2]);
+        } else {
+            await setCurrentSprite(sprites[0].front[0]);
         };
+
 
         return setSelectionSprites(sprites[0]?.front);
     };

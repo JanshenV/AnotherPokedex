@@ -23,7 +23,6 @@ export async function organizingSprites(sprites, setPokemonSprites, iconSprites)
                 };
             };
         };
-
     };
     return setPokemonSprites(sprite);
 };
