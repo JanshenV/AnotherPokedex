@@ -9,7 +9,7 @@ import pokeballIcon from '../../assets/pokeballIcon.png';
 import useGlobal from '../../hooks/useGlobal';
 
 //Components
-import PokemonSprites from '../PokemonSprites';
+import PokemonCardSprite from '../PokemonCardSprite';
 import PokemonTypes from '../PokemonTypes';
 import PokemonModal from '../PokemonModal/PokemonModal';
 
@@ -86,7 +86,7 @@ export default function PokemonPopulate({ pokedexList, selectedRegion }) {
                                 key={index}
                                 onClick={() => handleModalUp(pokemon)}
                             >
-                                <PokemonSprites
+                                <PokemonCardSprite
                                     sprites={sprites}
                                     iconSprites={iconSprites}
                                 />

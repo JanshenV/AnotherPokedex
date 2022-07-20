@@ -19,13 +19,11 @@ export default function useGlobalProvider() {
         setHeight(innerHeight);
     };
 
-
     useEffect(() => {
         handleWindowSizes();
     }, []);
 
     window.addEventListener('resize', handleWindowSizes);
-
 
     return {
         useState, useEffect,

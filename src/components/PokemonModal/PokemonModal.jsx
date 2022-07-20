@@ -142,7 +142,7 @@ export default function PokemonModal({
             setStats(localStats);
         };
 
-        async function organiSprites() {
+        async function organizeSprites() {
             const localAllSprites = pokemonModalData.sprites;
             setAllSprites([...localAllSprites]);
             setCurrentSprite(localAllSprites[0].front[2]);
@@ -153,7 +153,7 @@ export default function PokemonModal({
             await requestSpecies();
             await requestForms();
             await organizeStats();
-            await organiSprites();
+            await organizeSprites();
             setModalLoading(false);
         };
 
