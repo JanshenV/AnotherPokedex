@@ -51,8 +51,6 @@ export default function PokemonModal({
         if (allSprites.length && !sprites) sprites = [...allSprites];
 
         if (gender === 'female') {
-            if (currentGender.female) return;
-
             setCurrentGender({
                 male: false,
                 female: true
@@ -70,7 +68,6 @@ export default function PokemonModal({
             setGenderMessage('There are no female sprites to be shown.');
         };
 
-        if (currentGender.male) return;
 
         await setCurrentGender({
             male: true,
