@@ -14,11 +14,13 @@ import useGlobal from '../../../hooks/useGlobal';
 
 export default function ModalPokemonInfo({
     pokemonModalData: Pokemon, species,
-    stats, color, description
+    stats, color, description,
+    handleDescriptions
 }) {
-    
+
     const {
-        useState, width, useEffect
+        useState, width, useEffect,
+        selectionVersions
     } = useGlobal();
 
     const [widthMultiplier, setWidthMultiplier] = useState(1.2);
@@ -43,18 +45,36 @@ export default function ModalPokemonInfo({
                     About:
                 </h1>
 
-                <h4 style={{color: 'grey'}}>
-                    {description.text}
+                <h4 style={{ color: 'grey' }}>
+                    {description?.text}
                 </h4>
 
                 <div className='descriptionInfos'>
                     <h4>Language: </h4>
-                    <span>{description.language}</span>
+                    <span>{description?.language}</span>
                 </div>
 
-                <div className='descriptionInfos'>
+                <div className='descriptionInfos descriptionVersions'>
                     <h4>Version: </h4>
                     <span>{description.version}</span>
+                    <select
+                        defaultValue={description.version}
+                        onChange={({target: {value}}) => handleDescriptions(value)}
+                    >
+                        {
+                            selectionVersions?.length &&
+                            selectionVersions?.map(({ version: {name} }, index) => {
+                                return (
+                                    <option
+                                        key={index}
+                                        value={name}
+                                    >
+                                        {name}
+                                    </option>
+                                )
+                            })
+                        }
+                    </select>
                 </div>
             </div>
  
@@ -142,7 +162,7 @@ export default function ModalPokemonInfo({
                                         className={`statBar ${statLv}`}
                                         style={{
                                             width: `${base * widthMultiplier}px`,
-                                        }}>         
+                                        }}>
                                     </div>
                                 </div>
                             </div>

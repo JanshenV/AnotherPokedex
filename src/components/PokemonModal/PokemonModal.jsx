@@ -37,10 +37,12 @@ export default function PokemonModal({
         useState, useEffect, setCurrentSprite,
         allSprites, setAllSprites, setSelectionSprites,
         setCurrentGender, setGenderMessage, width,
+        selectionVersions, setSelectionVersions
     } = useGlobal();
 
     const [species, setSpecies] = useState('');
     const [pokemonDescription, setPokemonDescription] = useState('');
+
     const [forms, setForms] = useState([]);
     const [stats, setStats] = useState([]);
 
@@ -83,6 +85,16 @@ export default function PokemonModal({
         return setSelectionSprites(sprites[0]?.front);
     };
 
+    async function handleDescriptions(value) {
+        const chosenDescription = selectionVersions?.find(({ version: { name } }) => name === value);
+
+        return setPokemonDescription({
+            text: chosenDescription?.flavor_text,
+            language: chosenDescription?.language.name,
+            version: chosenDescription?.version.name
+        });
+    };
+
     useEffect(() => {
         async function requestSpeciesAndDescription() {
             const { species: { url } } = pokemonModalData;
@@ -91,7 +103,7 @@ export default function PokemonModal({
 
             const { genera, flavor_text_entries } = await request.json();
             setSpecies(genera[7].genus);
-            randomDescriptions(flavor_text_entries, setPokemonDescription);
+            randomDescriptions(flavor_text_entries, setPokemonDescription, setSelectionVersions);
         };
 
         async function requestForms() {
@@ -193,6 +205,7 @@ export default function PokemonModal({
                             stats={stats}
                             color={backgroundByType}
                             description={pokemonDescription}
+                            handleDescriptions={handleDescriptions}
                         />
                     </div>
                     :

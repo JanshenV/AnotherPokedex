@@ -13,30 +13,15 @@ import darkerPokeballBackGround from '../../../assets/darkerPokeballBackground.s
 //PropTypes
 import PropTypes from 'prop-types';
 ModalSpritesContainer.propTypes = {
-    currentSprite: PropTypes.string,
-    setCurrentSprite: PropTypes.func,
-    currentGender: PropTypes.shape(
-        {
-            male: PropTypes.bool,
-            female: PropTypes.bool,
-        }
-    ),
-    selectionSprites: PropTypes.arrayOf(
-        PropTypes.string
-    ),
     handleSpriteByGender: PropTypes.func,
     pokemonName: PropTypes.string,
+    pokemonDexNr: PropTypes.string,
 };
 
 ModalSpritesContainer.defaultProps = {
-    setCurrentSprite: () => null,
-    currentGender: {
-        male: true,
-        female: false
-    },
-    selectionSprites: ['option 1', 'option 2', 'option ...'],
     handleSpriteByGender: () => null,
-    pokemonName: 'Noah'
+    pokemonName: 'Noah',
+    pokemonDexNr: '666'
 };
 
 export default function ModalSpritesContainer({

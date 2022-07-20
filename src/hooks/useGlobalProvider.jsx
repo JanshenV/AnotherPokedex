@@ -4,12 +4,16 @@ export default function useGlobalProvider() {
     const [currentSprite, setCurrentSprite] = useState('');
     const [allSprites, setAllSprites] = useState([]);
     const [selectionSprites, setSelectionSprites] = useState([]);
-    const [genderMessage, setGenderMessage] = useState('');
+    const [selectionVersions, setSelectionVersions] = useState([]);
+
     const [searchInputValue, setSearchInputValue] = useState('');
+
+    const [genderMessage, setGenderMessage] = useState('');
     const [currentGender, setCurrentGender] = useState({
         male: '',
         female: ''
     });
+
     const [width, setWidth] = useState('');
     const [height, setHeight] = useState('');
 
@@ -30,6 +34,7 @@ export default function useGlobalProvider() {
         currentSprite, setCurrentSprite,
         allSprites,  setAllSprites,
         selectionSprites, setSelectionSprites,
+        selectionVersions, setSelectionVersions,
         currentGender, setCurrentGender,
         genderMessage, setGenderMessage,
         searchInputValue, setSearchInputValue,
