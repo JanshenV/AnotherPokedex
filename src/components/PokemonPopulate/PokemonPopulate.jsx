@@ -30,7 +30,6 @@ PokemonPopulate.defaultProps = {
 export default function PokemonPopulate({ pokedexList, selectedRegion }) {
     const { useState, useEffect } = useGlobal();
 
-    const pokedexListLength = pokedexList.length;
     let storageIconSprites = localStorage.getItem('iconSprites');
 
     const [iconSprites, setIconSprites] = useState(storageIconSprites === 'icons' ? true : false);
@@ -43,7 +42,7 @@ export default function PokemonPopulate({ pokedexList, selectedRegion }) {
         setModalUp(true);
     };
 
-    function handleIconSprites() {
+    function handleStorageIconSprites() {
         const localInconSprite = !iconSprites;
         setIconSprites(localInconSprite);
         storageIconSprites = localStorage.setItem('iconSprites', localInconSprite ? 'icons' : 'images');
@@ -61,14 +60,14 @@ export default function PokemonPopulate({ pokedexList, selectedRegion }) {
                 {selectedRegion ? `${selectedRegion} Pokedex` : 'Kanto Pokedex'}
             </h1>
             <div
-                className={`${pokedexListLength > 5 ? 'pokedexContainer' : 'notGrid'}`}>
+                className={`${pokedexList.length > 5 ? 'pokedexContainer' : 'notGrid'}`}>
                 {
-                    pokedexListLength ?
+                    pokedexList.length ?
                         <img
                             className='pokeballChangeSprites'
                             src={pokeballIcon}
                             alt="Change pokemon sprite"
-                            onClick={() => handleIconSprites()}
+                            onClick={() => handleStorageIconSprites()}
                         />
                         :
                         null

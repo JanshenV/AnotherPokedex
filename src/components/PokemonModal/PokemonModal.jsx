@@ -30,12 +30,10 @@ export default function PokemonModal({
     setModalUp, pokemonModalData
 }) {
 
-    //From Global Provider
     const {
         useState, useEffect, setCurrentSprite,
         allSprites, setAllSprites, setSelectionSprites,
         setCurrentGender, setGenderMessage, width,
-        currentGender
     } = useGlobal();
 
     const [species, setSpecies] = useState('');
