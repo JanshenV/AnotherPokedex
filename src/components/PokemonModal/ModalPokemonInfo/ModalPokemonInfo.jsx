@@ -12,6 +12,27 @@ import PokemonTypes from '../../PokemonTypes';
 //Global Provider
 import useGlobal from '../../../hooks/useGlobal';
 
+//PropTypes
+import PropTypes from 'prop-types';
+
+ModalPokemonInfo.propTypes = {
+    pokemonModalData: PropTypes.object,
+    species: PropTypes.string,
+    stats: PropTypes.arrayOf(
+        PropTypes.object
+    ),
+    color: PropTypes.string,
+    description: PropTypes.string,
+    handleVersionDescription: PropTypes.func
+};
+
+ModalPokemonInfo.defaultProps = {
+    stats: [{}],
+    color: 'fire',
+    description: "lasciate ogne speranza, voi ch'intrate",
+    handleVersionDescription: () => null
+};
+
 export default function ModalPokemonInfo({
     pokemonModalData: Pokemon, species,
     stats, color, description,
