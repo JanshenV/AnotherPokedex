@@ -58,7 +58,6 @@ export default function ModalPokemonInfo({
 
                 <div className='descriptionInfos descriptionVersions'>
                     <h4>Version: </h4>
-                    <span>{description.version}</span>
                     <select
                         defaultValue={description.version}
                         onChange={({ target: { value } }) => handleVersionDescription(value)}
