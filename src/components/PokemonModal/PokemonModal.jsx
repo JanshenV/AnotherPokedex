@@ -147,22 +147,10 @@ export default function PokemonModal({
         async function requestForms() {
             const { forms } = pokemonModalData;
    
-            if (!forms.length > 1) return setForms([]);
+            // if (!forms.length > 1) {
 
-            const localForms = [];
-            for (let form of forms) {
-                const request = await fetch(form.url);
-                if (!request.ok) return;
-                
-                const response = await request.json();
-                const formsData = {
-                    name: response.form_name,
-                    default: response.sprites.front_default,
-                    shiny: response.sprites.front_shiny,
-                }
-                localForms.push(formsData);
-            };
-            setForms(localForms);
+            // };
+            setForms([...forms]);
         };
 
         async function organizeStats() {

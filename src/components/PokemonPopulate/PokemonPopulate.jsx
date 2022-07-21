@@ -89,7 +89,10 @@ export default function PokemonPopulate({ pokedexList, selectedRegion }) {
                                     iconSprites={iconSprites}
                                 />
                                 <h3>#{pokemon.id}</h3>
-                                <h2>{pokemon.name}</h2>
+                                <h2 style={{
+                                    textTransform: 'capitalize'
+                                }}>
+                                    {pokemon.name}</h2>
 
                                 <PokemonTypes
                                     types={types}
