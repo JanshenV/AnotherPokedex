@@ -15,14 +15,14 @@ import useGlobal from '../../../hooks/useGlobal';
 export default function ModalPokemonInfo({
     pokemonModalData: Pokemon, species,
     stats, color, description,
-    handleDescriptions
+    handleVersionDescription
 }) {
 
     const {
         useState, width, useEffect,
         selectionVersions
     } = useGlobal();
-
+    
     const [widthMultiplier, setWidthMultiplier] = useState(1.2);
 
     useEffect(() => {
@@ -51,7 +51,9 @@ export default function ModalPokemonInfo({
 
                 <div className='descriptionInfos'>
                     <h4>Language: </h4>
-                    <span>{description?.language}</span>
+                    <span>
+                        {description?.language}
+                    </span>
                 </div>
 
                 <div className='descriptionInfos descriptionVersions'>
@@ -59,17 +61,16 @@ export default function ModalPokemonInfo({
                     <span>{description.version}</span>
                     <select
                         defaultValue={description.version}
-                        onChange={({target: {value}}) => handleDescriptions(value)}
+                        onChange={({ target: { value } }) => handleVersionDescription(value)}
                     >
                         {
-                            selectionVersions?.length &&
-                            selectionVersions?.map(({ version: {name} }, index) => {
+                            selectionVersions?.map(({ version }, index) => {
                                 return (
                                     <option
                                         key={index}
-                                        value={name}
+                                        value={version}
                                     >
-                                        {name}
+                                        {version}
                                     </option>
                                 )
                             })

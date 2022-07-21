@@ -14,7 +14,10 @@ import ModalPokemonInfo from './ModalPokemonInfo/ModalPokemonInfo';
 import CircularIndeterminate from '../LoadingComponent';
 
 //Util
-import { randomDescriptions } from '../../util/randomDescriptions';
+import {
+    randomDescriptions,
+    organizingEnglishDescriptions
+} from '../../util/randomDescriptions';
 
 //PropTypes
 import PropTypes from 'prop-types';
@@ -37,7 +40,7 @@ export default function PokemonModal({
         useState, useEffect, setCurrentSprite,
         allSprites, setAllSprites, setSelectionSprites,
         setCurrentGender, setGenderMessage, width,
-        selectionVersions, setSelectionVersions
+        selectionVersions, setSelectionVersions,
     } = useGlobal();
 
     const [species, setSpecies] = useState('');
@@ -85,25 +88,36 @@ export default function PokemonModal({
         return setSelectionSprites(sprites[0]?.front);
     };
 
-    async function handleDescriptions(value) {
-        const chosenDescription = selectionVersions?.find(({ version: { name } }) => name === value);
+    async function handleVersionDescription(value) {
+        const chosenDescription = selectionVersions?.find(({ version }) => version === value);
 
         return setPokemonDescription({
-            text: chosenDescription?.flavor_text,
-            language: chosenDescription?.language.name,
-            version: chosenDescription?.version.name
+            text: chosenDescription?.text,
+            language: chosenDescription?.language,
+            version: chosenDescription?.version
         });
     };
 
+
     useEffect(() => {
-        async function requestSpeciesAndDescription() {
+        async function requestSpeciesAndDescriptions() {
             const { species: { url } } = pokemonModalData;
             const request = await fetch(url);
             if (!request.ok) return;
 
             const { genera, flavor_text_entries } = await request.json();
             setSpecies(genera[7].genus);
-            randomDescriptions(flavor_text_entries, setPokemonDescription, setSelectionVersions);
+            
+            const {
+                englishDescriptions
+            } = await organizingEnglishDescriptions(flavor_text_entries);
+
+            await setSelectionVersions([...englishDescriptions]);
+
+            await randomDescriptions(
+                englishDescriptions,
+                setPokemonDescription,
+            );
         };
 
         async function requestForms() {
@@ -161,7 +175,7 @@ export default function PokemonModal({
         };
 
         async function makeAllRequests() {
-            await requestSpeciesAndDescription();
+            await requestSpeciesAndDescriptions();
             await requestForms();
             await organizeStats();
             await organizeSprites();
@@ -171,7 +185,6 @@ export default function PokemonModal({
         makeAllRequests();
     }, [pokemonModalData]);
 
-    
 
     return (
         <div className='outerContainer'>
@@ -205,7 +218,7 @@ export default function PokemonModal({
                             stats={stats}
                             color={backgroundByType}
                             description={pokemonDescription}
-                            handleDescriptions={handleDescriptions}
+                            handleVersionDescription={handleVersionDescription}
                         />
                     </div>
                     :

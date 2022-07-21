@@ -1,28 +1,28 @@
-export async function randomDescriptions(
-    allDescriptions, setDescription, setSelectionVersions
-) {
-    const regexingAllDescriptions = allDescriptions.map((item) => {
+export async function organizingEnglishDescriptions(allDescriptions) {
+    const formattingAllDescriptions = allDescriptions.map((item) => {
         return item = {
-            ...item,
-            flavor_text: item.flavor_text.replace(/(\n|\f)/gm, " ")
+            text: item.flavor_text.replace(/(\n|\f)/gm, " "),
+            language: item.language.name,
+            version: item.version.name
         }
     });
-    const englishDescriptions = regexingAllDescriptions.filter(({ language: { name } }) => name.includes('en'));
+    const englishDescriptions = formattingAllDescriptions.filter(({ language }) => language === 'en');
 
-    const randomIndex = Math.floor(Math.random() * englishDescriptions.length)
-
-    const chosenDescription = englishDescriptions[randomIndex];
-
-    const text = chosenDescription.flavor_text;
-    const language = chosenDescription.language.name;
-    const version = chosenDescription.version.name;
-
-    setDescription({
-        text,
-        language,
-        version
-    });
-
-    setSelectionVersions([...englishDescriptions]);
+    return { englishDescriptions };
 };
+
+
+export async function randomDescriptions(
+    descriptions, setDescription
+) {
+    const randomIndex = Math.floor(Math.random() * descriptions.length);
+    const chosenDescription = descriptions[randomIndex];
+
+    await setDescription({
+        text: chosenDescription?.text,
+        language: chosenDescription?.language,
+        version: chosenDescription?.version
+    });
+};
+
 

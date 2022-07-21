@@ -3,9 +3,10 @@ import { useState, useEffect } from 'react';
 export default function useGlobalProvider() {
     const [currentSprite, setCurrentSprite] = useState('');
     const [allSprites, setAllSprites] = useState([]);
+
     const [selectionSprites, setSelectionSprites] = useState([]);
     const [selectionVersions, setSelectionVersions] = useState([]);
-
+    
     const [searchInputValue, setSearchInputValue] = useState('');
 
     const [genderMessage, setGenderMessage] = useState('');
@@ -31,12 +32,16 @@ export default function useGlobalProvider() {
 
     return {
         useState, useEffect,
+
         currentSprite, setCurrentSprite,
-        allSprites,  setAllSprites,
+        allSprites, setAllSprites,
+
         selectionSprites, setSelectionSprites,
         selectionVersions, setSelectionVersions,
+
         currentGender, setCurrentGender,
         genderMessage, setGenderMessage,
+        
         searchInputValue, setSearchInputValue,
         width, height,
     };
