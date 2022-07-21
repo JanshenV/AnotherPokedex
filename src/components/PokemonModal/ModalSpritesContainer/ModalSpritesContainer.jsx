@@ -15,13 +15,13 @@ import PropTypes from 'prop-types';
 ModalSpritesContainer.propTypes = {
     handleSpriteByGender: PropTypes.func,
     pokemonName: PropTypes.string,
-    pokemonDexNr: PropTypes.string,
+    pokemonDexNr: PropTypes.number,
 };
 
 ModalSpritesContainer.defaultProps = {
     handleSpriteByGender: () => null,
     pokemonName: 'Noah',
-    pokemonDexNr: '666'
+    pokemonDexNr: 666
 };
 
 export default function ModalSpritesContainer({
@@ -92,7 +92,7 @@ export default function ModalSpritesContainer({
                 </div>
 
                 <select
-                    defaultValue={currentSprite}
+                    value={currentSprite}
                     onChange={(e) => setCurrentSprite(e.target.value)}
                 >
                     {
@@ -102,7 +102,6 @@ export default function ModalSpritesContainer({
                                 <option
                                     value={sprite}
                                     key={index}
-                                    selected={currentSprite === sprite}
                                 >
                                     Sprite: {index + 1}
                                 </option>

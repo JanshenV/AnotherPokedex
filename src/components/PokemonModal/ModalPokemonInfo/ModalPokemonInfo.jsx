@@ -22,19 +22,27 @@ ModalPokemonInfo.propTypes = {
         PropTypes.object
     ),
     color: PropTypes.string,
-    description: PropTypes.string,
+    description: PropTypes.shape({
+        text: PropTypes.string,
+        language: PropTypes.string,
+        version: PropTypes.string
+    }),
     handleVersionDescription: PropTypes.func
 };
 
 ModalPokemonInfo.defaultProps = {
     stats: [{}],
     color: 'fire',
-    description: "lasciate ogne speranza, voi ch'intrate",
+    description: {
+        text: "lasciate ogne speranza, voi ch'intrate",
+        language: 'Italian',
+        version: 'The Vision'
+    },
     handleVersionDescription: () => null
 };
 
 export default function ModalPokemonInfo({
-    pokemonModalData: Pokemon, species,
+    Pokemon, species, forms,
     stats, color, description,
     handleVersionDescription
 }) {

@@ -98,7 +98,6 @@ export default function PokemonModal({
         });
     };
 
-
     useEffect(() => {
         async function requestSpeciesAndDescriptions() {
             const { species: { url } } = pokemonModalData;
@@ -185,7 +184,6 @@ export default function PokemonModal({
         makeAllRequests();
     }, [pokemonModalData]);
 
-
     return (
         <div className='outerContainer'>
 
@@ -213,8 +211,9 @@ export default function PokemonModal({
                             pokemonDexNr={pokemonModalData.dexnr}
                         />
                         <ModalPokemonInfo
-                            pokemonModalData={pokemonModalData}
+                            Pokemon={pokemonModalData}
                             species={species}
+                            forms={forms}
                             stats={stats}
                             color={backgroundByType}
                             description={pokemonDescription}
