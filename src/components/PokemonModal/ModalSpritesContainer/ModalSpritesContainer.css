@@ -50,11 +50,24 @@
     width: 100%;
 }
 
+.showFormsButton {
+    padding: 6px 6px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+.showFormsButton:hover {
+    transform: scale(1.1);
+}
+
 .spritesContainer select {
+    text-align: center;
     transition: transform 0.1s;
     padding: 6px 0;
     cursor: pointer;
     border-radius: 6px;
+    text-transform: capitalize;
 }
 
 .spritesContainer select:hover {

@@ -16,23 +16,33 @@ ModalSpritesContainer.propTypes = {
     handleSpriteByGender: PropTypes.func,
     pokemonName: PropTypes.string,
     pokemonDexNr: PropTypes.number,
+    forms: PropTypes.arrayOf(
+        PropTypes.shape({
+            default: PropTypes.string,
+            name: PropTypes.string,
+            shiny: PropTypes.string
+        })
+    ),
+    handleShowForms: PropTypes.func
 };
 
 ModalSpritesContainer.defaultProps = {
     handleSpriteByGender: () => null,
     pokemonName: 'Noah',
-    pokemonDexNr: 666
+    pokemonDexNr: 666,
+    handleShowForms: () => null
 };
 
 export default function ModalSpritesContainer({
-    pokemonName, handleSpriteByGender, pokemonDexNr
+    pokemonName, handleSpriteByGender, pokemonDexNr,
+    forms, handleShowForms
 }) {
 
     //From Global Provider
     const {
         useEffect, currentSprite, setCurrentSprite,
-        selectionSprites, currentGender, allSprites,
-        genderMessage, setGenderMessage
+        selectionSprites, currentGender,
+        genderMessage, setGenderMessage, showForms
     } = useGlobal();
 
     useEffect(() => {
@@ -65,7 +75,7 @@ export default function ModalSpritesContainer({
                         style={{
                             backgroundImage: `url(${currentSprite})`
                         }}
-                    > 
+                    >
                     </div>
                 }
                 
@@ -91,24 +101,59 @@ export default function ModalSpritesContainer({
                     />
                 </div>
 
-                <select
-                    value={currentSprite}
-                    onChange={(e) => setCurrentSprite(e.target.value)}
-                >
-                    {
-                        selectionSprites?.length &&
-                        selectionSprites.map((sprite, index) => {
-                            return (
-                                <option
-                                    value={sprite}
-                                    key={index}
-                                >
-                                    Sprite: {index + 1}
-                                </option>
-                            )
-                        })
-                    }
-                </select>
+                {
+                    forms?.length > 1 ?
+                        <button
+                            className='showFormsButton'
+                            onClick={handleShowForms}
+                        >
+                            {showForms ? 'Show Sprites' : 'Show Forms'}
+                        </button>
+                        : null
+                }
+
+                {
+                    showForms ?
+                        <select
+                            value={currentSprite}
+                            onChange={(e) => setCurrentSprite(e.target.value)}
+                        >
+                            {
+                                selectionSprites?.length &&
+                                selectionSprites.map((form, index) => {
+                                    return (
+                                        <option
+                                            value={form.default}
+                                            key={index}
+                                        >
+                                            {form.name}
+                                        </option>
+                                    )
+                                })
+                            }
+                        </select>
+
+                        :
+                        
+                        <select
+                            value={currentSprite}
+                            onChange={(e) => setCurrentSprite(e.target.value)}
+                        >
+                            {
+                                selectionSprites?.length &&
+                                selectionSprites.map((sprite, index) => {
+                                    return (
+                                        <option
+                                            value={sprite}
+                                            key={index}
+                                        >
+                                            Sprite: {index + 1}
+                                        </option>
+                                    )
+                                })
+                            }
+                        </select>
+                }
             </div>
         </div>
     );

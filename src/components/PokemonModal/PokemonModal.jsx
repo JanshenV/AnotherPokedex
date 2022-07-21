@@ -41,6 +41,7 @@ export default function PokemonModal({
         allSprites, setAllSprites, setSelectionSprites,
         setCurrentGender, setGenderMessage, width,
         selectionVersions, setSelectionVersions,
+        showForms, setShowForms
     } = useGlobal();
 
     const [species, setSpecies] = useState('');
@@ -61,6 +62,8 @@ export default function PokemonModal({
                 male: false,
                 female: true
             });
+
+            setShowForms(false);
             if (sprites[1]?.front.length) {
                 setCurrentSprite(sprites[1]?.front[0]);
                 return setSelectionSprites(sprites[1]?.front);
@@ -79,6 +82,8 @@ export default function PokemonModal({
             female: false
         });
 
+        setShowForms(false);
+
         if (first) {
             await setCurrentSprite(sprites[0].front[2]);
         } else {
@@ -95,6 +100,26 @@ export default function PokemonModal({
             text: chosenDescription?.text,
             language: chosenDescription?.language,
             version: chosenDescription?.version
+        });
+    };
+
+    async function handleShowForms() {
+        const localShowForms = !showForms;
+        await setShowForms(localShowForms);
+
+        if (localShowForms) {
+            await setSelectionSprites([...forms]);
+            await setCurrentSprite(forms[0]?.default);
+        };
+
+        if (!localShowForms) {
+            await setSelectionSprites(allSprites[0]?.front);
+            await setCurrentSprite(allSprites[0]?.front[2]);
+        };
+
+        setCurrentGender({
+            male: true,
+            female: false
         });
     };
 
@@ -121,12 +146,14 @@ export default function PokemonModal({
 
         async function requestForms() {
             const { forms } = pokemonModalData;
+   
             if (!forms.length > 1) return setForms([]);
 
             const localForms = [];
             for (let form of forms) {
                 const request = await fetch(form.url);
                 if (!request.ok) return;
+                
                 const response = await request.json();
                 const formsData = {
                     name: response.form_name,
@@ -134,7 +161,7 @@ export default function PokemonModal({
                     shiny: response.sprites.front_shiny,
                 }
                 localForms.push(formsData);
-            }
+            };
             setForms(localForms);
         };
 
@@ -195,7 +222,10 @@ export default function PokemonModal({
                     alt="close modal"
                     onMouseEnter={() => setCloseModalMessage(true)}
                     onMouseLeave={() => setCloseModalMessage(false)}
-                    onClick={() => setModalUp(false)}
+                    onClick={() => {
+                        setModalUp(false);
+                        setShowForms(false);
+                    }}
                 />
                 {
                     (closeModalMessage || width <= 400) &&
@@ -209,11 +239,12 @@ export default function PokemonModal({
                             handleSpriteByGender={handleSpriteByGender}
                             pokemonName={pokemonModalData.name}
                             pokemonDexNr={pokemonModalData.dexnr}
+                            forms={forms}
+                            handleShowForms={handleShowForms}
                         />
                         <ModalPokemonInfo
                             Pokemon={pokemonModalData}
                             species={species}
-                            forms={forms}
                             stats={stats}
                             color={backgroundByType}
                             description={pokemonDescription}
