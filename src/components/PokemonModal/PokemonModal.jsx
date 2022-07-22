@@ -19,6 +19,9 @@ import {
     organizingEnglishDescriptions
 } from '../../util/randomDescriptions';
 
+//Api
+import { handlePokemonVariations } from '../../api/apiCalls';
+
 //PropTypes
 import PropTypes from 'prop-types';
 PokemonModal.propTypes = {
@@ -145,12 +148,22 @@ export default function PokemonModal({
         };
 
         async function requestForms() {
-            const { forms } = pokemonModalData;
+            const { forms, name } = pokemonModalData;
    
-            // if (!forms.length > 1) {
+            if (forms.length > 1) {
+                setForms([...forms]);
+            };
 
-            // };
-            setForms([...forms]);
+            if (forms.length === 1) {
+                try {
+                    const {pokedexResponse} = await handlePokemonVariations(name);
+
+                    console.log(pokedexResponse);
+                } catch (error) {
+                    return { error };
+                };
+            };
+            
         };
 
         async function organizeStats() {

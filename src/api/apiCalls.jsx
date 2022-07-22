@@ -41,3 +41,24 @@ export async function handleIndividualPokemon(pokemonName) {
     };
 };
 
+export async function handlePokemonVariations(pokemonName) {
+    try {
+        const requestOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'Application/json'
+            }
+        };
+
+        const pokedexRequest = await fetch(`${baseUrl}variations/${pokemonName}`, requestOptions);
+        if (!pokedexRequest.ok) throw new Error('Pokedex request failed');
+        
+
+        const pokedexResponse = await pokedexRequest.json();
+
+        return { pokedexResponse };
+    } catch (error) {
+        return { error };
+    };
+};
+
