@@ -74,7 +74,9 @@ export default function PokemonPopulate({ pokedexList, selectedRegion }) {
                 {
                     pokedexList?.length &&
                     pokedexList?.map((pokemon, index) => {
-                        const { types, sprites } = pokemon;
+                        const {
+                            types, sprites, all_dex_numbers
+                        } = pokemon;
                         return (
                             <div
                                 className={`mainPokemonContainer
@@ -88,11 +90,14 @@ export default function PokemonPopulate({ pokedexList, selectedRegion }) {
                                     sprites={sprites}
                                     iconSprites={iconSprites}
                                 />
-                                <h3>#{pokemon.id}</h3>
-                                <h2 style={{
-                                    textTransform: 'capitalize'
-                                }}>
-                                    {pokemon.name}</h2>
+                                <h3>#{
+                                    all_dex_numbers?.length ?
+                                        all_dex_numbers[0].entryNumber :
+                                        '??'
+                                }</h3>
+                                <h2>
+                                    {pokemon.name}
+                                </h2>
 
                                 <PokemonTypes
                                     types={types}

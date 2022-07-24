@@ -14,10 +14,7 @@ import ModalPokemonInfo from './ModalPokemonInfo/ModalPokemonInfo';
 import CircularIndeterminate from '../LoadingComponent';
 
 //Util
-import {
-    randomDescriptions,
-    organizingEnglishDescriptions
-} from '../../util/randomDescriptions';
+import {randomDescriptions} from '../../util/randomDescriptions';
 
 //Api
 import { handlePokemonVariations } from '../../api/apiCalls';
@@ -52,6 +49,12 @@ export default function PokemonModal({
 
     const [forms, setForms] = useState([]);
     const [stats, setStats] = useState([]);
+
+    const [pokemonHeaderInfo, setPokemonHeaderInfo] = useState({
+        name: '',
+        national: '',
+        regional: ''
+    });
 
     const backgroundByType = pokemonModalData.types[0].name;
     const [closeModalMessage, setCloseModalMessage] = useState(false);
@@ -127,49 +130,53 @@ export default function PokemonModal({
     };
 
     useEffect(() => {
-        async function requestSpeciesAndDescriptions() {
-            const { species: { url } } = pokemonModalData;
-            const request = await fetch(url);
-            if (!request.ok) return;
+        function organizePokemonHeaderInfo(dexNumbers, name) {
+            const localHeaderInfo = {
+                name: name,
+                national: dexNumbers?.length ?
+                    dexNumbers[0].entryNumber : '??',
+                regional: dexNumbers?.length ?
+                    dexNumbers[1].entryNumber : '??'
+            };
+            setPokemonHeaderInfo(localHeaderInfo);
+        };
 
-            const { genera, flavor_text_entries } = await request.json();
-            setSpecies(genera[7].genus);
-            
-            const {
-                englishDescriptions
-            } = await organizingEnglishDescriptions(flavor_text_entries);
-
-            await setSelectionVersions([...englishDescriptions]);
+        async function organizeDescriptions(descriptions) {
+            await setSelectionVersions([...descriptions]);
 
             await randomDescriptions(
-                englishDescriptions,
+                descriptions,
                 setPokemonDescription,
             );
         };
 
-        async function requestForms() {
-            const { forms, name } = pokemonModalData;
-   
+        function organizeEvolutions(evolutions) {
+            // setPokemonHeaderInfo({
+
+            // })
+        };
+
+        function organizeForms(forms) {
             if (forms.length > 1) {
                 setForms([...forms]);
             };
 
-            if (forms.length === 1) {
-                try {
-                    const {pokedexResponse} = await handlePokemonVariations(name);
+            // if (forms.length === 1) {
+            //     try {
+            //         const {pokedexResponse} = await handlePokemonVariations(name);
 
-                    console.log(pokedexResponse);
-                } catch (error) {
-                    return { error };
-                };
-            };
+            //         console.log(pokedexResponse);
+            //     } catch (error) {
+            //         return { error };
+            //     };
+            // };
             
         };
 
-        async function organizeStats() {
+        function organizeStats(stats) {
             const localStats = [];
 
-            for (let stat of pokemonModalData.stats) {
+            for (let stat of stats) {
                 let name = stat.stat.name;
                 let statLv = stat.base_stat;
 
@@ -194,21 +201,33 @@ export default function PokemonModal({
             setStats(localStats);
         };
 
-        async function organizeSprites() {
-            const localAllSprites = pokemonModalData.sprites;
+        function organizeSprites(sprites) {
+            const localAllSprites = sprites;
             setAllSprites([...localAllSprites]);
             setCurrentSprite(localAllSprites[0].front[2]);
             handleSpriteByGender('male', localAllSprites, true);
         };
 
         async function makeAllRequests() {
-            await requestSpeciesAndDescriptions();
-            await requestForms();
-            await organizeStats();
-            await organizeSprites();
-            setModalLoading(false);
-        };
+            const {
+                all_dex_numbers: dexNumbers,
+                name,
+                descriptions,
+                evolutions,
+                forms,
+                stats,
+                sprites
+            } = pokemonModalData;
 
+            organizePokemonHeaderInfo(dexNumbers, name);
+            await organizeDescriptions(descriptions);
+            organizeEvolutions(evolutions);
+            organizeForms(forms);
+            organizeStats(stats);
+            organizeSprites(sprites);
+            setModalLoading(false);
+            console.log(pokemonHeaderInfo)
+        };
         makeAllRequests();
     }, [pokemonModalData]);
 
@@ -238,8 +257,7 @@ export default function PokemonModal({
                     <div className={`innerContainer background-${backgroundByType}`}>
                         <ModalSpritesContainer
                             handleSpriteByGender={handleSpriteByGender}
-                            pokemonName={pokemonModalData.name}
-                            pokemonDexNr={pokemonModalData.dexnr}
+                            pokemonHeaderInfo={pokemonHeaderInfo}
                             forms={forms}
                             handleShowForms={handleShowForms}
                         />

@@ -13,9 +13,12 @@ import darkerPokeballBackGround from '../../../assets/darkerPokeballBackground.s
 //PropTypes
 import PropTypes from 'prop-types';
 ModalSpritesContainer.propTypes = {
+    pokemonHeaderInfo: PropTypes.shape({
+        name: PropTypes.string,
+            national: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+            regional: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        }),
     handleSpriteByGender: PropTypes.func,
-    pokemonName: PropTypes.string,
-    pokemonDexNr: PropTypes.number,
     forms: PropTypes.arrayOf(
         PropTypes.shape({
             default: PropTypes.string,
@@ -28,16 +31,13 @@ ModalSpritesContainer.propTypes = {
 
 ModalSpritesContainer.defaultProps = {
     handleSpriteByGender: () => null,
-    pokemonName: 'Noah',
-    pokemonDexNr: 666,
     handleShowForms: () => null
 };
 
 export default function ModalSpritesContainer({
-    pokemonName, handleSpriteByGender, pokemonDexNr,
+    pokemonHeaderInfo, handleSpriteByGender,
     forms, handleShowForms
 }) {
-
     //From Global Provider
     const {
         useEffect, currentSprite, setCurrentSprite,
@@ -53,12 +53,17 @@ export default function ModalSpritesContainer({
         <div className={`spritesContainer`}>
             <div className='spritesContainerHeader'>
                 <h2 className='titleName'>
-                    {pokemonName}
+                    {pokemonHeaderInfo?.name}
                 </h2>
                 
+                <div className='dexNumbers'>
                 <span className='titleDexnr'>
-                    #{pokemonDexNr}
+                    National: #{pokemonHeaderInfo?.national}
                 </span>
+                <span className='titleDexnr'>
+                    Regional: #{pokemonHeaderInfo?.regional}
+                </span>
+                </div>
             </div>
 
             <div className='spritesContainerMain'>
@@ -92,12 +97,12 @@ export default function ModalSpritesContainer({
                     <GenderIcons
                         gender={'female'}
                         onClick={() => handleSpriteByGender('female')}
-                        disabled={currentGender.female}
+                        disabled={currentGender?.female}
                     />
                     <GenderIcons
                         gender={'male'}
                         onClick={() => handleSpriteByGender('male')}
-                        disabled={currentGender.male}
+                        disabled={currentGender?.male}
                     />
                 </div>
 
@@ -120,7 +125,7 @@ export default function ModalSpritesContainer({
                         >
                             {
                                 selectionSprites?.length &&
-                                selectionSprites.map((form, index) => {
+                                selectionSprites?.map((form, index) => {
                                     return (
                                         <option
                                             value={form.default}
@@ -141,7 +146,7 @@ export default function ModalSpritesContainer({
                         >
                             {
                                 selectionSprites?.length &&
-                                selectionSprites.map((sprite, index) => {
+                                selectionSprites?.map((sprite, index) => {
                                     return (
                                         <option
                                             value={sprite}

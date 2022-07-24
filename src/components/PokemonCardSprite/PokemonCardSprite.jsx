@@ -4,11 +4,11 @@ import './PokemonCardSprite.css';
 //React
 import {useState,  useEffect } from 'react';
 
-//Global Provider
-import useGlobal from '../../hooks/useGlobal';
-
 //Util
 import { organizingSprites } from '../../util/organizingRandomSprites';
+
+//Assets
+import noImageUltraBall from '../../assets/ultraBall.png';
 
 //PropTypes
 import PropTypes from 'prop-types';
@@ -31,11 +31,19 @@ export default function PokemonCardSprite({sprites, iconSprites}) {
         organizingSprites(sprites, setPokemonCardSprite, iconSprites);
     }, [sprites, iconSprites]);
 
-    return (
+    if (pokemonCardSprite) return (
         <img
             className="PokemonSprite"
             src={pokemonCardSprite}
             alt='Pokemon Image'
+        />
+    );
+
+    if (!pokemonCardSprite) return (
+        <img
+            className="noPokemonSprite"
+            src={noImageUltraBall}
+            alt='No Image'
         />
     );
 };

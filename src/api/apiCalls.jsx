@@ -1,4 +1,4 @@
-const baseUrl = 'https://anotherpokedexdb.herokuapp.com/';
+const baseUrl = 'http://localhost:3300/';
 
 export async function handlePokedex(region) {
     try {

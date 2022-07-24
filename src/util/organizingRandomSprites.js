@@ -14,18 +14,18 @@ export async function organizingSprites(
     };
 
     if (iconSprites) {
-        const existingFemaleIcons = sprites[1].front.filter(icon => {
+        const existingFemaleIcons = sprites[1]?.front.filter(icon => {
             if (icon.includes('icons')) return icon;
         });
-        const existingMaleIcons = sprites[0].front.filter(icon => {
+        const existingMaleIcons = sprites[0]?.front.filter(icon => {
             if (icon.includes('icons')) return icon;
         });
 
 
-        if (indexOfLocalSprites === 1 && existingFemaleIcons.length) {
+        if (indexOfLocalSprites === 1 && existingFemaleIcons?.length) {
             sprite = existingFemaleIcons[0];
-        } else if (!existingFemaleIcons.length) {
-            sprite = existingMaleIcons[0];
+        } else if (!existingFemaleIcons?.length) {
+            sprite = existingMaleIcons[1];
         };
     };
     return setPokemonCardSprite(sprite);
