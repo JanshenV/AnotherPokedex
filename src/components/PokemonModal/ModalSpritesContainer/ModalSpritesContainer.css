@@ -17,8 +17,15 @@
     line-height: 32px;
     font-size: 24px;
     font-weight: bolder;
-    font-family: "Poppins";
+    font-family: "Helvetica ";
+    text-shadow: 2px 2px #3a3939;
     font-style: normal;
+    text-transform: capitalize;
+}
+
+.dexNumbers {
+    display: flex;
+    flex-direction: column;
 }
 
 .spritesContainerMain {
