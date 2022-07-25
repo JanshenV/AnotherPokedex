@@ -5,8 +5,8 @@ export async function organizingSprites(
     const localSprites = sprites[randomZeroOne];
     const frontDefaultLength = localSprites.front.length;
     const indexOfLocalSprites = sprites.indexOf(localSprites);
-    console.log(indexOfLocalSprites);
     let sprite;
+
     if (frontDefaultLength && indexOfLocalSprites === 1) {
         sprite = localSprites.front[1];
     } else {
@@ -27,6 +27,8 @@ export async function organizingSprites(
         } else {
             sprite = existingMaleIcons[1];
         };
+
+        if (!sprite) sprite = existingMaleIcons[0];
     };
     return setPokemonCardSprite(sprite);
 };
