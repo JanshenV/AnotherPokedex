@@ -11,7 +11,7 @@ import useGlobal from '../../hooks/useGlobal';
 //Components
 import PokemonCardSprite from '../PokemonCardSprite';
 import PokemonTypes from '../PokemonTypes';
-import PokemonModal from '../PokemonModal/PokemonModal';
+import PokemonModal from '../Modal/PokemonModal';
 
 //PropTypes
 import PropTypes from 'prop-types';

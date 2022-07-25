@@ -1,1 +1,1 @@
-export { default } from './PokemonCardSprite';
+export { default } from './PokemonCardSprite.jsx';

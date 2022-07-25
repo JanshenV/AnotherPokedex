@@ -1,23 +1,23 @@
 //Styles
 import './PokemonModal.css';
-import '../../css/Global.css';
+import '../../../css/Global.css';
 
 //Global Provider
-import useGlobal from '../../hooks/useGlobal';
+import useGlobal from '../../../hooks/useGlobal';
 
 //Assets
-import pokeballCloseIcon from '../../assets/pokeballClose.png';
+import pokeballCloseIcon from '../../../assets/pokeballClose.png';
 
 //Components
-import ModalSpritesContainer from './ModalSpritesContainer/ModalSpritesContainer';
-import ModalPokemonInfo from './ModalPokemonInfo/ModalPokemonInfo';
-import CircularIndeterminate from '../LoadingComponent';
+import ModalSpritesContainer from '../ModalSpritesContainer';
+import ModalPokemonInfo from '../ModalPokemonInfo';
+import CircularIndeterminate from '../../LoadingComponent';
 
 //Util
-import {randomDescriptions} from '../../util/randomDescriptions';
+import {randomDescriptions} from '../../../util/randomDescriptions';
 
 //Api
-import { handlePokemonVariations } from '../../api/apiCalls';
+import { handlePokemonVariations } from '../../../api/apiCalls';
 
 //PropTypes
 import PropTypes from 'prop-types';
