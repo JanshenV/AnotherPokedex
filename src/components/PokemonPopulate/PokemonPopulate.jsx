@@ -62,49 +62,55 @@ export default function PokemonPopulate({ pokedexList, selectedRegion }) {
             <div
                 className={`${pokedexList.length > 5 ? 'pokedexContainer' : 'notGrid'}`}>
                 {
-                    pokedexList?.length &&
-                    <img
-                        className='pokeballChangeSprites'
-                        src={pokeballIcon}
-                        alt="Change pokemon sprite"
-                        onClick={() => handleStorageIconSprites()}
-                    />
+                    pokedexList?.length ?
+                        <img
+                            className='pokeballChangeSprites'
+                            src={pokeballIcon}
+                            alt="Change pokemon sprite"
+                            onClick={() => handleStorageIconSprites()}
+                        />
+                        :
+                        <> </>
                 }
 
                 {
-                    pokedexList?.length &&
-                    pokedexList?.map((pokemon, index) => {
-                        const {
-                            types, sprites, all_dex_numbers
-                        } = pokemon;
-                        return (
-                            <div
-                                className={`mainPokemonContainer
+                    pokedexList?.length ?
+                        pokedexList?.map((pokemon, index) => {
+                            const {
+                                types, sprites, all_dex_numbers
+                            } = pokemon;
+                            return (
+                                <div
+                                    className={`mainPokemonContainer
                                  ${iconSprites ? 'pokemonIconsContainer' : 'pokemonContainer'}
                                  border-${types[0].name}
                                  `}
-                                key={index}
-                                onClick={() => handleModalUp(pokemon)}
-                            >
-                                <PokemonCardSprite
-                                    sprites={sprites}
-                                    iconSprites={iconSprites}
-                                />
-                                <h3>#{
-                                    all_dex_numbers?.length ?
-                                        all_dex_numbers[0].entryNumber :
-                                        '??'
-                                }</h3>
-                                <h2>
-                                    {pokemon.name}
-                                </h2>
+                                    key={index}
+                                    onClick={() => handleModalUp(pokemon)}
+                                >
+                                    <PokemonCardSprite
+                                        sprites={sprites}
+                                        iconSprites={iconSprites}
+                                    />
+                                    <h3>#{
+                                        all_dex_numbers?.length ?
+                                            all_dex_numbers[0].entryNumber :
+                                            '??'
+                                    }</h3>
+                                    <h2>
+                                        {pokemon.name}
+                                    </h2>
 
-                                <PokemonTypes
-                                    types={types}
-                                />
-                            </div>
-                        );
-                    })
+                                    <PokemonTypes
+                                        types={types}
+                                    />
+                                </div>
+                            );
+                        })
+                        :
+                        <div>
+                            No Pokémon Found
+                        </div>
                 }
 
                 {
