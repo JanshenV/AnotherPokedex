@@ -41,11 +41,9 @@ export default function ModalSpritesContainer({
 }) {
     //From Global Provider
     const {
-        useEffect, useState, variationsSeleciton ,
-        currentSprite, handleCurrentSprite,
-        selectionSprites,
-        currentGender,
-        genderMessage, setGenderMessage,
+        useEffect, useState, variationsSeleciton,
+        currentSprite, handleCurrentSprite, selectionSprites,
+        currentGender, genderMessage, setGenderMessage,
         currentVariation
     } = useGlobal();
 
@@ -145,18 +143,6 @@ export default function ModalSpritesContainer({
                         :
                         <></>
                 }
-                {/* Button to show different Pokémon forms */}
-                {/* {
-                    forms?.length > 1 ?
-                        <button
-                            className='showFormsButton'
-                            onClick={handleShowForms}
-                        >
-                            {showForms ? 'Show Sprites' : 'Show Forms'}
-                        </button>
-                        :
-                        <> </>
-                } */}
 
                 {/* Different Pokémon forms sprites */}
                   {

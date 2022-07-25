@@ -41,8 +41,7 @@ export default function PokemonModal({
         handleCurrentSprite, allSprites, setAllSprites,
         setSelectionSprites, setCurrentGender, setGenderMessage,
         width, selectionVersions, setSelectionVersions,
-        showForms, setShowForms, setVariationsSeleciton,
-        setCurrentVariation
+        setVariationsSeleciton, setCurrentVariation
     } = useGlobal();
 
     const [species, setSpecies] = useState('');
@@ -70,7 +69,6 @@ export default function PokemonModal({
                 female: true
             });
 
-            setShowForms(false);
             if (sprites[1]?.front.length) {
                 handleCurrentSprite(sprites[1]?.front[0]);
                 return setSelectionSprites(sprites[1]?.front);
@@ -89,7 +87,6 @@ export default function PokemonModal({
             female: false
         });
 
-        setShowForms(false);
 
         if (first) {
             await handleCurrentSprite(sprites[0].front[2]);
@@ -290,10 +287,7 @@ export default function PokemonModal({
                     alt="close modal"
                     onMouseEnter={() => setCloseModalMessage(true)}
                     onMouseLeave={() => setCloseModalMessage(false)}
-                    onClick={() => {
-                        setModalUp(false);
-                        setShowForms(false);
-                    }}
+                    onClick={() => setModalUp(false)}
                 />
                 {
                     (closeModalMessage || width <= 400) &&
