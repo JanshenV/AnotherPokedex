@@ -37,10 +37,10 @@ export default function PokemonModal({
 }) {
 
     const {
-        useState, useEffect, setCurrentSprite,
-        allSprites, setAllSprites, setSelectionSprites,
-        setCurrentGender, setGenderMessage, width,
-        selectionVersions, setSelectionVersions,
+        useState, useEffect,
+        handleCurrentSprite, allSprites, setAllSprites,
+        setSelectionSprites, setCurrentGender, setGenderMessage,
+        width, selectionVersions, setSelectionVersions,
         showForms, setShowForms
     } = useGlobal();
 
@@ -71,13 +71,13 @@ export default function PokemonModal({
 
             setShowForms(false);
             if (sprites[1]?.front.length) {
-                setCurrentSprite(sprites[1]?.front[0]);
+                handleCurrentSprite(sprites[1]?.front[0]);
                 return setSelectionSprites(sprites[1]?.front);
             };
 
             if (sprites[1]?.shiny_front.length) {
                 setGenderMessage('There are only shiny female sprites to be shown.')
-                setCurrentSprite(sprites[1]?.shiny_front[0]);
+                handleCurrentSprite(sprites[1]?.shiny_front[0]);
                 return setSelectionSprites(sprites[1]?.shiny_front);
             };
             setGenderMessage('There are no female sprites to be shown.');
@@ -91,9 +91,9 @@ export default function PokemonModal({
         setShowForms(false);
 
         if (first) {
-            await setCurrentSprite(sprites[0].front[2]);
+            await handleCurrentSprite(sprites[0].front[2]);
         } else {
-            await setCurrentSprite(sprites[0].front[0]);
+            await handleCurrentSprite(sprites[0].front[0]);
         };
 
         return setSelectionSprites(sprites[0]?.front);
@@ -115,12 +115,12 @@ export default function PokemonModal({
 
         if (localShowForms) {
             await setSelectionSprites([...forms]);
-            await setCurrentSprite(forms[0]?.default);
+            await handleCurrentSprite(forms[0]?.default);
         };
 
         if (!localShowForms) {
             await setSelectionSprites(allSprites[0]?.front);
-            await setCurrentSprite(allSprites[0]?.front[2]);
+            await handleCurrentSprite(allSprites[0]?.front[2]);
         };
 
         setCurrentGender({
@@ -204,7 +204,7 @@ export default function PokemonModal({
         function organizeSprites(sprites) {
             const localAllSprites = sprites;
             setAllSprites([...localAllSprites]);
-            setCurrentSprite(localAllSprites[0].front[2]);
+            handleCurrentSprite(localAllSprites[0].front[2]);
             handleSpriteByGender('male', localAllSprites, true);
         };
 
@@ -216,7 +216,8 @@ export default function PokemonModal({
                 evolutions,
                 forms,
                 stats,
-                sprites
+                sprites,
+                species: {specie}
             } = pokemonModalData;
 
             organizePokemonHeaderInfo(dexNumbers, name);
@@ -225,9 +226,10 @@ export default function PokemonModal({
             organizeForms(forms);
             organizeStats(stats);
             organizeSprites(sprites);
+            setSpecies(specie);
             setModalLoading(false);
-            console.log(pokemonHeaderInfo)
         };
+        console.log(pokemonModalData);
         makeAllRequests();
     }, [pokemonModalData]);
 
