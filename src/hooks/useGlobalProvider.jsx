@@ -11,6 +11,9 @@ export default function useGlobalProvider() {
     const [selectionVersions, setSelectionVersions] = useState([]);
 
     const [showForms, setShowForms] = useState(false);
+    const [variationsSeleciton, setVariationsSeleciton] = useState([]);
+    const [currentVariation, setCurrentVariation] = useState('');
+
     const [searchInputValue, setSearchInputValue] = useState('');
 
     const [genderMessage, setGenderMessage] = useState('');
@@ -19,7 +22,7 @@ export default function useGlobalProvider() {
         female: ''
     });
     
-    function handleCurrentSprite(sprite){
+    function handleCurrentSprite(sprite) {
         if (!sprite || !sprite.includes('http')) {
             setCurrentSprite(noPokemonSprite);
         };
@@ -49,6 +52,9 @@ export default function useGlobalProvider() {
 
         selectionSprites, setSelectionSprites,
         selectionVersions, setSelectionVersions,
+
+        variationsSeleciton, setVariationsSeleciton,
+        currentVariation, setCurrentVariation,
 
         currentGender, setCurrentGender,
         genderMessage, setGenderMessage,

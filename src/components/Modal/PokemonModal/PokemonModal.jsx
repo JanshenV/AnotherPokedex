@@ -41,7 +41,8 @@ export default function PokemonModal({
         handleCurrentSprite, allSprites, setAllSprites,
         setSelectionSprites, setCurrentGender, setGenderMessage,
         width, selectionVersions, setSelectionVersions,
-        showForms, setShowForms
+        showForms, setShowForms, setVariationsSeleciton,
+        setCurrentVariation
     } = useGlobal();
 
     const [species, setSpecies] = useState('');
@@ -109,21 +110,38 @@ export default function PokemonModal({
         });
     };
 
-    async function handleShowForms() {
-        const localShowForms = !showForms;
-        await setShowForms(localShowForms);
+    async function handleVariations(variation) {
+        if (!variation.includes('default') &&
+            !variation.includes('forms') ) {
+            variation = variation.replace(" ", "-");
 
-        if (localShowForms) {
+            const {
+                pokedexResponse, error
+            } = await handlePokemonVariations(`${pokemonHeaderInfo.name}-${variation}`);
+            if (error) return console.log(error);
+
+            if (variation.includes('mega')) await setCurrentVariation('mega');
+            if (variation.includes('gmax')) await setCurrentVariation('gmax');
+            if (variation.includes('alola')) await setCurrentVariation('alola');
+            if (variation.includes('galar')) await setCurrentVariation('galar');
+            if (variation.includes('hisui')) await setCurrentVariation('hisui');
+            
+            await setSelectionSprites([...pokedexResponse[0]?.sprites[0]?.front]);
+            await handleCurrentSprite(pokedexResponse[0]?.sprites[0]?.front[0]);
+        };
+        if (variation === 'default') {
+            await setCurrentVariation('default');
+            await setSelectionSprites([...allSprites[0]?.front]);
+            await handleCurrentSprite(allSprites[0]?.front[0]);
+        };
+
+        if (variation === 'forms') {
+            await setCurrentVariation('forms');
             await setSelectionSprites([...forms]);
             await handleCurrentSprite(forms[0]?.default);
         };
 
-        if (!localShowForms) {
-            await setSelectionSprites(allSprites[0]?.front);
-            await handleCurrentSprite(allSprites[0]?.front[2]);
-        };
-
-        setCurrentGender({
+        await setCurrentGender({
             male: true,
             female: false
         });
@@ -131,8 +149,17 @@ export default function PokemonModal({
 
     useEffect(() => {
         function organizePokemonHeaderInfo(dexNumbers, name) {
+            let firstHyphen = name.indexOf('-');
+            if (firstHyphen === -1) firstHyphen = name.length;
+            const slicedName = name.slice(0, firstHyphen);
+            let formattedName = slicedName.replace('-', " ");
+
+            if (pokemonModalData.name.includes('mo-o') ||
+                pokemonModalData.name.includes('-mime') ||
+             pokemonModalData.name.includes('tapu-') ) formattedName = pokemonModalData.name;
+
             const localHeaderInfo = {
-                name: name,
+                name: formattedName,
                 national: dexNumbers?.length ?
                     dexNumbers[0].entryNumber : '??',
                 regional: dexNumbers?.length ?
@@ -159,18 +186,35 @@ export default function PokemonModal({
         function organizeForms(forms) {
             if (forms.length > 1) {
                 setForms([...forms]);
+            };   
+        };
+
+        function organizeVariationsSelections(variations, forms) {
+            console.log(pokemonHeaderInfo);
+            const localVariations = variations.map(variation => {
+                if (variation.name === pokemonModalData.name) return {
+                    name: 'default'
+                };
+                
+                if (variation.name.includes('mo-o')) return {
+                    name: 'totem'
+                };
+
+                const firstHyphen = variation.name.indexOf('-');
+                const slicedName = variation.name.slice(firstHyphen + 1, variation.name.length);
+
+                return {
+                    name: slicedName.replace('-', " ")
+                };
+            });
+            console.log({ localVariations });
+
+            if (forms?.length > 1) {
+                localVariations.push({ name: 'forms' });
             };
 
-            // if (forms.length === 1) {
-            //     try {
-            //         const {pokedexResponse} = await handlePokemonVariations(name);
-
-            //         console.log(pokedexResponse);
-            //     } catch (error) {
-            //         return { error };
-            //     };
-            // };
-            
+            setVariationsSeleciton([...localVariations]);
+            setCurrentVariation('default');
         };
 
         function organizeStats(stats) {
@@ -214,16 +258,18 @@ export default function PokemonModal({
                 name,
                 descriptions,
                 evolutions,
+                varieties,
                 forms,
                 stats,
                 sprites,
                 species: {specie}
             } = pokemonModalData;
-
+            
             organizePokemonHeaderInfo(dexNumbers, name);
             await organizeDescriptions(descriptions);
             organizeEvolutions(evolutions);
             organizeForms(forms);
+            organizeVariationsSelections(varieties, forms);
             organizeStats(stats);
             organizeSprites(sprites);
             setSpecies(specie);
@@ -261,7 +307,7 @@ export default function PokemonModal({
                             handleSpriteByGender={handleSpriteByGender}
                             pokemonHeaderInfo={pokemonHeaderInfo}
                             forms={forms}
-                            handleShowForms={handleShowForms}
+                            handleVariations={handleVariations}
                         />
                         <ModalPokemonInfo
                             Pokemon={pokemonModalData}

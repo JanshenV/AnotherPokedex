@@ -58,7 +58,7 @@
     width: 100%;
 }
 
-.showFormsButton {
+/* .showFormsButton {
     padding: 6px 6px;
     border-radius: 6px;
     cursor: pointer;
@@ -67,9 +67,9 @@
 
 .showFormsButton:hover {
     transform: scale(1.1);
-}
+} */
 
-.spritesContainer select {
+.spritesContainerFooter select {
     text-align: center;
     transition: transform 0.1s;
     padding: 6px 0;
@@ -78,7 +78,7 @@
     text-transform: capitalize;
 }
 
-.spritesContainer select:hover {
+.spritesContainerFooter select:hover {
     transform: scale(1.1);
 }
 

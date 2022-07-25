@@ -27,24 +27,26 @@ ModalSpritesContainer.propTypes = {
             shiny: PropTypes.string
         })
     ),
-    handleShowForms: PropTypes.func
+    handleVariations: PropTypes.func
 };
 
 ModalSpritesContainer.defaultProps = {
     handleSpriteByGender: () => null,
-    handleShowForms: () => null
+    handleVariations: () => null
 };
 
 export default function ModalSpritesContainer({
     pokemonHeaderInfo, handleSpriteByGender,
-    forms, handleShowForms
+    handleVariations
 }) {
     //From Global Provider
     const {
-        useEffect, useState,
+        useEffect, useState, variationsSeleciton ,
         currentSprite, handleCurrentSprite,
-        selectionSprites, currentGender,
-        genderMessage, setGenderMessage, showForms
+        selectionSprites,
+        currentGender,
+        genderMessage, setGenderMessage,
+        currentVariation
     } = useGlobal();
 
     const [spriteClassName, setSpriteClassName] = useState('pokemonImg');
@@ -122,8 +124,29 @@ export default function ModalSpritesContainer({
                     />
                 </div>
 
-                {/* Button to show different Pokémon forms */}
                 {
+                    (variationsSeleciton?.length && variationsSeleciton?.length > 1) ?
+                        <select
+                            onChange={({ target: { value } }) => handleVariations(value)}
+                        >
+                            {
+                                variationsSeleciton?.map(({name}, index) => {
+                                    return (
+                                        <option
+                                            value={name}
+                                            key={index}
+                                        >
+                                            {name}                                            
+                                        </option>
+                                    )
+                                })
+                            }
+                        </select>
+                        :
+                        <></>
+                }
+                {/* Button to show different Pokémon forms */}
+                {/* {
                     forms?.length > 1 ?
                         <button
                             className='showFormsButton'
@@ -133,13 +156,15 @@ export default function ModalSpritesContainer({
                         </button>
                         :
                         <> </>
-                }
+                } */}
 
                 {/* Different Pokémon forms sprites */}
-                {
-                    (showForms && selectionSprites?.length) ?
+                  {
+                    (currentVariation === 'forms' &&
+                        selectionSprites?.length) ?
                         <select
                             value={currentSprite}
+                            className="selectionSprite"
                             onChange={({ target: { value } }) => handleCurrentSprite(value)}
                         >
                             {
@@ -162,7 +187,8 @@ export default function ModalSpritesContainer({
                 
                 {/* Normal Sprites */}
                 {
-                    (!showForms && selectionSprites?.length) ?
+                    (currentVariation !== 'forms' &&
+                        selectionSprites?.length) ?
                         <select
                             value={currentSprite}
                             onChange={({ target: { value } }) => handleCurrentSprite(value)}
@@ -182,7 +208,7 @@ export default function ModalSpritesContainer({
                             }
                         </select>
                         :
-                        <div> No Sprites </div>
+                        <> </>
                 }
             </div>
         </div>

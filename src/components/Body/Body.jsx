@@ -7,7 +7,7 @@ import PokemonPopulate from '../PokemonPopulate';
 import CircularIndeterminate from '../LoadingComponent';
 
 //Util
-import { allRegions } from '../../util/staticArray';
+import { allRegions } from '../../util/regionsArray';
 
 //Global Provider
 import useGlobal from '../../hooks/useGlobal';
