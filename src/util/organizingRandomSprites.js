@@ -5,7 +5,7 @@ export async function organizingSprites(
     const localSprites = sprites[randomZeroOne];
     const frontDefaultLength = localSprites.front.length;
     const indexOfLocalSprites = sprites.indexOf(localSprites);
-
+    console.log(indexOfLocalSprites);
     let sprite;
     if (frontDefaultLength && indexOfLocalSprites === 1) {
         sprite = localSprites.front[1];
@@ -24,7 +24,7 @@ export async function organizingSprites(
 
         if (indexOfLocalSprites === 1 && existingFemaleIcons?.length) {
             sprite = existingFemaleIcons[0];
-        } else if (!existingFemaleIcons?.length) {
+        } else {
             sprite = existingMaleIcons[1];
         };
     };

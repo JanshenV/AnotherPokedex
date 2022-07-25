@@ -4,6 +4,7 @@
     align-items: center;
     width: 100%;
     position: relative;
+    gap: 20px;
 }
 
 .spritesContainerHeader {
@@ -34,7 +35,6 @@
     justify-content: center;
     width: 100%;
     position: relative;
-    height: 267px;
 }
 
 .pokemonImg,
@@ -147,8 +147,8 @@
 /* Responsiviness */
 @media only screen and (min-width: 1600px) {
     .pokemonImg {
-        width: 320px;
-        height: 320px;
+        width: 300px;
+        height: 300px;
     }
 
     .noPokemonImg {
