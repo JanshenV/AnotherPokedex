@@ -9,6 +9,7 @@ import GenderIcons  from '../../GenderIcon/GenderIcons';
 
 //Assets
 import darkerPokeballBackGround from '../../../assets/darkerPokeballBackground.svg';
+import noPokemonSprite from '../../../assets/ultraBall.png';
 
 //PropTypes
 import PropTypes from 'prop-types';
@@ -40,14 +41,29 @@ export default function ModalSpritesContainer({
 }) {
     //From Global Provider
     const {
-        useEffect, currentSprite, setCurrentSprite,
+        useEffect, useState,
+        currentSprite, handleCurrentSprite,
         selectionSprites, currentGender,
         genderMessage, setGenderMessage, showForms
     } = useGlobal();
 
+    const [spriteClassName, setSpriteClassName] = useState('pokemonImg');
+
     useEffect(() => {
         setTimeout(() => setGenderMessage(''), 3000);
     }, [genderMessage]);
+
+    useEffect(() => {
+        if (!currentSprite || !currentSprite.includes('http')) {
+            handleCurrentSprite(noPokemonSprite);
+        };
+
+        if (currentSprite === noPokemonSprite) {
+            setSpriteClassName('noPokemonImg');
+        } else {
+            setSpriteClassName('pokemonImg');
+        };
+    }, [currentSprite]);
 
     return (
         <div className={`spritesContainer`}>
@@ -57,12 +73,12 @@ export default function ModalSpritesContainer({
                 </h2>
                 
                 <div className='dexNumbers'>
-                <span className='titleDexnr'>
-                    National: #{pokemonHeaderInfo?.national}
-                </span>
-                <span className='titleDexnr'>
-                    Regional: #{pokemonHeaderInfo?.regional}
-                </span>
+                    <span className='titleDexnr'>
+                        National: #{pokemonHeaderInfo?.national}
+                    </span>
+                    <span className='titleDexnr'>
+                        Regional: #{pokemonHeaderInfo?.regional}
+                    </span>
                 </div>
             </div>
 
@@ -76,7 +92,7 @@ export default function ModalSpritesContainer({
                 {
                     currentSprite &&
                     <div
-                        className="pokemonImg"
+                        className={`${spriteClassName}`}
                         style={{
                             backgroundImage: `url(${currentSprite})`
                         }}
@@ -106,6 +122,7 @@ export default function ModalSpritesContainer({
                     />
                 </div>
 
+                {/* Button to show different Pokémon forms */}
                 {
                     forms?.length > 1 ?
                         <button
@@ -114,14 +131,16 @@ export default function ModalSpritesContainer({
                         >
                             {showForms ? 'Show Sprites' : 'Show Forms'}
                         </button>
-                        : null
+                        :
+                        <> </>
                 }
 
+                {/* Different Pokémon forms sprites */}
                 {
-                    showForms ?
+                    (showForms && selectionSprites?.length) ?
                         <select
                             value={currentSprite}
-                            onChange={(e) => setCurrentSprite(e.target.value)}
+                            onChange={({ target: { value } }) => handleCurrentSprite(value)}
                         >
                             {
                                 selectionSprites?.length &&
@@ -137,12 +156,16 @@ export default function ModalSpritesContainer({
                                 })
                             }
                         </select>
-
                         :
-                        
+                        <></>
+                }
+                
+                {/* Normal Sprites */}
+                {
+                    (!showForms && selectionSprites?.length) ?
                         <select
                             value={currentSprite}
-                            onChange={(e) => setCurrentSprite(e.target.value)}
+                            onChange={({ target: { value } }) => handleCurrentSprite(value)}
                         >
                             {
                                 selectionSprites?.length &&
@@ -158,6 +181,8 @@ export default function ModalSpritesContainer({
                                 })
                             }
                         </select>
+                        :
+                        <div> No Sprites </div>
                 }
             </div>
         </div>

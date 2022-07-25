@@ -30,7 +30,8 @@
     height: 267px;
 }
 
-.pokemonImg {
+.pokemonImg,
+.noPokemonImg {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -143,6 +144,11 @@
         height: 320px;
     }
 
+    .noPokemonImg {
+        width: 320px;
+        height: 320px;
+    }
+
     .pokeballBackGround {
         width: 220px;
         height: 220px;
@@ -155,6 +161,11 @@
         height: 250px;
     }
 
+    .noPokemonImg {
+        width: 200px;
+        height: 120px;
+    }
+
     .pokeballBackGround {
         width: 150px;
         height: 150px;
@@ -165,6 +176,11 @@
     .pokemonImg {
         width: 200px;
         height: 200px;
+    }
+
+    .noPokemonImg {
+        width: 150px;
+        height: 80px;
     }
 
     .pokeballBackGround {
