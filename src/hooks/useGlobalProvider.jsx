@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react';
 
+//Assets
+import noPokemonSprite from '../assets/ultraBall.png';
+
 export default function useGlobalProvider() {
     const [currentSprite, setCurrentSprite] = useState('');
     const [allSprites, setAllSprites] = useState([]);
@@ -15,6 +18,13 @@ export default function useGlobalProvider() {
         male: '',
         female: ''
     });
+    
+    function handleCurrentSprite(sprite){
+        if (!sprite || !sprite.includes('http')) {
+            setCurrentSprite(noPokemonSprite);
+        };
+        setCurrentSprite(sprite);
+    };
 
     const [width, setWidth] = useState('');
     const [height, setHeight] = useState('');
@@ -44,6 +54,8 @@ export default function useGlobalProvider() {
         genderMessage, setGenderMessage,
 
         showForms, setShowForms,
+
+        handleCurrentSprite,
 
         searchInputValue, setSearchInputValue,
         width, height,
