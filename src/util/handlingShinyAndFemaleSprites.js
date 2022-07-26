@@ -6,14 +6,18 @@ export async function shinyAndFemaleSprites(
     currentGender,
     showShiny,
     setCurrentGender,
-    setShowShiny
+    setShowShiny,
+    currentVariation,
+    onScreenSprite,
+    setWarningMessage
 ) {
 
     let localSelectionSprites = [];
     let currentSprite = '';
 
     if (showShiny) {
-        if (currentGender.female && sprites[1]?.shiny_front?.length) {
+        if (currentGender.female &&
+            sprites[1]?.shiny_front?.length) {
             localSelectionSprites = [...sprites[1]?.shiny_front];
             currentSprite = sprites[1]?.shiny_front[0];
         } else if (currentGender.female &&
@@ -23,8 +27,9 @@ export async function shinyAndFemaleSprites(
             currentSprite = sprites[1]?.front[0];
             if (setShowShiny) setShowShiny(false);
         } else {
-            if (sprites[0]?.shiny_front?.length &&
-                !sprites[0]?.name?.length) {
+            if (!sprites[1]?.shiny_front?.length &&
+                setWarningMessage) setWarningMessage('There are no female sprites.');
+            if (sprites[0]?.shiny_front?.length) {
                 localSelectionSprites = [...sprites[0]?.shiny_front];
                 currentSprite = sprites[0]?.shiny_front[0];
                 if (setCurrentGender) setCurrentGender({
@@ -34,7 +39,8 @@ export async function shinyAndFemaleSprites(
             };
         };
     } else {
-        if (currentGender.female && sprites[1]?.front?.length) {
+        if (currentGender.female &&
+            sprites[1]?.front?.length) {
             localSelectionSprites = [...sprites[1]?.front];
             currentSprite = sprites[1]?.front[0];
         } else if (currentGender.female &&
@@ -42,43 +48,28 @@ export async function shinyAndFemaleSprites(
             sprites[1]?.shiny_front?.length) {
             localSelectionSprites = [...sprites[1]?.shiny_front];
             currentSprite = sprites[1]?.shiny_front[0];
-
             if (setShowShiny) setShowShiny(true);
         } else {
-            if (sprites[0]?.front?.length &&
-                !sprites[0]?.name?.length) {
-                localSelectionSprites = [...sprites[0]?.front];
-                currentSprite = sprites[0]?.front[0];
-                if (setCurrentGender) setCurrentGender({
-                    male: true,
-                    female: false
-                });
-            };
-        };
-    };
+            if (!sprites[1]?.front?.length &&
+                setWarningMessage) setWarningMessage('There are no female sprites.');
+            localSelectionSprites = [...sprites[0]?.front];
+            currentSprite = sprites[0]?.front[0];
 
-    if (sprites[0]?.name?.length) {
-        if (showShiny) {
-            sprites[0]?.shiny_front?.forEach((sprite, index) => {
-                localSelectionSprites.push({
-                    sprite,
-                    name: sprites[0]?.name[index]
-                });
-            });
-        } else {
-            sprites[0]?.front?.forEach((sprite, index) => {
-                localSelectionSprites.push({
-                    sprite,
-                    name: sprites[0]?.name[index]
-                });
+            if (currentGender.female &&
+                (onScreenSprite && onScreenSprite === sprites[0]?.front[2])) currentSprite = sprites[0]?.front[2];
+            if (setCurrentGender) setCurrentGender({
+                male: true,
+                female: false
             });
         };
-        currentSprite = localSelectionSprites[0];
     };
 
 
     await setAllSprites([...sprites]);
     await setSelectionSprites([...localSelectionSprites]);
+    if (currentVariation === 'forms') {
+        await currentSpriteHandler(currentSprite.sprite);
+        return;
+    };
     await currentSpriteHandler(currentSprite);
-
 };

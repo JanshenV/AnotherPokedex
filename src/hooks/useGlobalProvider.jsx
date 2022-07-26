@@ -19,12 +19,14 @@ export default function useGlobalProvider() {
 
     const [warningMessage, setWarningMessage] = useState('');
     const [currentGender, setCurrentGender] = useState({
-        male: false,
-        female: true
+        male: true,
+        female: false
     });
     
     function handleCurrentSprite(sprite) {
-        if (!sprite || !sprite.includes('http')) {
+        if (!sprite?.sprite ||
+            !sprite ||
+            !sprite.includes('http')) {
             setCurrentSprite(noPokemonSprite);
         };
         setCurrentSprite(sprite);

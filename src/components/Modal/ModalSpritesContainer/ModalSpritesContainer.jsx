@@ -37,7 +37,8 @@ ModalSpritesContainer.defaultProps = {
 
 export default function ModalSpritesContainer({
     pokemonHeaderInfo, handleSpriteByGender,
-    handleVariations, handleShowShiny
+    handleVariations, handleShowShiny,
+    forms
 }) {
     //From Global Provider
     const {
@@ -123,7 +124,9 @@ export default function ModalSpritesContainer({
                 </div>
 
                 {
-                    (allSprites[0]?.shiny_front?.length || allSprites[1]?.shiny_front?.length) ?
+                    (allSprites[0]?.shiny_front?.length ||
+                        allSprites[1]?.shiny_front?.length ||
+                        forms[0]?.shiny_front?.length) ?
                         <button
                             onClick={() => handleShowShiny()}
                         >

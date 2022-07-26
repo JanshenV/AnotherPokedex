@@ -48,9 +48,11 @@ export default function PokemonModal({
         useState, useEffect,
         handleCurrentSprite, allSprites, setAllSprites,
         setSelectionSprites, setCurrentGender,
+        currentSprite,
         width, selectionVersions, setSelectionVersions,
         setVariationsSeleciton, setCurrentVariation,
-        showShiny, setShowShiny, currentGender
+        showShiny, setShowShiny, currentGender, currentVariation,
+        setWarningMessage
     } = useGlobal();
 
     const [species, setSpecies] = useState('');
@@ -70,6 +72,8 @@ export default function PokemonModal({
     const [modalLoading, setModalLoading] = useState(true);
 
     async function handleSpriteByGender() {
+        if (currentVariation === 'forms') return await setWarningMessage('There are no female sprites.');;
+
         const localCurrentGender = {
             male: !currentGender.male,
             female: !currentGender.female
@@ -85,7 +89,10 @@ export default function PokemonModal({
             localCurrentGender,
             showShiny,
             setCurrentGender,
-            setShowShiny
+            setShowShiny,
+            '',
+            currentSprite,
+            setWarningMessage
         );
     };
 
@@ -121,6 +128,10 @@ export default function PokemonModal({
                 setSelectionSprites,
                 currentGender,
                 showShiny,
+                 setCurrentGender,
+                currentSprite,
+                '',
+                setWarningMessage
             );
             await setCurrentVariation(variation);
         };
@@ -138,40 +149,32 @@ export default function PokemonModal({
                 handleCurrentSprite,
                 setSelectionSprites,
                 currentGender,
-                showShiny,
+                 showShiny,
+                 setCurrentGender,
+                 currentSprite,
+                 '',
+                setWarningMessage
             );
             await setCurrentVariation('default');
         };
         if (variation === 'forms') {
-            let localForms = [
-                {
-                    front: [],
-                    shiny_front: [],
-                    name: []
-                },
 
-                {
-                    front: [],
-                    shiny_front: [],
-                    name: []
-                },
-            ];
+            if (showShiny) {
+                await setAllSprites([...forms[0]?.shiny_front]);
+                await setSelectionSprites([...forms[0]?.shiny_front]);
+                await handleCurrentSprite(forms[0]?.shiny_front[0]?.sprite);
+            } else {
+                await setAllSprites([...forms[0]?.front]);
+                await setSelectionSprites([...forms[0]?.front]);
+                await handleCurrentSprite(forms[0]?.front[0]?.sprite);
+            };
 
-            forms.forEach(form => {
-                localForms[0].front.push(form.default);
-                localForms[0].shiny_front.push(form.shiny);
-                localForms[0].name.push(form.name);
-            });
-            
-            await shinyAndFemaleSprites(
-                localForms,
-                setAllSprites,
-                handleCurrentSprite,
-                setSelectionSprites,
-                currentGender,
-                showShiny,
-            );
             await setCurrentVariation('forms');
+            await setCurrentGender({
+                male: true,
+                female: false
+            });
+            await setWarningMessage('There are no female sprites.');
         };
 
         await setCurrentGender({
@@ -184,12 +187,15 @@ export default function PokemonModal({
         const localShowShiny = !showShiny;
         setShowShiny(localShowShiny);
         await shinyAndFemaleSprites(
-            allSprites,
+            currentVariation === 'forms' ? forms : allSprites,
             setAllSprites,
             handleCurrentSprite,
             setSelectionSprites,
             currentGender,
-            localShowShiny
+            localShowShiny,
+            setCurrentGender,
+            setShowShiny,
+            currentVariation === 'forms' ? currentVariation : ''
         );
     };
 
@@ -231,8 +237,31 @@ export default function PokemonModal({
 
         function organizeForms(forms) {
             if (forms.length > 1) {
-                setForms([...forms]);
-            };   
+                let localForms = [
+                    {
+                        front: [],
+                        shiny_front: [],
+                    },
+
+                    {
+                        front: [],
+                        shiny_front: [],
+                    },
+                ];
+
+                forms.forEach(form => {
+                    localForms[0].front.push({
+                        sprite: form.default,
+                        name: form.name
+                    });
+                    localForms[0].shiny_front.push({
+                        sprite: form.shiny,
+                        name: form.name
+                    });
+                });
+                
+                setForms([...localForms]);
+            }; 
         };
 
         function organizeVariationsSelections(variations, forms) {
