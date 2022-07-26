@@ -13,12 +13,14 @@ export default function useGlobalProvider() {
     const [variationsSeleciton, setVariationsSeleciton] = useState([]);
     const [currentVariation, setCurrentVariation] = useState('');
 
+    const [showShiny, setShowShiny] = useState(false);
+
     const [searchInputValue, setSearchInputValue] = useState('');
 
-    const [genderMessage, setGenderMessage] = useState('');
+    const [warningMessage, setWarningMessage] = useState('');
     const [currentGender, setCurrentGender] = useState({
-        male: '',
-        female: ''
+        male: false,
+        female: true
     });
     
     function handleCurrentSprite(sprite) {
@@ -56,7 +58,9 @@ export default function useGlobalProvider() {
         currentVariation, setCurrentVariation,
 
         currentGender, setCurrentGender,
-        genderMessage, setGenderMessage,
+        warningMessage, setWarningMessage,
+
+        showShiny, setShowShiny,
 
         handleCurrentSprite,
 

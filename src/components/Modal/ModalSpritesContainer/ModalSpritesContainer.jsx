@@ -37,21 +37,21 @@ ModalSpritesContainer.defaultProps = {
 
 export default function ModalSpritesContainer({
     pokemonHeaderInfo, handleSpriteByGender,
-    handleVariations
+    handleVariations, handleShowShiny
 }) {
     //From Global Provider
     const {
         useEffect, useState, variationsSeleciton,
         currentSprite, handleCurrentSprite, selectionSprites,
-        currentGender, genderMessage, setGenderMessage,
-        currentVariation
+        currentGender,  warningMessage, setWarningMessage,
+        currentVariation, allSprites, showShiny
     } = useGlobal();
 
     const [spriteClassName, setSpriteClassName] = useState('pokemonImg');
 
     useEffect(() => {
-        setTimeout(() => setGenderMessage(''), 3000);
-    }, [genderMessage]);
+        setTimeout(() => setWarningMessage(''), 3000);
+    }, [warningMessage]);
 
     useEffect(() => {
         if (!currentSprite || !currentSprite.includes('http')) {
@@ -101,9 +101,9 @@ export default function ModalSpritesContainer({
                 }
                 
                 {
-                    genderMessage &&
+                    warningMessage &&
                     <span className='genderMessage'>
-                        {genderMessage}
+                        {warningMessage}
                     </span>
                 }
             </div>
@@ -112,15 +112,29 @@ export default function ModalSpritesContainer({
                 <div className="genderIcons">
                     <GenderIcons
                         gender={'female'}
-                        onClick={() => handleSpriteByGender('female')}
+                        onClick={() => handleSpriteByGender()}
                         disabled={currentGender?.female}
                     />
                     <GenderIcons
                         gender={'male'}
-                        onClick={() => handleSpriteByGender('male')}
+                        onClick={() => handleSpriteByGender()}
                         disabled={currentGender?.male}
                     />
                 </div>
+
+                {
+                    (allSprites[0]?.shiny_front?.length || allSprites[1]?.shiny_front?.length) ?
+                        <button
+                            onClick={() => handleShowShiny()}
+                        >
+                            {
+                                showShiny ?
+                                    'Show Default' : 'Show Shiny'
+                            }
+                        </button>
+                        :
+                        <></>
+                }
 
                 {
                     (variationsSeleciton?.length && variationsSeleciton?.length > 1) ?
@@ -128,13 +142,13 @@ export default function ModalSpritesContainer({
                             onChange={({ target: { value } }) => handleVariations(value)}
                         >
                             {
-                                variationsSeleciton?.map(({name}, index) => {
+                                variationsSeleciton?.map(({ name }, index) => {
                                     return (
                                         <option
                                             value={name}
                                             key={index}
                                         >
-                                            {name}                                            
+                                            {name}
                                         </option>
                                     )
                                 })
@@ -144,53 +158,26 @@ export default function ModalSpritesContainer({
                         <></>
                 }
 
-                {/* Different Pokémon forms sprites */}
-                  {
-                    (currentVariation === 'forms' &&
-                        selectionSprites?.length) ?
-                        <select
-                            value={currentSprite}
-                            className="selectionSprite"
-                            onChange={({ target: { value } }) => handleCurrentSprite(value)}
-                        >
-                            {
-                                selectionSprites?.length &&
-                                selectionSprites?.map((form, index) => {
-                                    return (
-                                        <option
-                                            value={form.default}
-                                            key={index}
-                                        >
-                                            {form.name}
-                                        </option>
-                                    )
-                                })
-                            }
-                        </select>
-                        :
-                        <></>
-                }
-                
-                {/* Normal Sprites */}
                 {
-                    (currentVariation !== 'forms' &&
-                        selectionSprites?.length) ?
+                    selectionSprites?.length ?
                         <select
                             value={currentSprite}
                             onChange={({ target: { value } }) => handleCurrentSprite(value)}
                         >
                             {
-                                selectionSprites?.length &&
-                                selectionSprites?.map((sprite, index) => {
-                                    return (
-                                        <option
-                                            value={sprite}
-                                            key={index}
-                                        >
-                                            Sprite: {index + 1}
-                                        </option>
-                                    )
-                                })
+                                selectionSprites?.length ?
+                                    selectionSprites?.map((item, index) => {
+                                        return (
+                                            <option
+                                                value={item?.name ? item.sprite : item}
+                                                key={index}
+                                            >
+                                                {item?.name ? item.name : `Sprite: ${index + 1}`}
+                                            </option>
+                                        )
+                                    })
+                                    :
+                                    <></>
                             }
                         </select>
                         :
