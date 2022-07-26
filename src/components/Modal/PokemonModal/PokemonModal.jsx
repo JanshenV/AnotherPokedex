@@ -128,7 +128,7 @@ export default function PokemonModal({
                 pokedexResponse, error
             } = await handleIndividualPokemon(pokemonHeaderInfo.name);
             if (error) return console.log(error);
-            
+
             localPokemonData = pokedexResponse[0];
              await shinyAndFemaleSprites(
                 pokedexResponse[0].sprites,
@@ -297,6 +297,7 @@ export default function PokemonModal({
                 currentGender,
                 showShiny
             );
+            handleCurrentSprite(localAllSprites[0]?.front[2])
         };
 
         async function makeAllRequests() {
