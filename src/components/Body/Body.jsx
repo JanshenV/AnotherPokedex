@@ -91,7 +91,8 @@ export default function Body() {
     };
 
     async function resetPokedex() {
-        setPokedexList(permaPokedexList)
+        setPokedexList(permaPokedexList);
+        setSearchInputValue('');
     };
 
     return (

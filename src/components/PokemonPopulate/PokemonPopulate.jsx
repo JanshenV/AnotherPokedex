@@ -126,9 +126,15 @@ export default function PokemonPopulate({
                             );
                         })
                         :
-                        <div>
+                        <>
                             No Pokémon Found
-                        </div>
+                            <img
+                            className='resetPokedex'
+                            src={ResetIcon}
+                            alt="Reset Pokedex"
+                            onClick={() => resetPokedex()}
+                        />
+                        </>
                 }
 
                 {
