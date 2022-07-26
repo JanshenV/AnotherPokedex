@@ -232,9 +232,9 @@ export default function PokemonModal({
 
         function organizeVariationsSelections(variations, forms) {
             const localVariations = variations.map(variation => {
-                // if (variation.name === pokemonModalData.name) return {
-                //     name: 'default'
-                // };
+                if (variation.name === pokemonModalData.name) return {
+                    name: 'default'
+                };
                 
                 if (variation.name.includes('mo-o')) return {
                     name: 'totem'
