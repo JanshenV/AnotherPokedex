@@ -165,11 +165,11 @@ export default function ModalSpritesContainer({
                             onChange={({ target: { value } }) => handleCurrentSprite(value)}
                         >
                             {
-                                selectionSprites?.length ?
+                                (selectionSprites?.length) ?
                                     selectionSprites?.map((item, index) => {
                                         return (
                                             <option
-                                                value={item?.name ? item.sprite : item}
+                                                value={item?.name ? item?.sprite : item}
                                                 key={index}
                                             >
                                                 {item?.name ? item.name : `Sprite: ${index + 1}`}

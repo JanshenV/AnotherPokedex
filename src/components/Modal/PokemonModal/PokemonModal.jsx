@@ -65,7 +65,7 @@ export default function PokemonModal({
         regional: ''
     });
 
-    const backgroundByType = pokemonModalData.types[0].name;
+    const backgroundByType = pokemonModalData?.types[0]?.name ;
     const [closeModalMessage, setCloseModalMessage] = useState(false);
     const [modalLoading, setModalLoading] = useState(true);
 
@@ -100,7 +100,7 @@ export default function PokemonModal({
     };
 
     async function handleVariations(variation) {
-        let localPokemonData = {};
+        let localPokemonData = {...pokemonModalData};
         if (!variation.includes('forms') &&
             !variation.includes('shiny')) {
             variation = variation.replace(" ", "-");
@@ -113,6 +113,7 @@ export default function PokemonModal({
             if (error) return console.log(error);
 
             localPokemonData = pokedexResponse[0];
+            setPokemonModalData({ ...localPokemonData });
             await shinyAndFemaleSprites(
                 pokedexResponse[0].sprites,
                 setAllSprites,
@@ -130,6 +131,7 @@ export default function PokemonModal({
             if (error) return console.log(error);
 
             localPokemonData = pokedexResponse[0];
+            setPokemonModalData({ ...localPokemonData });
              await shinyAndFemaleSprites(
                 pokedexResponse[0].sprites,
                 setAllSprites,
@@ -140,7 +142,6 @@ export default function PokemonModal({
             );
             await setCurrentVariation('default');
         };
-
         if (variation === 'forms') {
             let localForms = [
                 {
@@ -161,7 +162,7 @@ export default function PokemonModal({
                 localForms[0].shiny_front.push(form.shiny);
                 localForms[0].name.push(form.name);
             });
-
+            
             await shinyAndFemaleSprites(
                 localForms,
                 setAllSprites,
@@ -177,7 +178,6 @@ export default function PokemonModal({
             male: true,
             female: false
         });
-        setPokemonModalData({ ...localPokemonData });
     };
 
     async function handleShowShiny() {

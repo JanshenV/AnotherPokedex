@@ -23,7 +23,8 @@ export async function shinyAndFemaleSprites(
             currentSprite = sprites[1]?.front[0];
             if (setShowShiny) setShowShiny(false);
         } else {
-            if (sprites[0]?.shiny_front?.length) {
+            if (sprites[0]?.shiny_front?.length &&
+                !sprites[0]?.name?.length) {
                 localSelectionSprites = [...sprites[0]?.shiny_front];
                 currentSprite = sprites[0]?.shiny_front[0];
                 if (setCurrentGender) setCurrentGender({
@@ -44,7 +45,8 @@ export async function shinyAndFemaleSprites(
 
             if (setShowShiny) setShowShiny(true);
         } else {
-            if (sprites[0]?.front?.length) {
+            if (sprites[0]?.front?.length &&
+                !sprites[0]?.name?.length) {
                 localSelectionSprites = [...sprites[0]?.front];
                 currentSprite = sprites[0]?.front[0];
                 if (setCurrentGender) setCurrentGender({
@@ -56,16 +58,27 @@ export async function shinyAndFemaleSprites(
     };
 
     if (sprites[0]?.name?.length) {
-        localSelectionSprites = localSelectionSprites.map((sprite, index) => {
-            return {
-                sprite,
-                name: sprites[0]?.name[index]
-            }
-        });
+        if (showShiny) {
+            sprites[0]?.shiny_front?.forEach((sprite, index) => {
+                localSelectionSprites.push({
+                    sprite,
+                    name: sprites[0]?.name[index]
+                });
+            });
+        } else {
+            sprites[0]?.front?.forEach((sprite, index) => {
+                localSelectionSprites.push({
+                    sprite,
+                    name: sprites[0]?.name[index]
+                });
+            });
+        };
+        currentSprite = localSelectionSprites[0];
     };
 
+
     await setAllSprites([...sprites]);
-    await setSelectionSprites(localSelectionSprites);
+    await setSelectionSprites([...localSelectionSprites]);
     await currentSpriteHandler(currentSprite);
 
 };
