@@ -128,6 +128,7 @@ export default function ModalSpritesContainer({
                         allSprites[1]?.shiny_front?.length ||
                         forms[0]?.shiny_front?.length) ?
                         <button
+                            className='buttonShowShiny'
                             onClick={() => handleShowShiny()}
                         >
                             {
