@@ -4,6 +4,7 @@ import '../../css/Global.css';
 
 //Assets
 import pokeballIcon from '../../assets/pokeballIcon.png';
+import ResetIcon from '../../assets/reset.svg';
 
 //Global Provider
 import useGlobal from '../../hooks/useGlobal';
@@ -20,14 +21,18 @@ PokemonPopulate.propTypes = {
     pokedexList: PropTypes.arrayOf(
         PropTypes.object
     ),
-    selectedRegion: PropTypes.string
+    selectedRegion: PropTypes.string,
+    resetPokedex: PropTypes.func
 };
 
 PokemonPopulate.defaultProps = {
     pokedexList: [{}],
+    resetPokedex: () => null
 };
 
-export default function PokemonPopulate({ pokedexList, selectedRegion }) {
+export default function PokemonPopulate({
+    pokedexList, selectedRegion, resetPokedex
+}) {
     const { useState, useEffect } = useGlobal();
 
     let storageIconSprites = localStorage.getItem('iconSprites');
@@ -71,6 +76,19 @@ export default function PokemonPopulate({ pokedexList, selectedRegion }) {
                         />
                         :
                         <> </>
+                }
+
+                {
+                    (pokedexList?.length &&
+                        pokedexList?.length <= 5) ?
+                        <img
+                            className='resetPokedex'
+                            src={ResetIcon}
+                            alt="Reset Pokedex"
+                            onClick={() => resetPokedex()}
+                        />
+                        :
+                        <></>
                 }
 
                 {

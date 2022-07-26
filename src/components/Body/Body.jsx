@@ -90,6 +90,10 @@ export default function Body() {
         setPokedexList(pokedexResponse);
     };
 
+    async function resetPokedex() {
+        setPokedexList(permaPokedexList)
+    };
+
     return (
         <main className='bodyContainer'>
             <Header
@@ -136,6 +140,7 @@ export default function Body() {
                 <PokemonPopulate
                     pokedexList={pokedexList}
                     selectedRegion={selectedRegion}
+                    resetPokedex={resetPokedex}
                 />
             }
         </main>

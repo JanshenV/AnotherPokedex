@@ -56,6 +56,16 @@
 .pokeballChangeSprites:hover {
     transform: scale(1.5);
 }
+.resetPokedex {
+    cursor: pointer;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.resetPokedex:hover {
+    transform: scale(1.5);
+}
 
 .pokemonIconsContainer {
     height: 300px;
