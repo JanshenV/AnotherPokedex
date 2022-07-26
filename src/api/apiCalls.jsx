@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:3300/';
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 export async function handlePokedex(region) {
     try {
