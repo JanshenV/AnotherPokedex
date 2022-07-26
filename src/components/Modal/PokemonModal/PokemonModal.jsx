@@ -100,16 +100,16 @@ export default function PokemonModal({
     };
 
     async function handleVariations(variation) {
-        if (!variation.includes('default') &&
-            !variation.includes('forms') &&
+        if (!variation.includes('forms') &&
             !variation.includes('shiny')) {
             variation = variation.replace(" ", "-");
 
+            const pokemonNameRequest = `${pokemonHeaderInfo.name}${variation !== pokemonHeaderInfo.name ?  `-${variation}`: ""}`
+
             const {
                 pokedexResponse, error
-            } = await handlePokemonVariations(`${pokemonHeaderInfo.name}-${variation}`);
+            } = await handlePokemonVariations(`${pokemonNameRequest}`);
             if (error) return console.log(error);
-
             await shinyAndFemaleSprites(
                 pokedexResponse[0].sprites,
                 setAllSprites,
@@ -120,7 +120,7 @@ export default function PokemonModal({
             );
             await setCurrentVariation(variation);
         };
-        if (variation === 'default') {
+        if (variation === pokemonHeaderInfo.name) {
             const {
                 pokedexResponse, error
             } = await handleIndividualPokemon(pokemonHeaderInfo.name);
@@ -232,9 +232,9 @@ export default function PokemonModal({
 
         function organizeVariationsSelections(variations, forms) {
             const localVariations = variations.map(variation => {
-                if (variation.name === pokemonModalData.name) return {
-                    name: 'default'
-                };
+                // if (variation.name === pokemonModalData.name) return {
+                //     name: 'default'
+                // };
                 
                 if (variation.name.includes('mo-o')) return {
                     name: 'totem'
