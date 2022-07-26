@@ -1,4 +1,4 @@
-const baseUrl = process.env.REACT_APP_BASE_URL;
+const baseUrl = 'https://anotherpokedexdb.herokuapp.com/';
 
 export async function handlePokedex(region) {
     try {
