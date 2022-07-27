@@ -1,5 +1,7 @@
 export async function organizingSprites(
-    sprites, setPokemonCardSprite, iconSprites
+    sprites,
+    setPokemonCardSprite,
+    iconSprites,
 ) {
     const randomZeroOne = Math.floor(Math.random() * 2);
     const localSprites = sprites[randomZeroOne];
@@ -30,5 +32,6 @@ export async function organizingSprites(
 
         if (!sprite) sprite = existingMaleIcons[0];
     };
+
     return setPokemonCardSprite(sprite);
 };

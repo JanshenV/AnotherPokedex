@@ -121,6 +121,7 @@ export default function PokemonPopulate({
 
                                     <PokemonTypes
                                         types={types}
+                                        
                                     />
                                 </div>
                             );
@@ -143,6 +144,7 @@ export default function PokemonPopulate({
                         setModalUp={setModalUp}
                         setPokemonModalData={setPokemonModalData}
                         pokemonModalData={pokemonModalData}
+                        
                     />
                 }
             </div>

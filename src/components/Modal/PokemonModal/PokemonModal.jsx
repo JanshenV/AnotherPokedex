@@ -60,6 +60,7 @@ export default function PokemonModal({
 
     const [forms, setForms] = useState([]);
     const [stats, setStats] = useState([]);
+    const [first, setFirst] = useState(true);
 
     const [pokemonHeaderInfo, setPokemonHeaderInfo] = useState({
         name: '',
@@ -128,7 +129,7 @@ export default function PokemonModal({
                 setSelectionSprites,
                 currentGender,
                 showShiny,
-                 setCurrentGender,
+                setCurrentGender,
                 currentSprite,
                 '',
                 setWarningMessage
@@ -149,9 +150,9 @@ export default function PokemonModal({
                 handleCurrentSprite,
                 setSelectionSprites,
                 currentGender,
-                 showShiny,
-                 setCurrentGender,
-                 currentSprite,
+                showShiny,
+                setCurrentGender,
+                currentSprite,
                  '',
                 setWarningMessage
             );
@@ -208,7 +209,7 @@ export default function PokemonModal({
 
             if (pokemonModalData.name.includes('mo-o') ||
                 pokemonModalData.name.includes('-mime') ||
-             pokemonModalData.name.includes('tapu-') ) formattedName = pokemonModalData.name;
+                pokemonModalData.name.includes('tapu-')) formattedName = pokemonModalData.name;
 
             const localHeaderInfo = {
                 name: formattedName,
@@ -261,7 +262,7 @@ export default function PokemonModal({
                 });
                 
                 setForms([...localForms]);
-            }; 
+            };
         };
 
         function organizeVariationsSelections(variations, forms) {
@@ -316,7 +317,7 @@ export default function PokemonModal({
         };
 
         async function organizeSprites(sprites) {
-            const localAllSprites = sprites;
+            let localAllSprites = sprites;
             
             await shinyAndFemaleSprites(
                 localAllSprites,
@@ -324,9 +325,11 @@ export default function PokemonModal({
                 handleCurrentSprite,
                 setSelectionSprites,
                 currentGender,
-                showShiny
+                showShiny,
             );
-            handleCurrentSprite(localAllSprites[0]?.front[2])
+
+            if (first) handleCurrentSprite(localAllSprites[0]?.front[2]);
+            setFirst(false);
         };
 
         async function makeAllRequests() {
@@ -354,7 +357,7 @@ export default function PokemonModal({
         };
         
         makeAllRequests();
-    }, [pokemonModalData]);
+    }, [pokemonModalData, 0]);
 
     return (
         <div className='outerContainer'>

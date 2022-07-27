@@ -17,19 +17,26 @@ PokemonCardSprite.propTypes = {
     sprites: PropTypes.arrayOf(
         PropTypes.object
     ),
-    iconSprites: PropTypes.bool
+    iconSprites: PropTypes.bool,
 };
 
 PokemonCardSprite.defaultProps = {
-    sprites: [{}]
+    sprites: [{}],
 };
 
-export default function PokemonCardSprite({sprites, iconSprites}) {
+export default function PokemonCardSprite({
+    sprites, iconSprites
+}) {
     const [pokemonCardSprite, setPokemonCardSprite] = useState([]);
 
     useEffect(() => {
-        organizingSprites(sprites, setPokemonCardSprite, iconSprites);
+        organizingSprites(
+            sprites,
+            setPokemonCardSprite,
+            iconSprites,
+        );
     }, [sprites, iconSprites]);
+
 
     if (pokemonCardSprite) return (
         <img

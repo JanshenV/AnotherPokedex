@@ -27,7 +27,8 @@ export async function shinyAndFemaleSprites(
             currentSprite = sprites[1]?.front[0];
             if (setShowShiny) setShowShiny(false);
         } else {
-            if (!sprites[1]?.shiny_front?.length &&
+            if ((!sprites[1]?.front?.length &&
+                currentGender.female) &&
                 setWarningMessage) setWarningMessage('There are no female sprites.');
             if (sprites[0]?.shiny_front?.length) {
                 localSelectionSprites = [...sprites[0]?.shiny_front];
@@ -50,13 +51,14 @@ export async function shinyAndFemaleSprites(
             currentSprite = sprites[1]?.shiny_front[0];
             if (setShowShiny) setShowShiny(true);
         } else {
-            if (!sprites[1]?.front?.length &&
+            if ((!sprites[1]?.front?.length &&
+                currentGender.female) &&
                 setWarningMessage) setWarningMessage('There are no female sprites.');
             localSelectionSprites = [...sprites[0]?.front];
             currentSprite = sprites[0]?.front[0];
-
             if (currentGender.female &&
-                (onScreenSprite && onScreenSprite === sprites[0]?.front[2])) currentSprite = sprites[0]?.front[2];
+                (onScreenSprite &&
+                    onScreenSprite === sprites[0]?.front[2])) currentSprite = sprites[0]?.front[2];
             if (setCurrentGender) setCurrentGender({
                 male: true,
                 female: false
