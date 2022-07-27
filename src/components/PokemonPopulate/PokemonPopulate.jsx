@@ -5,6 +5,7 @@ import '../../css/Global.css';
 //Assets
 import pokeballIcon from '../../assets/pokeballIcon.png';
 import ResetIcon from '../../assets/reset.svg';
+import UpTopIcon from '../../assets/upIcon.png';
 
 //Global Provider
 import useGlobal from '../../hooks/useGlobal';
@@ -130,12 +131,26 @@ export default function PokemonPopulate({
                         <>
                             No Pokémon Found
                             <img
-                            className='resetPokedex'
-                            src={ResetIcon}
-                            alt="Reset Pokedex"
-                            onClick={() => resetPokedex()}
-                        />
+                                className='resetPokedex'
+                                src={ResetIcon}
+                                alt="Reset Pokedex"
+                                onClick={() => resetPokedex()}
+                            />
                         </>
+                }
+
+                {
+                    (pokedexList?.length &&
+                        pokedexList?.length > 20) ?
+                        <img
+                            src={UpTopIcon}
+                            alt="Send you up top."
+                            className='upTopIcon'
+                            onClick={() => window.scrollTo(0, 0)}
+                        />
+                        :
+                        <></>
+                    
                 }
 
                 {

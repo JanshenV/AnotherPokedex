@@ -77,6 +77,18 @@
     object-fit: contain;
 }
 
+.upTopIcon {
+    position: fixed;
+    right: 2vw;
+    bottom: 10vh;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+.upTopIcon:hover {
+    transform: scale(1.2);
+}
+
 /* Responsiviness */
 
 @media only screen and (min-width: 1600px) {
