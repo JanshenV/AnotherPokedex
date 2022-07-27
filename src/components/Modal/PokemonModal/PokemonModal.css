@@ -14,7 +14,7 @@
     overflow-y: auto;
     overflow-x: hidden;
     height: 90vh;
-    width: 40%;
+    width: 44%;
     border-radius: 10px;
 }
 
@@ -93,6 +93,13 @@
 /* Button to close modal */
 
 /* Responsiviness */
+
+@media only screen and (max-width: 800px) {
+    .innerContainer {
+        width: 60%;
+    }
+}
+
 @media only screen and (max-width: 689px) {
     .innerContainer {
         width: 100%;
