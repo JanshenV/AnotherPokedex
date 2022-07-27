@@ -45,14 +45,18 @@ export default function PokemonModal({
 }) {
 
     const {
-        useState, useEffect,
-        handleCurrentSprite, allSprites, setAllSprites,
-        setSelectionSprites, setCurrentGender,
-        currentSprite,
-        width, selectionVersions, setSelectionVersions,
+        useState, useEffect, 
+        currentSprite, handleCurrentSprite,
+
+        allSprites, setAllSprites,
+        width, setSelectionSprites,
+        currentGender, setCurrentGender,
+
+        selectionVersions, setSelectionVersions,
         setVariationsSeleciton, setCurrentVariation,
-        showShiny, setShowShiny, currentGender, currentVariation,
-        setWarningMessage
+
+        showShiny, setShowShiny,
+        currentVariation, setWarningMessage
     } = useGlobal();
 
     const [species, setSpecies] = useState('');

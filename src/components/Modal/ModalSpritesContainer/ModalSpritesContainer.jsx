@@ -27,12 +27,28 @@ ModalSpritesContainer.propTypes = {
             shiny: PropTypes.string
         })
     ),
-    handleVariations: PropTypes.func
+    handleVariations: PropTypes.func,
+    forms: PropTypes.arrayOf([
+        PropTypes.shape({
+            front: PropTypes.arrayOf(PropTypes.oneOfType[PropTypes.string, PropTypes.object]),
+            shiny_front: PropTypes.arrayOf(PropTypes.oneOfType[PropTypes.string, PropTypes.object]),
+        }),
+        PropTypes.shape({
+            front: [],
+            shiny_front: []
+        })
+    ])
 };
 
 ModalSpritesContainer.defaultProps = {
     handleSpriteByGender: () => null,
-    handleVariations: () => null
+    handleVariations: () => null,
+    forms: [
+        {
+            front: [],
+            shiny_front:[]
+        }
+    ]
 };
 
 export default function ModalSpritesContainer({
@@ -45,7 +61,7 @@ export default function ModalSpritesContainer({
         useEffect, useState, variationsSeleciton,
         currentSprite, handleCurrentSprite, selectionSprites,
         currentGender,  warningMessage, setWarningMessage,
-        currentVariation, allSprites, showShiny
+        allSprites, showShiny
     } = useGlobal();
 
     const [spriteClassName, setSpriteClassName] = useState('pokemonImg');

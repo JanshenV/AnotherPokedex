@@ -42,7 +42,7 @@ ModalPokemonInfo.defaultProps = {
 };
 
 export default function ModalPokemonInfo({
-    Pokemon, species, forms,
+    Pokemon, species,
     stats, color, description,
     handleVersionDescription
 }) {
