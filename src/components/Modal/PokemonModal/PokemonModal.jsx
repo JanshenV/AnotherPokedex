@@ -382,22 +382,24 @@ export default function PokemonModal({
             </div>
             {
                 !modalLoading ?
-                    <div className={`innerContainer background-${backgroundByType}`}>
-                        <ModalSpritesContainer
-                            handleSpriteByGender={handleSpriteByGender}
-                            handleVariations={handleVariations}
-                            handleShowShiny={handleShowShiny}
-                            pokemonHeaderInfo={pokemonHeaderInfo}
-                            forms={forms}
-                        />
-                        <ModalPokemonInfo
-                            Pokemon={pokemonModalData}
-                            species={species}
-                            stats={stats}
-                            color={backgroundByType}
-                            description={pokemonDescription}
-                            handleVersionDescription={handleVersionDescription}
-                        />
+                    <div className='innerContainer'>
+                        <div className={`contentContainer background-${backgroundByType}`}>
+                            <ModalSpritesContainer
+                                handleSpriteByGender={handleSpriteByGender}
+                                handleVariations={handleVariations}
+                                handleShowShiny={handleShowShiny}
+                                pokemonHeaderInfo={pokemonHeaderInfo}
+                                forms={forms}
+                            />
+                            <ModalPokemonInfo
+                                Pokemon={pokemonModalData}
+                                species={species}
+                                stats={stats}
+                                color={backgroundByType}
+                                description={pokemonDescription}
+                                handleVersionDescription={handleVersionDescription}
+                            />
+                        </div>
                     </div>
                     :
                     <div className='contentLoading'>
