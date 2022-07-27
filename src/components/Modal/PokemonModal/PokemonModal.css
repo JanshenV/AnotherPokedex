@@ -102,6 +102,7 @@
 
     .closeModalContainer {
         top: 0;
+        right: 12vw;
     }
 
     .closeModalContainer span {
