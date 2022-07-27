@@ -27,7 +27,10 @@ ModalPokemonInfo.propTypes = {
         language: PropTypes.string,
         version: PropTypes.string
     }),
-    handleVersionDescription: PropTypes.func
+    handleVersionDescription: PropTypes.func,
+    evolutions: PropTypes.arrayOf(
+        PropTypes.object
+    )
 };
 
 ModalPokemonInfo.defaultProps = {
@@ -38,13 +41,14 @@ ModalPokemonInfo.defaultProps = {
         language: 'Italian',
         version: 'The Vision'
     },
-    handleVersionDescription: () => null
+    handleVersionDescription: () => null,
+    evolutions: [{}]
 };
 
 export default function ModalPokemonInfo({
     Pokemon, species,
     stats, color, description,
-    handleVersionDescription
+    handleVersionDescription, evolutions
 }) {
 
     const {
@@ -97,6 +101,7 @@ export default function ModalPokemonInfo({
                                     <option
                                         key={index}
                                         value={version}
+                                        selected={description.version === version}
                                     >
                                         {version}
                                     </option>
@@ -168,6 +173,21 @@ export default function ModalPokemonInfo({
                     </div>
                 </div>
             </div>
+
+            {
+                evolutions?.length ? 
+                    <div className='mainEvolutionsContainer'> 
+                        {
+                            evolutions?.map((evolution) => {
+                                return (
+                                    <span>{evolution.species} </span>
+                                )
+                            })
+                        }
+                    </div>
+                    :
+                    <>I do not evolve</>
+            }
 
             <div className='pokemonStatsContainer'>
                 <h3>Base Stats: </h3>

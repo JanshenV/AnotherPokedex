@@ -62,6 +62,8 @@ export default function PokemonModal({
     const [species, setSpecies] = useState('');
     const [pokemonDescription, setPokemonDescription] = useState('');
 
+    const [evolutions, setEvolutions] = useState([]);
+
     const [forms, setForms] = useState([]);
     const [stats, setStats] = useState([]);
     const [first, setFirst] = useState(true);
@@ -218,9 +220,9 @@ export default function PokemonModal({
             const localHeaderInfo = {
                 name: formattedName,
                 national: dexNumbers?.length ?
-                    dexNumbers[0].entryNumber : '??',
+                    dexNumbers[0]?.entryNumber : '??',
                 regional: dexNumbers?.length ?
-                    dexNumbers[1].entryNumber : '??'
+                    dexNumbers[1]?.entryNumber : '??'
             };
             setPokemonHeaderInfo(localHeaderInfo);
         };
@@ -235,10 +237,9 @@ export default function PokemonModal({
         };
 
         function organizeEvolutions(evolutions) {
-            // setPokemonHeaderInfo({
-
-            // })
-            console.log(evolutions);
+            const localEvolutions = [...evolutions];
+            setEvolutions(localEvolutions);
+            console.log({localEvolutions})
         };
 
         function organizeForms(forms) {
@@ -399,6 +400,7 @@ export default function PokemonModal({
                             <ModalPokemonInfo
                                 Pokemon={pokemonModalData}
                                 species={species}
+                                evolutions={evolutions}
                                 stats={stats}
                                 color={backgroundByType}
                                 description={pokemonDescription}
