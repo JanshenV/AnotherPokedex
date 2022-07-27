@@ -97,6 +97,7 @@ export default function ModalPokemonInfo({
                                     <option
                                         key={index}
                                         value={version}
+                                        selected={description.version === version}
                                     >
                                         {version}
                                     </option>
