@@ -238,6 +238,7 @@ export default function PokemonModal({
             // setPokemonHeaderInfo({
 
             // })
+            console.log(evolutions);
         };
 
         function organizeForms(forms) {

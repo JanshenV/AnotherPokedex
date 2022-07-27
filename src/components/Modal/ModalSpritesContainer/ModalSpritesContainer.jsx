@@ -34,8 +34,8 @@ ModalSpritesContainer.propTypes = {
             shiny_front: PropTypes.arrayOf(PropTypes.oneOfType[PropTypes.string, PropTypes.object]),
         }),
         PropTypes.shape({
-            front: [],
-            shiny_front: []
+            front: PropTypes.array,
+            shiny_front: PropTypes.array,
         })
     ])
 };
