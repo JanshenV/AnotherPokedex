@@ -6,7 +6,7 @@ import '../../../css/Global.css';
 import useGlobal from '../../../hooks/useGlobal';
 
 //Assets
-import pokeballCloseIcon from '../../../assets/pokeballClose.png';
+import closeModalDark from '../../../assets/closeModalDark.svg';
 
 //Components
 import ModalSpritesContainer from '../ModalSpritesContainer';
@@ -366,7 +366,7 @@ export default function PokemonModal({
             <div className='closeModalContainer'>
                 <img
                     className="closeModalImg"
-                    src={pokeballCloseIcon}
+                    src={closeModalDark}
                     alt="close modal"
                     onMouseEnter={() => setCloseModalMessage(true)}
                     onMouseLeave={() => setCloseModalMessage(false)}
