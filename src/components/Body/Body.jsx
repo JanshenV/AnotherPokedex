@@ -74,10 +74,13 @@ export default function Body() {
         setLoading(false);
     };
 
-    async function requestPokemon(event) {
+    async function requestPokemon(event, ) {
         const keyPressed = event.key;
-
-        if (keyPressed !== 'Enter') return;
+        
+        if ((keyPressed &&
+            keyPressed !== 'Enter')) return;
+        
+        if (!keyPressed && !searchInputValue) return;
 
         const {
             pokedexResponse,

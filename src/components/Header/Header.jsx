@@ -56,20 +56,33 @@ export default function Header({ searchPokemon, requestPokemon }) {
                 </span>
             }
 
-             <input
-                type="text"
-                value={searchInputValue}
-                placeholder={placeholderMessage}
-                onChange={({target: {value}}) => searchPokemon(value)}
-                onKeyDown={(e) => requestPokemon(e)}
-                onFocus={() => handleFocusMessage()}
-            />
+            <div className='inputButtonContainer'>
+                <input
+                    type="text"
+                    value={searchInputValue}
+                    placeholder={placeholderMessage}
+                    onChange={({ target: { value } }) => searchPokemon(value)}
+                    onKeyDown={(e) => requestPokemon(e)}
+                    onFocus={() => handleFocusMessage()}
+                />
+                
+                <button
+                    className='searchButton'
+                    onClick={(e) => requestPokemon(e)}
+                >
+                    Search
+                </button>
+
+
+            </div>
 
             <img
                 className="logoIcon"
                 src={PokedexIcon}
                 alt="Logo Icon"
             />
+
+        
         </header>
     );
 };
