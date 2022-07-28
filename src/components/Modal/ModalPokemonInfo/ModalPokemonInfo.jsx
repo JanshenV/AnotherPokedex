@@ -5,6 +5,7 @@ import '../../../css/Global.css';
 //Assets
 import HeightIcon from '../../../assets/heightIcon.svg';
 import WeightIcon from '../../../assets/weightIcon.svg';
+import noPokemonImage from '../../../assets/ultraBall.png';
 
 //Components
 import PokemonTypes from '../../PokemonTypes';
@@ -65,6 +66,7 @@ export default function ModalPokemonInfo({
 
         handleWidthMultiplier();
     }, [width]);
+    
 
     return (
         <div className="pokemonInfo">
@@ -172,23 +174,33 @@ export default function ModalPokemonInfo({
                     </div>
                 </div>
             </div>
-
+                        
             {
                 evolutions?.length ?
                     <div className='mainEvolutionsContainer'>
                         {
-                            evolutions?.map(({ pokemonName, sprite }, index) => {
+                            evolutions?.map(({
+                                pokemonName,
+                                sprite,
+                                nationalDex
+                            }, index) => {
                                 return (
-                                    <div key={index}>
-                                        <span>{pokemonName} </span>
-                                        <img src={sprite} alt={pokemonName} />
+                                    <div
+                                        className='singleEvolutionContainer'
+                                        key={index}>
+                                        <img
+                                            src={sprite || noPokemonImage}
+                                            alt={pokemonName}
+                                        />
+                                        <span>#{nationalDex}</span>
+                                        <span>{pokemonName}</span>
                                     </div>
                                 )
                             })
                         }
                     </div>
                     :
-                    <>I do not evolve</>
+                    <></>
             }
 
             <div className='pokemonStatsContainer'>

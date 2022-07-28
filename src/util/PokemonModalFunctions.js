@@ -68,7 +68,6 @@ export async function organizeDescriptions(
 
 };
 
-//In progress
 export async function organizeEvolutions(
     evolutionsList,
     setEvolutions,
@@ -81,10 +80,16 @@ export async function organizeEvolutions(
         for (let { species: pokemonName } of evolutionsList) {
 
             let chosenSprite;
+            let nationalDex;
             let existingPokemon = pokedexList.find(({ name }) => name === pokemonName);
 
             if (existingPokemon) {
-                chosenSprite = existingPokemon?.sprites[0]?.front[0];
+                const {
+                    sprites,
+                    nationaldex
+                } = existingPokemon;
+                chosenSprite = sprites[0]?.front[0];
+                nationalDex = nationaldex;
             };
 
             if (!existingPokemon) {
@@ -93,20 +98,34 @@ export async function organizeEvolutions(
                 if (!pokedexRequest?.pokedexResponse) {
                     pokedexRequest = await handlePokemonVariations(pokemonName);
                 };
-                chosenSprite = pokedexRequest?.pokedexResponse[0]?.sprites[0]?.front[0];
 
+                if (pokedexRequest) {
+                    chosenSprite = pokedexRequest?.pokedexResponse[0]?.sprites[0]?.front[0];
+                    nationalDex = pokedexRequest?.pokedexResponse[0]?.nationaldex;
+                };
             };
 
             if ((currentVariation === 'alola' ||
                 currentVariation === 'galar' ||
                 currentVariation === 'hisui')) {
-                const { pokedexResponse } = await handlePokemonVariations(`${pokemonName}-${currentVariation}`);
-                if (pokedexResponse) chosenSprite = pokedexResponse[0]?.sprites[0]?.front[0];
+                const {
+                    pokedexResponse
+                } = await handlePokemonVariations(`${pokemonName}-${currentVariation}`);
+                if (pokedexResponse) {
+                    const {
+                        sprites,
+                        nationaldex
+                    } = pokedexResponse[0];
+
+                    chosenSprite = sprites[0]?.front[0];
+                    nationalDex = nationaldex;
+                };
             };
 
             localEvolutions.push({
                 pokemonName,
                 sprite: chosenSprite,
+                nationalDex
             });
         };
     };
