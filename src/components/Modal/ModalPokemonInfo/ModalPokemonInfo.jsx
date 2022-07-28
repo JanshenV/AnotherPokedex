@@ -50,7 +50,6 @@ export default function ModalPokemonInfo({
     stats, color, description,
     handleVersionDescription, evolutions
 }) {
-
     const {
         useState, width, useEffect,
         selectionVersions, allSprites
@@ -134,12 +133,12 @@ export default function ModalPokemonInfo({
                     <span>Species</span>
                 </div>
             </div>
-
             <div className='abilities-Moves'>
                 <div className='flex-column'>
                     <h4>Abilities: </h4>
                     <div className='flex-column'>
                         {
+                            
                             Pokemon?.abilities?.length &&
                             Pokemon.abilities.map((ability, index) => {
                                 const { ability: { name }, is_hidden } = ability;

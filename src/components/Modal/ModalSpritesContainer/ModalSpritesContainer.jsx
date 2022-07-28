@@ -82,6 +82,7 @@ export default function ModalSpritesContainer({
         };
     }, [currentSprite]);
 
+
     return (
         <div className={`spritesContainer`}>
             <div className='spritesContainerHeader'>
@@ -164,7 +165,7 @@ export default function ModalSpritesContainer({
                         >
                             {
                                 variationsSelection?.map(
-                                    (name, index) => {
+                                    ({name}, index) => {
                                         return (
                                             <option
                                                 value={name}

@@ -156,9 +156,11 @@ export async function organizeVariationsSelection(
             const firstHyphenIndex = name.indexOf('-');
             const slicedName = name.slice(
                 firstHyphenIndex + 1, name.length
-            );
+            ).replace('-', " ");
 
-            return slicedName.replace('-', " ");
+            return {
+                name: slicedName
+            };
         });
 
         localVariations = localVariations.filter(variation => variation);
