@@ -268,19 +268,21 @@ export default function PokemonModal({
         };
 
         function organizeVariationsSelections(variations, forms) {
-            const localVariations = variations.map(variation => {
-                
-                if (variation.name.includes('mo-o')) return {
-                    name: 'totem'
-                };
+            let localVariations = [];
 
-                const firstHyphen = variation.name.indexOf('-');
-                const slicedName = variation.name.slice(firstHyphen + 1, variation.name.length);
+            if (variations?.length && variations[1]?.name?.includes('-totem')) {
+                localVariations = [];
+            } else {
+                localVariations = variations.map(variation => {
+                    const firstHyphen = variation.name.indexOf('-');
+                    const slicedName = variation.name.slice(firstHyphen + 1, variation.name.length);
 
-                return {
-                    name: slicedName.replace('-', " ")
-                };
-            });
+                    return {
+                        name: slicedName.replace('-', " ")
+                    };
+                });
+            };
+
 
             if (forms?.length > 1) {
                 localVariations.push({ name: 'forms' });
