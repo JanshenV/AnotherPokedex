@@ -10,7 +10,7 @@ export default function useGlobalProvider() {
     const [selectionSprites, setSelectionSprites] = useState([]);
     const [selectionVersions, setSelectionVersions] = useState([]);
 
-    const [variationsSeleciton, setVariationsSeleciton] = useState([]);
+    const [variationsSelection, setVariationsSelection] = useState([]);
     const [currentVariation, setCurrentVariation] = useState('');
 
     const [showShiny, setShowShiny] = useState(false);
@@ -56,7 +56,7 @@ export default function useGlobalProvider() {
         selectionSprites, setSelectionSprites,
         selectionVersions, setSelectionVersions,
 
-        variationsSeleciton, setVariationsSeleciton,
+        variationsSelection, setVariationsSelection,
         currentVariation, setCurrentVariation,
 
         currentGender, setCurrentGender,
