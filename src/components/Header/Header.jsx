@@ -81,8 +81,6 @@ export default function Header({ searchPokemon, requestPokemon }) {
                 src={PokedexIcon}
                 alt="Logo Icon"
             />
-
-        
         </header>
     );
 };

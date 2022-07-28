@@ -96,7 +96,6 @@
     width: 55%;
     justify-content: space-between;
     overflow: auto;
-    /* padding: 0 22px; */
     text-transform: capitalize;
 }
 
@@ -106,6 +105,21 @@
     align-items: center;
     justify-content: center;
     min-width: 100px;
+}
+
+.mainEvolutionsContainer::-webkit-scrollbar {
+    height: 10px;
+    cursor: pointer;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(204, 202, 193);
+
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(78, 78, 74);
 }
 
 /* Evolutions */

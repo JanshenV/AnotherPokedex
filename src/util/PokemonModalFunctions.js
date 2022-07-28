@@ -10,7 +10,7 @@ export async function organizePokemonHeaderInfo(
     let formattedName;
 
     if (pokemonName.includes('mo-o') ||
-        pokemonName.includes('-mime') ||
+        pokemonName.includes('mr') ||
         pokemonName.includes('tapu-')) {
         formattedName = pokemonName;
     } else {
@@ -176,7 +176,14 @@ export async function organizeVariationsSelection(
         localVariations = variationsList.map(({ name }) => {
 
             if (name.includes('-totem')) return '';
+
+            if (name === 'mr-mime') return { name };
+            if (name === 'mr-mime-galar') {
+                return { name: 'galar' }
+            }
+
             const firstHyphenIndex = name.indexOf('-');
+
             const slicedName = name.slice(
                 firstHyphenIndex + 1, name.length
             ).replace('-', " ");
