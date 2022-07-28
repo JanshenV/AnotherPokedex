@@ -69,7 +69,6 @@ export default function PokemonModal({
 
     const [forms, setForms] = useState([]);
     const [stats, setStats] = useState([]);
-    const [first, setFirst] = useState(true);
 
     const [pokemonHeaderInfo, setPokemonHeaderInfo] = useState({
         name: '',
@@ -218,8 +217,6 @@ export default function PokemonModal({
                 showShiny,
             );
 
-            if (first) handleCurrentSprite(localAllSprites[0]?.front[2]);
-            setFirst(false);
         };
 
         async function makeAllRequests() {
