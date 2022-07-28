@@ -58,7 +58,7 @@ export default function ModalSpritesContainer({
 }) {
     //From Global Provider
     const {
-        useEffect, useState, variationsSeleciton,
+        useEffect, useState, variationsSelection,
         currentSprite, handleCurrentSprite, selectionSprites,
         currentGender,  warningMessage, setWarningMessage,
         allSprites, showShiny
@@ -157,21 +157,23 @@ export default function ModalSpritesContainer({
                 }
 
                 {
-                    (variationsSeleciton?.length && variationsSeleciton?.length > 1) ?
+                    (variationsSelection?.length &&
+                        variationsSelection?.length > 1) ?
                         <select
                             onChange={({ target: { value } }) => handleVariations(value)}
                         >
                             {
-                                variationsSeleciton?.map(({ name }, index) => {
-                                    return (
-                                        <option
-                                            value={name}
-                                            key={index}
-                                        >
-                                            {name}
-                                        </option>
-                                    )
-                                })
+                                variationsSelection?.map(
+                                    (name, index) => {
+                                        return (
+                                            <option
+                                                value={name}
+                                                key={index}
+                                            >
+                                                {name}
+                                            </option>
+                                        )
+                                    })
                             }
                         </select>
                         :

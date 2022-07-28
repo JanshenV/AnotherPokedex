@@ -15,16 +15,17 @@ import CircularIndeterminate from '../../LoadingComponent';
 
 //Util
 import {
-    randomDescriptions
-} from '../../../util/randomDescriptions';
-import {
     shinyAndFemaleSprites
 } from '../../../util/handlingShinyAndFemaleSprites';
+
+import {
+    callAllOrganizeFunctions
+} from '../../../util/PokemonModalFunctions';
 
 //Api
 import {
     handlePokemonVariations,
-handleIndividualPokemon
+    handleIndividualPokemon,
 } from '../../../api/apiCalls';
 
 //PropTypes
@@ -41,7 +42,9 @@ PokemonModal.defaultProps = {
 };
 
 export default function PokemonModal({
-    setModalUp, pokemonModalData, setPokemonModalData
+    setModalUp,
+    pokemonModalData,
+    setPokemonModalData
 }) {
 
     const {
@@ -53,7 +56,7 @@ export default function PokemonModal({
         currentGender, setCurrentGender,
 
         selectionVersions, setSelectionVersions,
-        setVariationsSeleciton, setCurrentVariation,
+        setVariationsSelection, setCurrentVariation,
 
         showShiny, setShowShiny,
         currentVariation, setWarningMessage
@@ -203,123 +206,6 @@ export default function PokemonModal({
     };
 
     useEffect(() => {
-        function organizePokemonHeaderInfo(dexNumbers, name) {
-            let firstHyphen = name.indexOf('-');
-            if (firstHyphen === -1) firstHyphen = name.length;
-            const slicedName = name.slice(0, firstHyphen);
-            let formattedName = slicedName.replace('-', " ");
-
-            if (pokemonModalData.name.includes('mo-o') ||
-                pokemonModalData.name.includes('-mime') ||
-                pokemonModalData.name.includes('tapu-')) formattedName = pokemonModalData.name;
-
-            const localHeaderInfo = {
-                name: formattedName,
-                national: dexNumbers?.length ?
-                    dexNumbers[0]?.entryNumber : '??',
-                regional: dexNumbers?.length ?
-                    dexNumbers[1]?.entryNumber : '??'
-            };
-            setPokemonHeaderInfo(localHeaderInfo);
-        };
-
-        async function organizeDescriptions(descriptions) {
-            await setSelectionVersions([...descriptions]);
-
-            await randomDescriptions(
-                descriptions,
-                setPokemonDescription,
-            );
-        };
-
-        function organizeEvolutions(evolutions) {
-            const localEvolutions = [...evolutions];
-            setEvolutions(localEvolutions);
-            console.log({localEvolutions})
-        };
-
-        function organizeForms(forms) {
-            if (forms.length > 1) {
-                let localForms = [
-                    {
-                        front: [],
-                        shiny_front: [],
-                    },
-
-                    {
-                        front: [],
-                        shiny_front: [],
-                    },
-                ];
-
-                forms.forEach(form => {
-                    localForms[0].front.push({
-                        sprite: form.default,
-                        name: form.name
-                    });
-                    localForms[0].shiny_front.push({
-                        sprite: form.shiny,
-                        name: form.name
-                    });
-                });
-                
-                setForms([...localForms]);
-            };
-        };
-
-        function organizeVariationsSelections(variations, forms) {
-            let localVariations = [];
-
-            if (variations?.length && variations[1]?.name?.includes('-totem')) {
-                localVariations = [];
-            } else {
-                localVariations = variations.map(variation => {
-                    const firstHyphen = variation.name.indexOf('-');
-                    const slicedName = variation.name.slice(firstHyphen + 1, variation.name.length);
-
-                    return {
-                        name: slicedName.replace('-', " ")
-                    };
-                });
-            };
-
-
-            if (forms?.length > 1) {
-                localVariations.push({ name: 'forms' });
-            };
-
-            setVariationsSeleciton([...localVariations]);
-            setCurrentVariation('default');
-        };
-
-        function organizeStats(stats) {
-            const localStats = [];
-
-            for (let stat of stats) {
-                let name = stat.stat.name;
-                let statLv = stat.base_stat;
-
-                if (name === 'attack') name = 'ATK';
-                if (name === 'defense') name = 'DEF';
-                if (name === 'special-attack') name = 'SATK';
-                if (name === 'special-defense') name = 'SDEF';
-                if (name === 'speed') name = 'SPD';
-
-                if (statLv <= 50) statLv = 'low';
-                if (statLv > 50 & statLv <= 80) statLv = 'medium';
-                if (statLv > 80 & statLv <= 120) statLv = 'high';
-                if (statLv > 120) statLv = 'higher';
-
-                const statData = {
-                    name,
-                    base: stat.base_stat,
-                    statLv
-                };
-                localStats.push(statData);
-            };
-            setStats(localStats);
-        };
-
         async function organizeSprites(sprites) {
             let localAllSprites = sprites;
             
@@ -337,31 +223,25 @@ export default function PokemonModal({
         };
 
         async function makeAllRequests() {
-            const {
-                all_dex_numbers: dexNumbers,
-                name,
-                descriptions,
-                evolutions,
-                varieties,
-                forms,
-                stats,
-                sprites,
-                species: {specie}
-            } = pokemonModalData;
-            
-            organizePokemonHeaderInfo(dexNumbers, name);
-            await organizeDescriptions(descriptions);
-            organizeEvolutions(evolutions);
-            organizeForms(forms);
-            organizeVariationsSelections(varieties, forms);
-            organizeStats(stats);
-            organizeSprites(sprites);
-            setSpecies(specie);
+            await callAllOrganizeFunctions(
+                pokemonModalData,
+                setPokemonHeaderInfo,
+                setSelectionVersions,
+                setPokemonDescription,
+                setEvolutions,
+                setForms,
+                setVariationsSelection,
+                setCurrentVariation,
+                setStats,
+                setSpecies
+            );
+
+            organizeSprites(pokemonModalData.sprites);
             setModalLoading(false);
         };
         
         makeAllRequests();
-    }, [pokemonModalData, 0]);
+    }, [pokemonModalData]);
 
     return (
         <div className='outerContainer'>
