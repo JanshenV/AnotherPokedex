@@ -81,7 +81,6 @@ export async function organizeEvolutions(
         for (let { species: pokemonName } of evolutionsList) {
 
             let chosenSprite;
-            let secondSprite;
             let existingPokemon = pokedexList.find(({ name }) => name === pokemonName);
 
             if (existingPokemon) {
@@ -89,8 +88,13 @@ export async function organizeEvolutions(
             };
 
             if (!existingPokemon) {
-                const { pokedexResponse } = await handleIndividualPokemon(pokemonName);
-                chosenSprite = pokedexResponse[0]?.sprites[0]?.front[0];
+                let pokedexRequest = await handleIndividualPokemon(pokemonName);
+
+                if (!pokedexRequest?.pokedexResponse) {
+                    pokedexRequest = await handlePokemonVariations(pokemonName);
+                };
+                chosenSprite = pokedexRequest?.pokedexResponse[0]?.sprites[0]?.front[0];
+
             };
 
             if ((currentVariation === 'alola' ||
