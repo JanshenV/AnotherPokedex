@@ -177,10 +177,6 @@ export default function PokemonModal({
             };
 
             await setCurrentVariation('forms');
-            await setCurrentGender({
-                male: true,
-                female: false
-            });
             await setWarningMessage('There are no female sprites.');
         };
 
@@ -379,6 +375,10 @@ export default function PokemonModal({
                     onClick={() => {
                         setModalUp(false);
                         setShowShiny(false);
+                        setCurrentGender({
+                            male: true,
+                            female: false
+                        });
                     }}
                 />
                 {
