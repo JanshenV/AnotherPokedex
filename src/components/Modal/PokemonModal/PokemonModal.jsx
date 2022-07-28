@@ -59,7 +59,10 @@ export default function PokemonModal({
         setVariationsSelection, setCurrentVariation,
 
         showShiny, setShowShiny,
-        currentVariation, setWarningMessage
+        currentVariation, setWarningMessage,
+
+        permaPokedexList
+
     } = useGlobal();
 
     const [species, setSpecies] = useState('');
@@ -204,6 +207,16 @@ export default function PokemonModal({
         );
     };
 
+    async function clearStates() {
+        setModalUp(false);
+        setShowShiny(false);
+        setCurrentGender({
+            male: true,
+            female: false
+        });
+        setCurrentVariation('default');
+    };
+
     useEffect(() => {
         async function organizeSprites(sprites) {
             let localAllSprites = sprites;
@@ -230,7 +243,9 @@ export default function PokemonModal({
                 setVariationsSelection,
                 setCurrentVariation,
                 setStats,
-                setSpecies
+                setSpecies,
+                permaPokedexList,
+                currentVariation
             );
 
             organizeSprites(pokemonModalData.sprites);
@@ -251,14 +266,7 @@ export default function PokemonModal({
                     alt="close modal"
                     onMouseEnter={() => setCloseModalMessage(true)}
                     onMouseLeave={() => setCloseModalMessage(false)}
-                    onClick={() => {
-                        setModalUp(false);
-                        setShowShiny(false);
-                        setCurrentGender({
-                            male: true,
-                            female: false
-                        });
-                    }}
+                    onClick={clearStates}
                 />
                 {
                     (closeModalMessage || width <= 400) &&

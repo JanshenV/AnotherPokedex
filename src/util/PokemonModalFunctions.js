@@ -1,3 +1,8 @@
+import {
+    handleIndividualPokemon,
+    handlePokemonVariations
+} from '../api/apiCalls.jsx';
+
 export async function organizePokemonHeaderInfo(
     pokedexNumbers,
     pokemonName,
@@ -66,9 +71,42 @@ export async function organizeDescriptions(
 //In progress
 export async function organizeEvolutions(
     evolutionsList,
-    setEvolutions
+    setEvolutions,
+    pokedexList,
+    currentVariation
 ) {
-    setEvolutions([...evolutionsList]);
+    let localEvolutions = [];
+
+    if (evolutionsList?.length) {
+        for (let { species: pokemonName } of evolutionsList) {
+
+            let chosenSprite;
+            let secondSprite;
+            let existingPokemon = pokedexList.find(({ name }) => name === pokemonName);
+
+            if (existingPokemon) {
+                chosenSprite = existingPokemon?.sprites[0]?.front[0];
+            };
+
+            if (!existingPokemon) {
+                const { pokedexResponse } = await handleIndividualPokemon(pokemonName);
+                chosenSprite = pokedexResponse[0]?.sprites[0]?.front[0];
+            };
+
+            if ((currentVariation === 'alola' ||
+                currentVariation === 'galar' ||
+                currentVariation === 'hisui')) {
+                const { pokedexResponse } = await handlePokemonVariations(`${pokemonName}-${currentVariation}`);
+                if (pokedexResponse) chosenSprite = pokedexResponse[0]?.sprites[0]?.front[0];
+            };
+
+            localEvolutions.push({
+                pokemonName,
+                sprite: chosenSprite,
+            });
+        };
+    };
+    setEvolutions([...localEvolutions]);
 };
 
 export async function organizeForms(
@@ -180,7 +218,10 @@ export async function callAllOrganizeFunctions(
     setForms,
     setVariationsSelection,
     setCurrentVariation,
-    setStats
+    setStats,
+    setSpecies,
+    pokedexList,
+    currentVariation
 ) {
     const {
         all_dex_numbers: pokedexNumbers,
@@ -190,7 +231,6 @@ export async function callAllOrganizeFunctions(
         varieties: variations,
         forms,
         stats,
-        sprites,
         species: { specie }
     } = pokemonData;
 
@@ -208,7 +248,9 @@ export async function callAllOrganizeFunctions(
 
     await organizeEvolutions(
         evolutions,
-        setEvolutions
+        setEvolutions,
+        pokedexList,
+        currentVariation
     );
 
     await organizeForms(
@@ -227,4 +269,8 @@ export async function callAllOrganizeFunctions(
         stats,
         setStats
     );
-}
+
+    await setSpecies(
+        specie
+    );
+};

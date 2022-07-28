@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import noPokemonSprite from '../assets/ultraBall.png';
 
 export default function useGlobalProvider() {
+    const [permaPokedexList, setPermaPokedexList] = useState([]);
+
     const [currentSprite, setCurrentSprite] = useState('');
     const [allSprites, setAllSprites] = useState([]);
 
@@ -49,6 +51,8 @@ export default function useGlobalProvider() {
 
     return {
         useState, useEffect,
+
+        permaPokedexList, setPermaPokedexList,
 
         currentSprite, setCurrentSprite,
         allSprites, setAllSprites,

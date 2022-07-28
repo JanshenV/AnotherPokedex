@@ -21,11 +21,11 @@ export default function Body() {
 
     const {
         useState, useEffect, searchInputValue,
-        setSearchInputValue
+        setSearchInputValue,
+        permaPokedexList, setPermaPokedexList
     } = useGlobal();
 
     const [pokedexList, setPokedexList] = useState([]);
-    const [permaPokedexList, setPermaPokedexList] = useState([]);
     const [loading, setLoading] = useState(true);
     const selectedRegion = localStorage.getItem('selectedRegion');
 

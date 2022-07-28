@@ -53,7 +53,7 @@ export default function ModalPokemonInfo({
 
     const {
         useState, width, useEffect,
-        selectionVersions
+        selectionVersions, allSprites
     } = useGlobal();
     
     const [widthMultiplier, setWidthMultiplier] = useState(1.2);
@@ -175,12 +175,15 @@ export default function ModalPokemonInfo({
             </div>
 
             {
-                evolutions?.length ? 
-                    <div className='mainEvolutionsContainer'> 
+                evolutions?.length ?
+                    <div className='mainEvolutionsContainer'>
                         {
-                            evolutions?.map((evolution) => {
+                            evolutions?.map(({ pokemonName, sprite }, index) => {
                                 return (
-                                    <span>{evolution.species} </span>
+                                    <div key={index}>
+                                        <span>{pokemonName} </span>
+                                        <img src={sprite} alt={pokemonName} />
+                                    </div>
                                 )
                             })
                         }
@@ -193,8 +196,7 @@ export default function ModalPokemonInfo({
                 <h3>Base Stats: </h3>
                 {
                     stats?.length &&
-                    stats.map((stat, index) => {
-                        const { name, base, statLv } = stat;
+                    stats.map(({ name, base, statLv }, index) => {
                         return (
                             <div
                                 className={`pokemonStats`}
