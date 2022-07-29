@@ -1,5 +1,5 @@
-const baseUrl = 'https://anotherpokedexdb.herokuapp.com/';
-// const baseUrl = 'http://localhost:3300/';
+const baseUrl = process.env.REACT_APP_BASE_URL ||
+    process.env.REACT_APP_DEV_URL;
 
 export async function handlePokedex(region) {
     try {
@@ -11,6 +11,7 @@ export async function handlePokedex(region) {
         };
 
         const pokedexRequest = await fetch(`${baseUrl}pokedex/${region}`, requestOptions);
+        console.log(pokedexRequest)
         if (!pokedexRequest.ok) throw new Error('Pokedex request failed');
 
         const pokedexResponse = await pokedexRequest.json();
