@@ -24,7 +24,7 @@
 #### https://pokemondb.net/ onde encontrei referência das cores para os elementos pokémon e inspiração.
 #### https://vercel.com/ onde o projeto foi posto no ar.
 ### https://www.figma.com/@ricardohs que disponibilizou um figma de pokedex.
-### Todo conteúdo Pokémon pertece a Nintendo, Game Freak, e a Pokémon Company.
+### Todo conteúdo Pokémon pertence a Nintendo, Game Freak, e a Pokémon Company.
 
 # Scripts disponíveis:
 ## 'npm install' para instalar todas as dependencias do projeto.
