@@ -8,8 +8,8 @@
 #### https://pokeapi.co/ for providing all the pokemon data.
 #### https://pokemondb.net/ where I got some of the types styles and inspiration.
 #### https://vercel.com/ where the project was deployed.
-### https://www.figma.com/@ricardohs that made available a figma Pokedex
-### All Content is Nintendo, Game Freak, and The Pokémon Company
+### https://www.figma.com/@ricardohs that made available a figma Pokedex.
+### All Pokémon Content belongs Nintendo, Game Freak, and The Pokémon Company.
 
 # Available Scripts:
 
@@ -24,7 +24,7 @@
 #### https://pokemondb.net/ onde encontrei referência das cores para os elementos pokémon e inspiração.
 #### https://vercel.com/ onde o projeto foi posto no ar.
 ### https://www.figma.com/@ricardohs que disponibilizou um figma de pokedex.
-### All Content is Nintendo, Game Freak, and The Pokémon Company
+### Todo conteúdo Pokémon pertece a Nintendo, Game Freak, e a Pokémon Company.
 
 # Scripts disponíveis:
 ## 'npm install' para instalar todas as dependencias do projeto.
