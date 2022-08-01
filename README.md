@@ -9,7 +9,7 @@
 #### https://pokemondb.net/ where I got some of the types styles and inspiration.
 #### https://vercel.com/ where the project was deployed.
 ### https://www.figma.com/@ricardohs that made available a figma Pokedex.
-### ### Saulo Dias for helping me with on several issues about programming logic, css and javascript.
+### Saulo Dias for helping me with on several issues about programming logic, css and javascript.
 ### All Pokémon Content belongs Nintendo, Game Freak, and The Pokémon Company.
 
 # Available Scripts:
