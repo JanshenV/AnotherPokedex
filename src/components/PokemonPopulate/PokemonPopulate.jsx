@@ -37,13 +37,14 @@ export default function PokemonPopulate({
     const { useState, useEffect } = useGlobal();
 
     let storageIconSprites = localStorage.getItem('iconSprites');
-
     const [iconSprites, setIconSprites] = useState(storageIconSprites === 'icons' ? true : false);
+
+
     const [modalUp, setModalUp] = useState(false);
     const [pokemonModalData, setPokemonModalData] = useState();
 
 
-    function handleModalUp(pokemonData) {
+    async function handleModalUp(pokemonData) {
         setPokemonModalData(pokemonData);
         setModalUp(true);
     };
@@ -60,11 +61,14 @@ export default function PokemonPopulate({
         };
     }, []);
 
+
+
     return (
         <>
             <h1 className='pokedexTitle'>
                 {selectedRegion ? `${selectedRegion} Pokedex` : 'Kanto Pokedex'}
             </h1>
+        
             <div
                 className={`${pokedexList.length > 5 ? 'pokedexContainer' : 'notGrid'}`}>
                 {
@@ -159,7 +163,6 @@ export default function PokemonPopulate({
                         setModalUp={setModalUp}
                         setPokemonModalData={setPokemonModalData}
                         pokemonModalData={pokemonModalData}
-                        
                     />
                 }
             </div>

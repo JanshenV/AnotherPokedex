@@ -5,8 +5,13 @@ import '../../../css/Global.css';
 //Global Provider
 import useGlobal from '../../../hooks/useGlobal';
 
+import ReactAudioPlayer from 'react-audio-player';
+// import ABRA from '../../../assets/Cries/CHARIZARD_2.ogg';
+
 //Assets
 import closeModalDark from '../../../assets/closeModalDark.svg';
+import SoundOnIcon from '../../../assets/soundOn.png';
+import SoundOffIcon from '../../../assets/soundOff.png';
 
 //Components
 import ModalSpritesContainer from '../ModalSpritesContainer';
@@ -41,10 +46,12 @@ PokemonModal.defaultProps = {
     setPokemonModalData: () => null,
 };
 
+
 export default function PokemonModal({
     setModalUp,
     pokemonModalData,
-    setPokemonModalData
+    setPokemonModalData,
+    cry
 }) {
 
     const {
@@ -61,7 +68,9 @@ export default function PokemonModal({
         showShiny, setShowShiny,
         currentVariation, setWarningMessage,
 
-        permaPokedexList
+        permaPokedexList,
+
+        easter, setEaster
 
     } = useGlobal();
 
@@ -73,11 +82,18 @@ export default function PokemonModal({
     const [forms, setForms] = useState([]);
     const [stats, setStats] = useState([]);
 
+
     const [pokemonHeaderInfo, setPokemonHeaderInfo] = useState({
         name: '',
         national: '',
         regional: ''
     });
+
+    let localStorageSoundOn = localStorage.getItem('soundOn');
+  
+    const [soundOn, setSoundOn] = useState(localStorageSoundOn === 'on' ? true : false);
+
+    const [crySound, setCrySound] = useState('');
 
     const backgroundByType = pokemonModalData?.types[0]?.name ;
     const [closeModalMessage, setCloseModalMessage] = useState(false);
@@ -217,6 +233,18 @@ export default function PokemonModal({
         setCurrentVariation('default');
     };
 
+    function handleSoundOn() {
+        const localSoundOn = !soundOn;
+        setSoundOn(localSoundOn);
+        localStorageSoundOn = localStorage.setItem('soundOn', localSoundOn ? 'on' : 'off');
+    };
+
+    useEffect(() => {
+        if (localStorageSoundOn === null) {
+            localStorageSoundOn = localStorage.setItem('soundOn', 'on');
+        };
+    }, []);
+
     useEffect(() => {
         async function organizeSprites(sprites) {
             let localAllSprites = sprites;
@@ -247,17 +275,128 @@ export default function PokemonModal({
                 permaPokedexList,
                 currentVariation
             );
-
+            
+            handleCries(pokemonModalData.name);
             organizeSprites(pokemonModalData.sprites);
             setModalLoading(false);
         };
-        
+
+        async function handleCries(pokemon) {
+            console.log({pokemonModalData})
+            pokemon = pokemon.toUpperCase();
+
+            let cryParameter = '_1';
+            const firstHyphenIndex = pokemon.indexOf('-');
+            if (currentVariation.includes('mega')) {
+                if (pokemon.includes('-Y')) cryParameter = '_2';
+                pokemon = pokemon.slice(0, firstHyphenIndex);
+                pokemon = `${pokemon}${cryParameter}`;
+            };
+
+             if (currentVariation.includes('primal')) {
+                pokemon = pokemon.replace('-PRIMAL', "");
+                pokemon = `${pokemon}${cryParameter}`;
+            };
+
+
+            if (pokemon === 'MR-MIME' ||
+                pokemon === 'MR-RIME' ||
+                pokemon === 'MIME-JR' ||
+                pokemon === 'HO-OH' ||
+                pokemon === 'PORYGON-Z') {
+                pokemon = pokemon.replace('-', '');
+            };
+
+            if (pokemon.includes('DEOXYS')) {
+                pokemon = pokemon.slice(0, firstHyphenIndex);
+            };
+            
+            if (pokemon.includes('-')) {
+                if (pokemon.includes('-ICE')) cryParameter = '';
+                if (pokemon.includes('-NOICE')) cryParameter = '_1';
+
+                if (pokemon.includes('-HANGRY')) cryParameter = '_1';
+                if (pokemon.includes('-FULL-BELLY')) cryParameter = '';
+
+                if (pokemon.includes('-MALE')) cryParameter = '';
+                if (pokemon.includes('-FEMALE')) cryParameter = '_1';
+
+                if (pokemon.includes('-BLACK')) cryParameter = '_1';
+                if (pokemon.includes('-WHITE')) cryParameter = '_2';
+                
+                if (pokemon === ('NECROZMA-DUSK')) cryParameter = '_1';
+                if (pokemon.includes('-DAWN')) cryParameter = '_2';
+                if (pokemon.includes('-ULTRA')) cryParameter = '_3';
+
+                if (pokemon.includes('MIDDAY')) cryParameter = '';
+                if (pokemon.includes('-MIDNIGHT')) cryParameter = '_1';
+                if (pokemon.includes('-DUSK')) cryParameter = '_2';
+
+                if (pokemon.includes('-BAILE')) cryParameter = '';
+                if (pokemon.includes('-POM-POM')) cryParameter = '_1';
+                if (pokemon.includes('-PAU')) cryParameter = '_2';
+                if (pokemon.includes('-SENSU')) cryParameter = '_3';
+
+                if (pokemon.includes('-SPECTRIER')) cryParameter = '_2';
+
+                if (pokemon.includes('-SOLO')) cryParameter = '';
+                if (pokemon.includes('-SCHOOL')) cryParameter = '_1';
+
+                if (pokemon.includes('-INCARNATE')) cryParameter = '';
+                if (pokemon.includes('-THERIAN')) cryParameter = '_1';
+
+                if (pokemon.includes('-AVERAGE') ||
+                    pokemon.includes('-SMALL')) cryParameter = '';
+                
+                
+                if (pokemon.includes('-LARGE') ||
+                    pokemon.includes('-SUPER')) cryParameter = '_3';
+                
+                
+                if (pokemon.includes('-SCHOOL')) cryParameter = '_1';
+
+                pokemon = pokemon.slice(0, firstHyphenIndex);
+                pokemon = `${pokemon}${cryParameter}`;
+            };
+            
+            const cry = `./Cries/${pokemon}.ogg`;
+            if (cry) await setCrySound(cry);
+        };
+
+
         makeAllRequests();
     }, [pokemonModalData]);
 
-    return (
-        <div className='outerContainer'>
+    function EasterEgg(value) {
+        const localValue = value;
+        setEaster(localValue);
+        if (easter?.length > 12) setEaster('');
+    };
 
+    useEffect(() => {
+        if (easter === 'blastoiseafv') {
+            window.location.href = 'https://www.youtube.com/watch?v=GgINGJsAjA0&ab_channel=MarioMitchell';
+        };
+
+        if (easter === 'jigglypuff') {
+            window.location.href = 'https://www.youtube.com/watch?v=d2NTtbusUso&ab_channel=Hector';
+        };
+    }, [easter]);
+   
+    return (
+        <div
+            className='outerContainer'
+        >
+            {
+                (pokemonModalData.name === 'blastoise' ||
+                pokemonModalData.name === 'jigglypuff') &&
+                <input
+                    autoFocus
+                    className='hiddenEasterEgg'
+                    type="text"
+                    onChange={({target:{ value}}) => EasterEgg(value)}
+                />
+            }
             {/* Close Modal */}
             <div className='closeModalContainer'>
                 <img
@@ -275,8 +414,35 @@ export default function PokemonModal({
             </div>
             {
                 !modalLoading ?
-                    <div className='innerContainer'>
+                    <div
+                        className='innerContainer'
+                    >
                         <div className={`contentContainer background-${backgroundByType}`}>
+
+                            {soundOn ?
+                                <img
+                                    className='soundIcon'
+                                    src={SoundOnIcon}
+                                    onClick={handleSoundOn}
+                                /> :
+                                <img
+                                    className='soundIcon'
+                                    src={SoundOffIcon}
+                                    onClick={handleSoundOn}
+                                />
+                            }
+
+
+                            {/* crySound */}
+                            {
+                            (soundOn && crySound) &&
+                                <ReactAudioPlayer
+                                    src={crySound}
+                                    autoPlay
+                                    volume={0.2}
+                                />
+                            }
+    
                             <ModalSpritesContainer
                                 handleSpriteByGender={handleSpriteByGender}
                                 handleVariations={handleVariations}

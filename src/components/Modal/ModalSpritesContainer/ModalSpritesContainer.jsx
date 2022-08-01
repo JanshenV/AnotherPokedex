@@ -28,16 +28,7 @@ ModalSpritesContainer.propTypes = {
         })
     ),
     handleVariations: PropTypes.func,
-    forms: PropTypes.arrayOf([
-        PropTypes.shape({
-            front: PropTypes.arrayOf(PropTypes.oneOfType[PropTypes.string, PropTypes.object]),
-            shiny_front: PropTypes.arrayOf(PropTypes.oneOfType[PropTypes.string, PropTypes.object]),
-        }),
-        PropTypes.shape({
-            front: PropTypes.array,
-            shiny_front: PropTypes.array,
-        })
-    ])
+    forms: PropTypes.array
 };
 
 ModalSpritesContainer.defaultProps = {

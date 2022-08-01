@@ -11,7 +11,7 @@ export async function handlePokedex(region) {
         };
 
         const pokedexRequest = await fetch(`${baseUrl}pokedex/${region}`, requestOptions);
-        console.log(pokedexRequest)
+
         if (!pokedexRequest.ok) throw new Error('Pokedex request failed');
 
         const pokedexResponse = await pokedexRequest.json();

@@ -53,7 +53,7 @@ export default function ModalPokemonInfo({
 }) {
     const {
         useState, width, useEffect,
-        selectionVersions, allSprites
+        selectionVersions, 
     } = useGlobal();
     
     const [widthMultiplier, setWidthMultiplier] = useState(1.2);

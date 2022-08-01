@@ -24,6 +24,8 @@ export default function useGlobalProvider() {
         male: true,
         female: false
     });
+
+    const [easter, setEaster] = useState('');
     
     function handleCurrentSprite(sprite) {
         if (!sprite?.sprite ||
@@ -72,5 +74,7 @@ export default function useGlobalProvider() {
 
         searchInputValue, setSearchInputValue,
         width, height,
+
+        easter, setEaster,
     };
 };

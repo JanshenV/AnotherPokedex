@@ -11,12 +11,34 @@
     z-index: 55;
 }
 
+.hiddenEasterEgg {
+    position: absolute;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0);
+    color: rgba(0, 0, 0, 0);
+    border: none;
+    cursor: none;
+}
+
+.hiddenEasterEgg:focus-visible {
+    outline: none;
+}
+
 .innerContainer {
     overflow-y: auto;
     overflow-x: hidden;
     height: 90vh;
     width: 44%;
     border-radius: 10px;
+}
+
+.soundIcon {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    position: absolute;
+    z-index: 56;
+    top: 8vh;
 }
 
 .contentContainer {

@@ -9,6 +9,10 @@
 #### https://pokemondb.net/ where I got some of the types styles and inspiration.
 #### https://vercel.com/ where the project was deployed.
 ### https://www.figma.com/@ricardohs that made available a figma Pokedex
+### Cry Credits:
+#### Gen 1-6 Pokemon Cries - Rhyden
+#### Gen 7 Pokemon Cries - Marin, Rhyden
+#### Gen 8 Pokemon Cries - Zeak6464
 
 # Available Scripts:
 
@@ -23,6 +27,10 @@
 #### https://pokemondb.net/ onde encontrei referência das cores para os elementos pokémon e inspiração.
 #### https://vercel.com/ onde o projeto foi posto no ar.
 ### https://www.figma.com/@ricardohs que disponibilizou um figma de pokedex.
+### Cry Créditos:
+#### Gen 1-6 Pokemon Cries - Rhyden
+#### Gen 7 Pokemon Cries - Marin, Rhyden
+## Gen 8 Pokemon Cries - Zeak6464
 
 # Scripts disponíveis:
 ## 'npm install' para instalar todas as dependencias do projeto.
