@@ -1,0 +1,25 @@
+@mixin undragable {
+  user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+@mixin flexRowAllCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flexRowAlignCenter {
+  display: flex;
+  align-items: center;
+}
+
+@mixin bgContainNoRepeatCenter {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
