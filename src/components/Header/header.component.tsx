@@ -10,7 +10,6 @@ import DarkModeLunatone from "assets/lunatoneMode.png";
 
 //React
 import { useState, useEffect } from "react";
-// import CustomSnackBar from "components/MUISnackBar";
 
 export default function Header({ }) {
     const screenWidth = window.innerWidth;
@@ -19,12 +18,8 @@ export default function Header({ }) {
         on: true,
         message: screenWidth > 500 ? "If Pokémon not found, press button to search" : 'Press "Search" button',
     });
-    const [mode, setMode] = useState("");
+    const [mode, setMode] = useState('');
     const [searchInput, setSearchInput] = useState('');
-
-    // function handleFocus(on: boolean): void {
-    //     setFocus({ ...focus, on });
-    // }
 
     function handleDefaultMode(): void {
         let localStorageMode: string | null = localStorage.getItem("mode");
@@ -54,14 +49,6 @@ export default function Header({ }) {
                 [styles["container__lightBackground"]]: mode === "light",
                 [styles["container__darkBackground"]]: mode === "dark",
             })}>
-            {/* {
-                <CustomSnackBar
-                    focus={focus}
-                    className={styles.container__focusMessage}
-                    vertical="top"
-                    horizontal="center"
-                />
-            } */}
 
             <div
                 className={classNames({
@@ -71,8 +58,7 @@ export default function Header({ }) {
 
                 <input
                     type="text"
-                // onFocus={() => focus.on && setInterval(handleFocus, 3000, false)}
-                // onClick={() => handleFocus(true)}
+                    onChange={(e) => setSearchInput(e.target.value)}
                 />
 
                 <button className={
