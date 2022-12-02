@@ -1,0 +1,142 @@
+@use 'css/mixins/general.module.scss' as *;
+
+.container {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 5px;
+    @include flexRowAlignCenter;
+    justify-content: space-between;
+    height: 16vh;
+    max-height: 16vh;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 50;
+
+
+    &__darkBackground {
+        background: linear-gradient(to right, rgb(0, 0, 0) 55%, rgba(248, 248, 248, 0.897) 45%);
+    }
+
+    &__lightBackground {
+        background: linear-gradient(to right, rgb(255, 0, 0) 55%, rgb(253, 253, 253) 45%);
+    }
+
+    &__leftSideArea {
+        @include flexRowAlignCenter;
+        height: 100%;
+        justify-content: space-around;
+        width: 50%;
+
+        input {
+            border-radius: 30px;
+            font-size: large;
+            font-weight: normal;
+            height: 28%;
+            padding: 4px 20px;
+            width: 60%;
+
+            &:focus {
+                outline: none;
+            }
+        }
+
+        &--ultraBall {
+            input {
+                color: white;
+                font-weight: bold;
+                background: rgb(255, 217, 0);
+            }
+        }
+
+        &__searchButton {
+            height: 60px;
+            width: 60px;
+            border-radius: 50%;
+            padding: 6px 12px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            @include flexRowAllCenter;
+            border: none;
+
+            &--darkButton {
+                background: url('../../assets/pokeballSearchIcon.svg');
+                @include bgContainNoRepeatCenter;
+            }
+
+            &--lightButton {
+                background: url('../../assets/ultraBallSearchIcon.svg');
+                @include bgContainNoRepeatCenter;
+            }
+
+            &:hover {
+                transform: scale(1.1);
+            }
+        }
+
+    }
+
+    &__rightSideArea {
+        width: 50%;
+        height: 100%;
+        @include flexRowAlignCenter;
+        justify-content: flex-end;
+
+        &--logo {
+            cursor: pointer;
+            height: 80px;
+            width: 80px;
+            transition: transform 0.1s;
+            margin-right: 20px;
+            @include undragable;
+
+            &:hover {
+                transform: scale(1.1);
+            }
+
+        }
+    }
+}
+
+
+/* Responsiviness */
+@media (min-width: 1600px) {
+    .container {
+        input {
+            font-size: x-large;
+        }
+    }
+}
+
+@media (max-width: 1599px) {
+    .container {
+        input {
+            font-size: small;
+        }
+    }
+}
+
+@media (max-width: 500px) {
+    .container {
+        height: 12vh;
+        max-height: 12vh;
+
+        &__leftSideArea {
+            input {
+                height: 14%;
+                width: 40%;
+            }
+
+            &__searchButton {
+                height: 40px;
+                width: 40px;
+            }
+
+        }
+
+        &__rightSideArea {
+            &--logo {
+                height: 40px;
+                width: 40px;
+            }
+        }
+    }
+}
