@@ -8,6 +8,9 @@ import classNames from "classnames";
 import LightModeSolrock from "assets/solrockMode.png";
 import DarkModeLunatone from "assets/lunatoneMode.png";
 
+//Provider
+import useGlobal from "hooks/useGlobal";
+
 //React
 import { useState, useEffect } from "react";
 
@@ -82,10 +85,7 @@ export default function Header({ }) {
                     alt="Icon Mode"
                     onClick={handleMode}
                 />
-
-
             </div>
-
         </header>
     );
 }

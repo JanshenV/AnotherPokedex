@@ -5,12 +5,17 @@ import 'normalize.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+//Context
+import { GlobalProvider } from 'context/global.context';
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <GlobalProvider>
+      <App />
+    </GlobalProvider>
   </React.StrictMode>
 );
 
