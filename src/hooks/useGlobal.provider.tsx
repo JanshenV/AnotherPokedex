@@ -2,7 +2,12 @@ import { useState, useEffect } from "react";
 
 
 export default function useGlobalProvider() {
+
+  const [mode, setMode] = useState('');
+  const [searchInput, setSearchInput] = useState('');
+
   return {
-    useState, useEffect
+    mode, setMode,
+    searchInput, setSearchInput
   }
 }

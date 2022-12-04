@@ -16,13 +16,15 @@ import { useState, useEffect } from "react";
 
 export default function Header({ }) {
     const screenWidth = window.innerWidth;
+    const {
+        mode, setMode,
+        searchInput, setSearchInput
+    }: any = useGlobal();
 
-    const [focus, setFocus] = useState({
-        on: true,
-        message: screenWidth > 500 ? "If Pokémon not found, press button to search" : 'Press "Search" button',
-    });
-    const [mode, setMode] = useState('');
-    const [searchInput, setSearchInput] = useState('');
+    // const [focus, setFocus] = useState({
+    //     on: true,
+    //     message: screenWidth > 500 ? "If Pokémon not found, press button to search" : 'Press "Search" button',
+    // });
 
     function handleDefaultMode(): void {
         let localStorageMode: string | null = localStorage.getItem("mode");
