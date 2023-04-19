@@ -1,6 +1,6 @@
 # Creating another Pokedex for personal Project
 
-## Online: https://another-pokedex-one.vercel.app/.
+## Not Online. Heroku is not free anymore =((((
 
 # Another Pokedex:
 
@@ -12,12 +12,6 @@
 ### Saulo Dias for helping me with on several issues about programming logic, css and javascript.
 ### All Pokémon Content belongs Nintendo, Game Freak, and The Pokémon Company.
 
-# Available Scripts:
-
-## 'npm install' for installing all of the project's dependencies.
-## 'npm build' for generating a build for production.
-
-
 # Criando mais uma Pokedex para projeto pessoal.
 
 ### Créditos à:
@@ -27,9 +21,5 @@
 ### https://www.figma.com/@ricardohs que disponibilizou um figma de pokedex.
 ### Saulo Dias por ter me ajudado em várias questões de lógica, css e javascript.
 ### Todo conteúdo Pokémon pertence a Nintendo, Game Freak, e a Pokémon Company.
-
-# Scripts disponíveis:
-## 'npm install' para instalar todas as dependencias do projeto.
-## 'npm build' para gerar build do projeto para produção.
 
 
